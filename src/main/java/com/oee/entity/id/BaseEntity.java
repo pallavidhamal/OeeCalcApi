@@ -24,7 +24,7 @@ public abstract class BaseEntity {
 	@GeneratedValue(generator = "custom-generator", strategy = GenerationType.IDENTITY)
 	@GenericGenerator(
 			name = "custom-generator",
-			strategy = "com.matchmaking.entity.id.BaseIdentifierGenerator")
+			strategy = "com.oee.entity.id.BaseIdentifierGenerator")
 	protected String id;
 
 	@CreationTimestamp
