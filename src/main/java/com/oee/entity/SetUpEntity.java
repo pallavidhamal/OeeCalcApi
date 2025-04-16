@@ -20,7 +20,7 @@ public class SetUpEntity extends BaseEntity {
 	
 	@OneToOne
 	@JoinColumn(name = "fk_Itementity", referencedColumnName = "id")
-	private ItemMaster itementity;
+	private ItemEntity itementity;
 	
 	@OneToOne
 	@JoinColumn(name = "fk_stationentity", referencedColumnName = "id")
