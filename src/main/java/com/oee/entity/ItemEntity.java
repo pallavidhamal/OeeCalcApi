@@ -1,9 +1,8 @@
 package com.oee.entity;
 
-import java.util.Date;
-
 import com.oee.entity.id.BaseEntity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -13,9 +12,12 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "ItemMaster")
-public class ItemMaster extends BaseEntity {
+public class ItemEntity extends BaseEntity {
 
-	private String itemCode ;
-	private String itemDesc ;
+	@Column(name = "itemcode")
+	private String itemcode ;
+	
+	@Column(name = "itemdesc")
+	private String itemdesc ;
 	
 }
