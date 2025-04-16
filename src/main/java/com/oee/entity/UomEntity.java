@@ -1,7 +1,5 @@
 package com.oee.entity;
 
-import java.util.Date;
-
 import com.oee.entity.id.BaseEntity;
 
 import jakarta.persistence.Entity;
@@ -13,8 +11,8 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "UomMaster")
-public class UomMaster extends BaseEntity {
+public class UomEntity extends BaseEntity {
 
-	private String uom ;
+	private String name ;
 	
 }

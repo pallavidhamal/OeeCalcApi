@@ -1,7 +1,5 @@
 package com.oee.entity;
 
-import java.util.Date;
-
 import com.oee.entity.id.BaseEntity;
 
 import jakarta.persistence.Entity;
@@ -12,10 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "MachineMaster")
-public class MachineMaster extends BaseEntity {
+@Table(name = "stationTypeMaster")
+public class StationTypeEntity extends BaseEntity {
 
-	private String machineNumber ;
-	
+	private String name ;
 	
 }
