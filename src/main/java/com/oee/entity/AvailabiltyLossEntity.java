@@ -1,6 +1,5 @@
 package com.oee.entity;
 
-
 import com.oee.entity.id.BaseEntity;
 
 import jakarta.persistence.Entity;
@@ -13,14 +12,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "master_year_holiday")
-public class YearHolidayEntity extends BaseEntity {
+@Table(name = "master_availabilty_loss")
+public class AvailabiltyLossEntity extends BaseEntity {
 
 	
 	private String name ;
-	private String date ;
+	private String lossestype ;
+	private String timeinmin ;
 	
-	@ManyToOne
-	@JoinColumn(name = "yearentity_id", nullable = false)
-	private YearEntity yearentity;
 }
