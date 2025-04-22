@@ -1,3 +1,4 @@
+
 package com.oee.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -19,52 +20,47 @@ import com.oee.dto.response.Response;
 import com.oee.service.ItemService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
+
 @RestController
+
 @RequestMapping(value = "/api/v1/item", produces = APPLICATION_JSON_VALUE)
 public class ItemController {
 
-	
 	@Autowired
 	ItemService itemService;
 
-
-	
-	
 	private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
-	
-	
+
 	@SuppressWarnings("rawtypes")
+
 	@GetMapping(value = "/getAllItems")
 	public Response getAllItems() {
-		//logger.info("----- FittingTypeController getAllFittingTypeDetails ----- ");
+		// logger.info("----- FittingTypeController getAllFittingTypeDetails ----- ");
 		return Response.ok().setPayload(itemService.getAllItems());
 	}
-	
-	/* sd */
-	
-	@PostMapping( value = "/add" , consumes = APPLICATION_JSON_VALUE)
+
+	@PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE)
 	public Response addItem(@RequestBody ItemIncomingDto itemIncomingDto) {
 		logger.info("----- HtPartsController addHtPart----- ");
 
 		return Response.created().setPayload(itemService.addItem(itemIncomingDto));
-		
+
 	}
-	
-	@PutMapping( value = "/edit" , consumes = APPLICATION_JSON_VALUE)
+
+	@PutMapping(value = "/edit", consumes = APPLICATION_JSON_VALUE)
 	public Response editItem(@RequestBody ItemIncomingDto itemIncomingDto) {
 		logger.info("----- HtPartsController editHtPart----- ");
-		
+
 		return Response.ok().setPayload(itemService.editItem(itemIncomingDto));
-		
+
 	}
-	
-	@PutMapping( value = "/delete/{htpartid}" )
+
+	@PutMapping(value = "/delete/{htpartid}")
 	public Response deleteHtPart(@PathVariable("htpartid") String itemid) {
 		logger.info("----- HtPartsController deleteHtPart----- ");
 
 		return Response.ok().setPayload(itemService.deleteItem(itemid));
-		
+
 	}
-	
-	
+
 }

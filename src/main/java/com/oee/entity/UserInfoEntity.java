@@ -1,6 +1,7 @@
 package com.oee.entity;
 
 import java.time.Instant;
+import java.util.Collection;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +10,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.oee.entity.id.BaseEntity;
 
@@ -20,7 +23,7 @@ import lombok.Setter;
 @Table(name = "emp_info")
 @Setter
 @Getter
-public class UserInfoEntity extends BaseEntity{
+public class UserInfoEntity extends BaseEntity implements UserDetails{
 	
 
 	private String mobilenumber;
@@ -30,7 +33,7 @@ public class UserInfoEntity extends BaseEntity{
 	private String username;
 	private String password;
 	private String status;
-
+	
 	private String reset_password;
 	
 	@UpdateTimestamp
@@ -40,6 +43,12 @@ public class UserInfoEntity extends BaseEntity{
 	@OneToOne
     @JoinColumn(name = "fk_role")
     private RoleEntity role;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 	

@@ -27,9 +27,6 @@ public class SetUpServiceImpl implements SetUpService {
 	SetUpRepository setUpRepository;
 	
 	@Autowired
-	SetUpService setUpService;
-	
-	@Autowired
 	ItemService itemService;
 	
 	

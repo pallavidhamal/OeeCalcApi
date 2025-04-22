@@ -71,7 +71,7 @@ public class ItemServiceImpl implements ItemService {
 				throw BRSException.throwException(EntityType.ITEMDESC, ExceptionType.BLANK_VALUE, "Item Desc");				
 			}
 		
-			ItemEntity itemEntity  = itemRepository.findByItemCode(itemIncomingDto.getItemcode());
+			ItemEntity itemEntity  = itemRepository.findByItemcode(itemIncomingDto.getItemcode());
 			
 			if(itemEntity != null) {
 				throw BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode());

@@ -1,23 +1,21 @@
-package com.oee.service;
-
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
-import com.oee.dto.ItemDto;
-import com.oee.dto.incoming.ItemIncomingDto;
-import com.oee.dto.response.Response;
-import com.oee.entity.ItemEntity;
-
-
-public interface UnitService {
-
-	List<ItemDto> getAllItems();
-	
-	ItemEntity getItemByID(String fittingTypeID);
-	
-	boolean addItem( ItemIncomingDto itemIncomingDto);
-	boolean editItem( ItemIncomingDto itemIncomingDto);
-	boolean deleteItem(String itemid);
-	
-}
+/*
+ * package com.oee.service;
+ * 
+ * import java.util.List;
+ * 
+ * 
+ * import com.oee.dto.UnitDto; import com.oee.dto.incoming.UnitIncomingDto;
+ * import com.oee.entity.UnitEntity;
+ * 
+ * 
+ * public interface UnitService {
+ * 
+ * List<UnitDto> getAllUnits();
+ * 
+ * UnitEntity getUnitByID(String fittingTypeID);
+ * 
+ * boolean addUnit( UnitIncomingDto unitIncomingDto); boolean editUnit(
+ * UnitIncomingDto unitIncomingDto); boolean deleteUnit(String unitid);
+ * 
+ * }
+ */

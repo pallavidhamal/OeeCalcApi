@@ -3,14 +3,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.oee.serviceimpl.UserDetailsServiceImpl;
@@ -18,11 +21,7 @@ import com.oee.serviceimpl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-		// securedEnabled = true,
-		// jsr250Enabled = true,
-		prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
@@ -34,23 +33,49 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new AuthTokenFilter();
 	}
 
-	@Override
-	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
+	
+    private static final String[] WHITE_LIST_URL = {"/api/v1/user/**","/api/v1/auth/**",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/v3/api-docs/**",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/swagger-ui.html"};
+	
+//	@Override
+//	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+//		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//	}
+	
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+        //provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(bCryptPasswordEncoder());
+        return provider;
+    }
 
 	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
+	public AuthenticationManager authenticationManager( AuthenticationConfiguration configuration ) throws Exception {
+		return configuration.getAuthenticationManager();
 	}
+	
+//	@Bean
+//	public PasswordEncoder passwordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
+	
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder(14);
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Override
+/*	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
@@ -63,14 +88,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			 */	 
 			//	.antMatchers("/swagger-ui/**","/api-docs/**").permitAll()
 			//	.antMatchers("/api/**").permitAll()
-			.antMatchers("/api/v1/company/**").permitAll()
-				.antMatchers("/api/v1/generatequotation/**").permitAll()
-				.antMatchers("/api/v1/quotation/getCostingData/**").permitAll()
+//			.antMatchers("/api/v1/company/**").permitAll()
+//				.antMatchers("/api/v1/generatequotation/**").permitAll()
+//				.antMatchers("/api/v1/quotation/getCostingData/**").permitAll()
 			//	.antMatchers("/chargerImages/**").permitAll()
-			.anyRequest().authenticated();
+//			.anyRequest().authenticated();
 
-		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-	}
+//		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//	}
+	
+	@Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(
+                        request -> request
+                                .requestMatchers(WHITE_LIST_URL).permitAll()
+                                
+                                .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(authenticationJwtTokenFilter(),
+                        UsernamePasswordAuthenticationFilter.class);
+        return httpSecurity.build();
+    }
 	
 	/*
 	 * @Override protected void configure(AuthenticationManagerBuilder
