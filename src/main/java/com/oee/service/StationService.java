@@ -2,22 +2,21 @@ package com.oee.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.oee.dto.ItemDto;
-import com.oee.dto.incoming.ItemIncomingDto;
-import com.oee.dto.response.Response;
+import com.oee.dto.StationDto;
+import com.oee.dto.incoming.StationIncomingDto;
 import com.oee.entity.ItemEntity;
+import com.oee.entity.StationEntity;
 
 
 public interface StationService {
 
-	List<ItemDto> getAllItems();
+	List<StationDto> getAllStations();
 	
-	ItemEntity getItemByID(String fittingTypeID);
+	StationEntity getStationByID(String stationID);
 	
-	boolean addItem( ItemIncomingDto itemIncomingDto);
-	boolean editItem( ItemIncomingDto itemIncomingDto);
-	boolean deleteItem(String itemid);
+	boolean addStation( StationIncomingDto stationIncomingDto);
+	boolean editStation( StationIncomingDto stationIncomingDto);
+	boolean deleteStation(String stationID);
 	
 }

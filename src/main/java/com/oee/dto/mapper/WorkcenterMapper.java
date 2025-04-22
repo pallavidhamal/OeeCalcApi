@@ -3,27 +3,25 @@ package com.oee.dto.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.oee.dto.ItemDto;
-import com.oee.entity.ItemEntity;
+import com.oee.dto.WorkcenterDto;
+import com.oee.entity.WorkcentreEntity;
 
 public class WorkcenterMapper {
 
-	public static ItemDto toItemDto(ItemEntity itemEntity) {
-		return new ItemDto()
-				.setItemid(itemEntity.getId())
-				.setItemcode(itemEntity.getItemcode())
-				.setItemdesc(itemEntity.getItemdesc());
+	public static WorkcenterDto toWorkcenterDto(WorkcentreEntity WorkcenterEntity) {
+		return new WorkcenterDto()
+				.setName(WorkcenterEntity.getName());
 				
 	}
 	
-	public static List<ItemDto> toItemDtoList(List<ItemEntity> ItemEntityList) {
-		List<ItemDto> ItemDtos = new ArrayList<ItemDto>();
+	public static List<WorkcenterDto> toWorkcenterDtoList(List<WorkcentreEntity> WorkcenterEntityList) {
+		List<WorkcenterDto> WorkcenterDtos = new ArrayList<WorkcenterDto>();
 		
-		for(ItemEntity ItemEntity : ItemEntityList) {
-			ItemDtos.add(toItemDto(ItemEntity));
+		for(WorkcentreEntity WorkcenterEntity : WorkcenterEntityList) {
+			WorkcenterDtos.add(toWorkcenterDto(WorkcenterEntity));
 		}
 		
-		return ItemDtos;
+		return WorkcenterDtos;
 	}
 	
 }

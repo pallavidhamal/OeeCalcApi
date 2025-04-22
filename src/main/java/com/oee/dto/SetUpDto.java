@@ -16,14 +16,14 @@ import lombok.experimental.Accessors;
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class StationDto {
+public class SetUpDto {
 	
 	private String name;
-	private String stationtype;
+	private int cycletime;
 
-	private String uom;
+	private String item;
 
-	private String workcenter;
+	private String station;
 
 
 }

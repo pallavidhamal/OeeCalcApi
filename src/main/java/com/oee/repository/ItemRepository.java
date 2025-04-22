@@ -8,4 +8,7 @@ import com.oee.entity.ItemEntity;
 @Repository
 public interface ItemRepository  extends JpaRepository<ItemEntity, String> {
 
+	ItemEntity findByItemCode(String itemcode);
+
+	
 }

@@ -8,12 +8,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StationIncomingDto {
+public class SetUpIncomingDto {
 
 	private String name;
-	private String stationTypeId;
-	private String uomId;
-	private String workcenterId;
+	private String itemId;
+	private String stationId;
+	private int cycletime;
 
 
 }

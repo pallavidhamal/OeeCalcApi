@@ -7,87 +7,57 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.oee.dto.ItemDto;
-import com.oee.dto.incoming.ItemIncomingDto;
-import com.oee.dto.mapper.ItemMapper;
-import com.oee.entity.ItemEntity;
+import com.oee.dto.WorkcenterDto;
+import com.oee.dto.incoming.WorkcenterIncomingDto;
+import com.oee.dto.mapper.WorkcenterMapper;
+import com.oee.entity.StationTypeEntity;
+import com.oee.entity.WorkcentreEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
-import com.oee.repository.ItemRepository;
-import com.oee.service.ItemService;
+import com.oee.repository.WorkcenterRepository;
+import com.oee.service.WorkcenterService;
 import com.oee.util.AuthenticationService;
 
 @Service
-public class WorkcenterServiceImpl implements ItemService {
+public class WorkcenterServiceImpl implements WorkcenterService {
 
 	@Autowired
-	ItemRepository itemRepository;
+	WorkcenterRepository workcenterRepository;
 	
 	private static final Logger logger = LoggerFactory.getLogger(WorkcenterServiceImpl.class);
 
 	
 	@Override
-	public List<ItemDto> getAllItems() {
+	public List<WorkcenterDto> getAllWorkcenters() {
 		
 		// TODO Auto-generated method stub
 		//logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
 		
-		List<ItemEntity> itemEntityList = itemRepository.findAll();
+		List<WorkcentreEntity> workcenterEntityList = workcenterRepository.findAll();
 		
-		if (itemEntityList == null) {
-			throw BRSException.throwException("Item List does not exist");
+		if (workcenterEntityList == null) {
+			throw BRSException.throwException("Workcenter List does not exist");
 		}
 		
-		return ItemMapper.toItemDtoList(itemEntityList);
+		return WorkcenterMapper.toWorkcenterDtoList(workcenterEntityList);
 		
 	}
 
 	@Override
-	public ItemEntity getItemByID(String fittingTypeID) {
+	public WorkcentreEntity getWorkcenterByID(String wcID) {  
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean addItem(ItemIncomingDto itemIncomingDto) {
-		// TODO Auto-generated method stub
-
+		logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
 		
-			if (itemIncomingDto.getItemcode() == "") {
-						
-						throw BRSException.throwException(EntityType.ITEMCODE, ExceptionType.BLANK_VALUE, "Item Code");				
-			}
-			if (itemIncomingDto.getItemdesc() == "") {
-				
-				throw BRSException.throwException(EntityType.ITEMDESC, ExceptionType.BLANK_VALUE, "Item Desc");				
-			}
+		WorkcentreEntity workcentreEntity = workcenterRepository.findById(wcID).get();
 		
-		  ItemEntity itemEntity = new ItemEntity();
-		  itemEntity.setItemcode(itemIncomingDto.getItemcode());
-		  itemEntity.setItemdesc(itemIncomingDto.getItemdesc());
-		  itemEntity.setIsdeleted("N");
-		  
-		  itemEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
-		  
-		  itemRepository.save(itemEntity);
-		  
-		  logger.info("--- Item Added Successfully ----");
-		  
-		  return true;
-		 
+		if (workcentreEntity == null) {
+			throw BRSException.throwException("Workcentre Details does not exist.");
+		}
+		
+		return workcentreEntity;	
+		}
 	}
 
-	@Override
-	public boolean editItem(ItemIncomingDto itemIncomingDto) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public boolean deleteItem(String itemid) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-}

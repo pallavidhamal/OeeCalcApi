@@ -14,56 +14,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oee.dto.incoming.ItemIncomingDto;
+import com.oee.dto.incoming.StationIncomingDto;
 import com.oee.dto.response.Response;
-import com.oee.service.ItemService;
+import com.oee.service.StationService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/api/v1/station", produces = APPLICATION_JSON_VALUE)
 public class StationController {
 
-	/*
-	 * @Autowired ItemService itemService;
-	 * 
-	 * 
-	 * 
-	 * 
-	 * private static final Logger logger =
-	 * LoggerFactory.getLogger(StationController.class);
-	 * 
-	 * 
-	 * @SuppressWarnings("rawtypes")
-	 * 
-	 * @GetMapping(value = "/getAllItems") public Response getAllItems() {
-	 * //logger.info("----- FittingTypeController getAllFittingTypeDetails ----- ");
-	 * return Response.ok().setPayload(itemService.getAllItems()); }
-	 * 
-	 * sd
-	 * 
-	 * @PostMapping( value = "/add" , consumes = APPLICATION_JSON_VALUE) public
-	 * Response addItem(@RequestBody ItemIncomingDto itemIncomingDto) {
-	 * logger.info("----- HtPartsController addHtPart----- ");
-	 * 
-	 * return Response.created().setPayload(itemService.addItem(itemIncomingDto));
-	 * 
-	 * }
-	 * 
-	 * @PutMapping( value = "/edit" , consumes = APPLICATION_JSON_VALUE) public
-	 * Response editItem(@RequestBody ItemIncomingDto itemIncomingDto) {
-	 * logger.info("----- HtPartsController editHtPart----- ");
-	 * 
-	 * return Response.ok().setPayload(itemService.editItem(itemIncomingDto));
-	 * 
-	 * }
-	 * 
-	 * @PutMapping( value = "/delete/{htpartid}" ) public Response
-	 * deleteHtPart(@PathVariable("htpartid") String itemid) {
-	 * logger.info("----- HtPartsController deleteHtPart----- ");
-	 * 
-	 * return Response.ok().setPayload(itemService.deleteItem(itemid));
-	 * 
-	 * }
-	 */
+	
+	  @Autowired StationService stationService;
+	  
+	  private static final Logger logger =
+	  LoggerFactory.getLogger(StationController.class);
+	  
+	  
+	  @SuppressWarnings("rawtypes")
+	  
+	  @GetMapping(value = "/getAllStations") public Response getAllStations() {
+	  return Response.ok().setPayload(stationService.getAllStations()); }
+	  
+	  
+	  @PostMapping( value = "/add" , consumes = APPLICATION_JSON_VALUE) public
+	  Response addStation(@RequestBody StationIncomingDto stationIncomingDto) {
+	  logger.info("----- StationController addHtPart----- ");
+	  
+	  return Response.created().setPayload(stationService.addStation(stationIncomingDto));
+	  
+	  }
+	  
+	  @PutMapping( value = "/edit" , consumes = APPLICATION_JSON_VALUE) public
+	  Response editStation(@RequestBody StationIncomingDto stationIncomingDto) {
+	  logger.info("----- StationController editHtPart----- ");
+	  
+	  return Response.ok().setPayload(stationService.editStation(stationIncomingDto));
+	  
+	  }
+	  
+	  @PutMapping( value = "/delete/{htpartid}" ) public Response
+	  deleteStation(@PathVariable("htpartid") String stationid) {
+	  logger.info("----- StationController deleteHtPart----- ");
+	  
+	  return Response.ok().setPayload(stationService.deleteStation(stationid));
+	  
+	  }
+	 
 
 }

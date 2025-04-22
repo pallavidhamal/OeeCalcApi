@@ -8,6 +8,8 @@ public enum EntityType {
     ROLE,
     USER,
     ITEMCODE,
-    ITEMDESC
+    ITEMDESC,
+    ITEM
+    
    
 }

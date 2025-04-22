@@ -44,10 +44,18 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public ItemEntity getItemByID(String fittingTypeID) {
+	public ItemEntity getItemByID(String itemid) {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
+		
+		ItemEntity itemEntity = itemRepository.findById(itemid).get();
+		
+		if (itemEntity == null) {
+			throw BRSException.throwException("Item Details does not exist.");
+		}
+		
+		return itemEntity;	
+		}
 
 	@Override
 	public boolean addItem(ItemIncomingDto itemIncomingDto) {
@@ -63,7 +71,13 @@ public class ItemServiceImpl implements ItemService {
 				throw BRSException.throwException(EntityType.ITEMDESC, ExceptionType.BLANK_VALUE, "Item Desc");				
 			}
 		
-		  ItemEntity itemEntity = new ItemEntity();
+			ItemEntity itemEntity  = itemRepository.findByItemCode(itemIncomingDto.getItemcode());
+			
+			if(itemEntity != null) {
+				throw BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode());
+			}
+			
+			
 		  itemEntity.setItemcode(itemIncomingDto.getItemcode());
 		  itemEntity.setItemdesc(itemIncomingDto.getItemdesc());
 		  itemEntity.setIsdeleted("N");
@@ -81,13 +95,55 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public boolean editItem(ItemIncomingDto itemIncomingDto) {
 		// TODO Auto-generated method stub
-		return false;
+		
+			if (itemIncomingDto.getItemcode() == "") {
+				
+				throw BRSException.throwException(EntityType.ITEMCODE, ExceptionType.BLANK_VALUE, "Item Code");				
+			}
+			if (itemIncomingDto.getItemdesc() == "") {
+				
+				throw BRSException.throwException(EntityType.ITEMDESC, ExceptionType.BLANK_VALUE, "Item Desc");				
+			}
+			
+			// Check If HT Part ID exists in HT Part Entity
+			ItemEntity itemEntity  = itemRepository.findById(itemIncomingDto.getItemid()).get();
+			
+			if(itemEntity == null) {
+				throw BRSException.throwException(EntityType.ITEM, ExceptionType.ENTITY_NOT_FOUND, itemIncomingDto.getItemid());
+			}
+			
+			  itemEntity.setItemcode(itemIncomingDto.getItemcode());
+			  itemEntity.setItemdesc(itemIncomingDto.getItemdesc());
+			  itemEntity.setIsdeleted("N");
+			  
+			  itemEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
+			  
+			  itemRepository.save(itemEntity);
+			  
+			
+			 return true;
 	}
 
 	@Override
 	public boolean deleteItem(String itemid) {
 		// TODO Auto-generated method stub
-		return false;
+		logger.info("------ delete item -------");
+		
+		ItemEntity itemEntity = itemRepository.findById(itemid).get();
+		
+		if (itemEntity == null) {
+			throw BRSException.throwException(EntityType.ITEM, ExceptionType.ENTITY_NOT_FOUND, itemid);	
+			
+		}
+		
+		itemEntity.setIsdeleted(itemEntity.getIsdeleted().equalsIgnoreCase("Y") ? "N" : "Y");
+		itemEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
+		
+		itemRepository.save(itemEntity);
+		
+		logger.info("------ Item Deleted Successfully ------");
+		
+		return true;		
 	}
 
 }

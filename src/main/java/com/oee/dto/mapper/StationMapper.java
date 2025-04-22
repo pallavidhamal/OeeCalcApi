@@ -3,27 +3,27 @@ package com.oee.dto.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.oee.dto.ItemDto;
-import com.oee.entity.ItemEntity;
+import com.oee.dto.StationDto;
+import com.oee.entity.StationEntity;
 
 public class StationMapper {
 
-	public static ItemDto toItemDto(ItemEntity itemEntity) {
-		return new ItemDto()
-				.setItemid(itemEntity.getId())
-				.setItemcode(itemEntity.getItemcode())
-				.setItemdesc(itemEntity.getItemdesc());
-				
+	public static StationDto toStationDto(StationEntity stationEntity) {
+		return new StationDto()
+				.setName(stationEntity.getName())
+				.setStationtype(stationEntity.getStationtypeentity().getName())
+				.setUom(stationEntity.getUomentity().getName())
+				.setWorkcenter(stationEntity.getWorkcentreentity().getName());
 	}
 	
-	public static List<ItemDto> toItemDtoList(List<ItemEntity> ItemEntityList) {
-		List<ItemDto> ItemDtos = new ArrayList<ItemDto>();
+	public static List<StationDto> toStationDtoList(List<StationEntity> StationEntityList) {
+		List<StationDto> StationDtos = new ArrayList<StationDto>();
 		
-		for(ItemEntity ItemEntity : ItemEntityList) {
-			ItemDtos.add(toItemDto(ItemEntity));
+		for(StationEntity StationEntity : StationEntityList) {
+			StationDtos.add(toStationDto(StationEntity));
 		}
 		
-		return ItemDtos;
+		return StationDtos;
 	}
 	
 }
