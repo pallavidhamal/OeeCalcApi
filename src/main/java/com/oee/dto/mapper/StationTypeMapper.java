@@ -10,6 +10,7 @@ public class StationTypeMapper {
 
 	public static StationTypeDto toStationTypeDto(StationTypeEntity stationTypeEntity) {
 		return new StationTypeDto()
+				.setId(stationTypeEntity.getId())
 				.setName(stationTypeEntity.getName());
 				
 	}

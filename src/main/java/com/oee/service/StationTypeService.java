@@ -9,7 +9,7 @@ import com.oee.entity.StationTypeEntity;
 public interface StationTypeService {
 
 	List<StationTypeDto> getAllStationTypes();
-	
+	List<StationTypeDto> getAllActiveStationTypes();
 	StationTypeEntity getStationTypeByID(String stationID);
 	
 	/*
