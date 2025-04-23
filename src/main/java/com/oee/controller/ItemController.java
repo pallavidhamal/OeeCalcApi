@@ -20,9 +20,7 @@ import com.oee.dto.response.Response;
 import com.oee.service.ItemService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-
 @RestController
-
 @RequestMapping(value = "/api/v1/item", produces = APPLICATION_JSON_VALUE)
 public class ItemController {
 
