@@ -62,21 +62,23 @@ public class ItemServiceImpl implements ItemService {
 		// TODO Auto-generated method stub
 
 		
-			if (itemIncomingDto.getItemcode() == "") {
-						
-						throw BRSException.throwException(EntityType.ITEMCODE, ExceptionType.BLANK_VALUE, "Item Code");				
-			}
-			if (itemIncomingDto.getItemdesc() == "") {
-				
-				throw BRSException.throwException(EntityType.ITEMDESC, ExceptionType.BLANK_VALUE, "Item Desc");				
-			}
+		/*
+		 * if (itemIncomingDto.getItemcode() == "") {
+		 * 
+		 * throw BRSException.throwException(EntityType.ITEMCODE,
+		 * ExceptionType.BLANK_VALUE, "Item Code"); } if (itemIncomingDto.getItemdesc()
+		 * == "") {
+		 * 
+		 * throw BRSException.throwException(EntityType.ITEMDESC,
+		 * ExceptionType.BLANK_VALUE, "Item Desc"); }
+		 */
 		
-			ItemEntity itemEntity  = itemRepository.findByItemcode(itemIncomingDto.getItemcode());
+			ItemEntity itemEntity  =new ItemEntity();
 			
-			if(itemEntity != null) {
-				throw BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode());
-			}
-			
+			/*
+			 * if(itemEntity != null) { throw BRSException.throwException(EntityType.ITEM,
+			 * ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode()); }
+			 */
 			
 		  itemEntity.setItemcode(itemIncomingDto.getItemcode());
 		  itemEntity.setItemdesc(itemIncomingDto.getItemdesc());
