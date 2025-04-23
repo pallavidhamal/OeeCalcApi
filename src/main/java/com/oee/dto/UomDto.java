@@ -19,5 +19,6 @@ import lombok.experimental.Accessors;
 public class UomDto {
 	
 	private String name;
+	private String id;
 
 }

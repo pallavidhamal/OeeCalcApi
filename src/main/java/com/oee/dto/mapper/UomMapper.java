@@ -10,6 +10,7 @@ public class UomMapper {
 
 	public static UomDto toUomDto(UomEntity uomEntity) {
 		return new UomDto()
+				.setId(uomEntity.getId())
 				.setName(uomEntity.getName());
 				
 	}
