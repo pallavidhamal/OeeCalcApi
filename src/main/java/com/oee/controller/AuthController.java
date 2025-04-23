@@ -34,7 +34,7 @@ public class AuthController {
   	@SuppressWarnings("rawtypes")
  // 	@Operation(summary = "User Login")
  // 	@ApiResponse(responseCode = "201", description = "user login successfully", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AuthUserDto.class))})
-  	@PostMapping( value = "/signin" , consumes = APPLICATION_JSON_VALUE)
+  	@PostMapping( value = "/login" , consumes = APPLICATION_JSON_VALUE)
   	public Response userSignIn( @RequestBody LoginIncomingDto loginRequest) {
   		
   		 AuthUserDto responseData;

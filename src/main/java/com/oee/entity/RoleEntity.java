@@ -16,7 +16,7 @@ public class RoleEntity extends BaseEntity{
 	
 	private String name;
 	@Column(name="name_code")
-	private String nameCode;
+	private String namecode;
 	private String status;
 	
 }

@@ -13,7 +13,7 @@ import com.oee.entity.RoleEntity;
 @Repository
 public interface RoleRepository extends JpaRepository<RoleEntity, String> {
 	
-	  RoleEntity findByNameCode(String namecode);
+	  RoleEntity findByNamecode(String namecode);
 	    
 	  RoleEntity findByName(String name);
 	  
@@ -26,5 +26,5 @@ public interface RoleRepository extends JpaRepository<RoleEntity, String> {
 	  List<RoleEntity> findByIdNot(String id);
 	  
 	  List<RoleEntity> findByIdNotAndName(String id,String name);
-	  List<RoleEntity> findByIdNotAndNameCode(String id,String namecode);
+	  List<RoleEntity> findByIdNotAndNamecode(String id,String namecode);
 }

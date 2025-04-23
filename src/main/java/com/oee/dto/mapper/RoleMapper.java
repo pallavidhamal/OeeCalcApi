@@ -14,7 +14,7 @@ public class RoleMapper {
 				.setName(roleEntity.getName())
 				.setStatus(roleEntity.getStatus())
 				.setIsdeleted(roleEntity.getIsdeleted().equals("Y") ?  "Active" : "Inactive" )
-				.setNamecode(roleEntity.getNameCode());
+				.setNamecode(roleEntity.getNamecode());
 		
 	}
 	

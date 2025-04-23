@@ -76,7 +76,7 @@ public class RoleServiceImpl implements RoleService{
 		
 		RoleEntity roleEntity = new RoleEntity();
 		roleEntity.setName(roleIncomingDto.getName());
-		roleEntity.setNameCode(roleIncomingDto.getNamecode());
+		roleEntity.setNamecode(roleIncomingDto.getNamecode());
 		roleEntity.setStatus(roleIncomingDto.getStatus());
 		roleEntity.setIsdeleted("N");		
 		
@@ -93,7 +93,7 @@ public class RoleServiceImpl implements RoleService{
 		// TODO Auto-generated method stub
 		logger.info("-------- RoleServiceImpl findRoleNameByCode ------");
 		
-		RoleEntity roleEntity = roleRepository.findByNameCode(code);
+		RoleEntity roleEntity = roleRepository.findByNamecode(code);
 		
 		if (roleEntity == null) {			
 			throw BRSException.throwException("Error : No Record Found");			
@@ -158,7 +158,7 @@ public class RoleServiceImpl implements RoleService{
 			throw BRSException.throwException(EntityType.ROLE,ExceptionType.ALREADY_EXIST, roleIncomingDto.getName());			
 		}
 		
-		List<RoleEntity> roleEntitiesCode = roleRepository.findByIdNotAndNameCode(roleIncomingDto.getId(),roleIncomingDto.getNamecode());
+		List<RoleEntity> roleEntitiesCode = roleRepository.findByIdNotAndNamecode(roleIncomingDto.getId(),roleIncomingDto.getNamecode());
 		
 		if (roleEntitiesCode.size() !=  0) {
 			
@@ -168,7 +168,7 @@ public class RoleServiceImpl implements RoleService{
 		
 		
 		roleEntity.setName(roleIncomingDto.getName());
-		roleEntity.setNameCode(roleIncomingDto.getNamecode());
+		roleEntity.setNamecode(roleIncomingDto.getNamecode());
 		roleEntity.setIsdeleted("N");
 		roleEntity.setStatus(roleIncomingDto.getStatus());
 		roleRepository.save(roleEntity);

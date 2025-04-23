@@ -15,8 +15,6 @@ import com.oee.entity.StationTypeEntity;
 import com.oee.entity.UomEntity;
 import com.oee.entity.WorkcentreEntity;
 import com.oee.exception.BRSException;
-import com.oee.exception.EntityType;
-import com.oee.exception.ExceptionType;
 import com.oee.repository.StationRepository;
 import com.oee.repository.StationTypeRepository;
 import com.oee.service.StationService;
@@ -54,6 +52,22 @@ public class StationServiceImpl implements StationService {
 		//logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
 		
 		List<StationEntity> stationEntityList = stationRepository.findAll();
+		
+		if (stationEntityList == null) {
+			throw BRSException.throwException("Station List does not exist");
+		}
+		
+		return StationMapper.toStationDtoList(stationEntityList);
+		
+	}
+	
+	@Override
+	public List<StationDto> getAllActiveStations() {
+		 
+		// TODO Auto-generated method stub
+		//logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
+		
+		List<StationEntity> stationEntityList = stationRepository.findByIsdeleted("N");
 		
 		if (stationEntityList == null) {
 			throw BRSException.throwException("Station List does not exist");

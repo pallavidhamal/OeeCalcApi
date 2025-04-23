@@ -2,16 +2,16 @@ package com.oee.service;
 
 import java.util.List;
 
-import com.oee.dto.ItemDto;
 import com.oee.dto.StationDto;
 import com.oee.dto.incoming.StationIncomingDto;
-import com.oee.entity.ItemEntity;
 import com.oee.entity.StationEntity;
 
 
 public interface StationService {
 
 	List<StationDto> getAllStations();
+	
+	List<StationDto> getAllActiveStations();
 	
 	StationEntity getStationByID(String stationID);
 	

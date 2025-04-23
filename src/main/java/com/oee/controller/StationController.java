@@ -23,42 +23,49 @@ import com.oee.service.StationService;
 @RequestMapping(value = "/api/v1/station", produces = APPLICATION_JSON_VALUE)
 public class StationController {
 
-	
-	  @Autowired StationService stationService;
-	  
-	  private static final Logger logger =
-	  LoggerFactory.getLogger(StationController.class);
-	  
-	  
-	  @SuppressWarnings("rawtypes")
-	  
-	  @GetMapping(value = "/getAllStations") public Response getAllStations() {
-	  return Response.ok().setPayload(stationService.getAllStations()); }
-	  
-	  
-	  @PostMapping( value = "/add" , consumes = APPLICATION_JSON_VALUE) public
-	  Response addStation(@RequestBody StationIncomingDto stationIncomingDto) {
-	  logger.info("----- StationController addHtPart----- ");
-	  
-	  return Response.created().setPayload(stationService.addStation(stationIncomingDto));
-	  
-	  }
-	  
-	  @PutMapping( value = "/edit" , consumes = APPLICATION_JSON_VALUE) public
-	  Response editStation(@RequestBody StationIncomingDto stationIncomingDto) {
-	  logger.info("----- StationController editHtPart----- ");
-	  
-	  return Response.ok().setPayload(stationService.editStation(stationIncomingDto));
-	  
-	  }
-	  
-	  @PutMapping( value = "/delete/{htpartid}" ) public Response
-	  deleteStation(@PathVariable("htpartid") String stationid) {
-	  logger.info("----- StationController deleteHtPart----- ");
-	  
-	  return Response.ok().setPayload(stationService.deleteStation(stationid));
-	  
-	  }
-	 
+	@Autowired
+	StationService stationService;
+
+	private static final Logger logger = LoggerFactory.getLogger(StationController.class);
+
+	@SuppressWarnings("rawtypes")
+
+	@GetMapping(value = "/all")
+	public Response getAllStations() {
+		return Response.ok().setPayload(stationService.getAllStations());
+	}
+
+	@GetMapping(value = "/allActive")
+	public Response getAllActiveStations() {
+		return Response.ok().setPayload(stationService.getAllActiveStations());
+	}
+
+	@PutMapping(value = "/get/{htpartid}")
+	public Response getStationById(@PathVariable("htpartid") String stationid) {
+		logger.info("----- StationController deleteHtPart----- ");
+
+		return Response.ok().setPayload(stationService.getStationByID(stationid));
+	}
+
+	@PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE)
+	public Response addStation(@RequestBody StationIncomingDto stationIncomingDto) {
+		logger.info("----- StationController addHtPart----- ");
+
+		return Response.created().setPayload(stationService.addStation(stationIncomingDto));
+	}
+
+	@PutMapping(value = "/edit", consumes = APPLICATION_JSON_VALUE)
+	public Response editStation(@RequestBody StationIncomingDto stationIncomingDto) {
+		logger.info("----- StationController editHtPart----- ");
+
+		return Response.ok().setPayload(stationService.editStation(stationIncomingDto));
+	}
+
+	@PutMapping(value = "/delete/{htpartid}")
+	public Response deleteStation(@PathVariable("htpartid") String stationid) {
+		logger.info("----- StationController deleteHtPart----- ");
+
+		return Response.ok().setPayload(stationService.deleteStation(stationid));
+	}
 
 }
