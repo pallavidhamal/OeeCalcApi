@@ -50,7 +50,23 @@ public class StationTypeServiceImpl implements StationTypeService {
 		}
 		
 		return stationTypeEntity;	
-		}	}
+		}
+
+	@Override
+	public List<StationTypeDto> getAllActiveStationTypes() {
+		// TODO Auto-generated method stub
+		
+		List<StationTypeEntity> stationTypeEntityList = stationTypeRepository.findByIsdeleted("N");;
+		  
+		  if (stationTypeEntityList == null) 
+		  { 
+			  throw  BRSException.throwException("Station Type List does not exist"); 
+		  }
+		  
+		  return StationTypeMapper.toStationTypeDtoList(stationTypeEntityList);
+		  
+		
+	}	}
 
 	/*
 	 * @Override public List<StationTypeDto> getAllStationTypes() {

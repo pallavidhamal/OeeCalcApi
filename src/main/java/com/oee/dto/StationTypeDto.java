@@ -18,6 +18,7 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StationTypeDto {
 	
+	private String id;
 	private String name;
 
 }
