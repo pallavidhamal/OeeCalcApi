@@ -10,6 +10,7 @@ public class WorkcenterMapper {
 
 	public static WorkcenterDto toWorkcenterDto(WorkcentreEntity WorkcenterEntity) {
 		return new WorkcenterDto()
+				.setId(WorkcenterEntity.getId())
 				.setName(WorkcenterEntity.getName());
 				
 	}

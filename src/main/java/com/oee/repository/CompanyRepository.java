@@ -1,16 +1,15 @@
-
 package com.oee.repository;
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.oee.entity.UnitEntity;
+import com.oee.entity.CompanyEntity;
 
 @Repository
-public interface UnitRepository extends JpaRepository<UnitEntity, String> {
+public interface CompanyRepository extends JpaRepository<CompanyEntity, String> {
 
-	List<UnitEntity> findByIsdeleted(String string);
+	List<CompanyEntity> findByIsdeleted(String string);
+	
 
 }

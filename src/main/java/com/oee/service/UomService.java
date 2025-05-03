@@ -10,6 +10,8 @@ public interface UomService {
 
 	List<UomDto> getAllUoms();
 	
+	List<UomDto> getAllActiveUoms();
+	
 	UomEntity getUomByID(String uomID);
 	
 	/*

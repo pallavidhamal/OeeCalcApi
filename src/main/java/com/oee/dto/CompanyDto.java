@@ -1,5 +1,4 @@
 package com.oee.dto;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -16,9 +15,8 @@ import lombok.experimental.Accessors;
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WorkcenterDto {
+public class CompanyDto {
 	
 	private String id;
 	private String name;
-
 }

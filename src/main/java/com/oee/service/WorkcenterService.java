@@ -9,6 +9,7 @@ import com.oee.entity.WorkcentreEntity;
 public interface WorkcenterService {
 
 	List<WorkcenterDto> getAllWorkcenters();
+	List<WorkcenterDto> getAllActiveWorkcenters();
 	
 	WorkcentreEntity getWorkcenterByID(String workcenterID);
 	

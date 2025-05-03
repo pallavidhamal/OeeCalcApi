@@ -27,11 +27,15 @@ public class UomController {
 	@SuppressWarnings("rawtypes")
 
 	@GetMapping(value = "/all")
-	public Response getAllItems() {
+	public Response getAllUom() {
 		// logger.info("----- FittingTypeController getAllFittingTypeDetails ----- ");
 		return Response.ok().setPayload(uomService.getAllUoms());
 	}
-
+	@GetMapping(value = "allActive")
+	public Response getAllActiveUom() {
+		// logger.info("----- FittingTypeController getAllFittingTypeDetails ----- ");
+		return Response.ok().setPayload(uomService.getAllActiveUoms());
+	}
 	/*
 	 * @PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE) public
 	 * Response addItem(@RequestBody ItemIncomingDto itemIncomingDto) {

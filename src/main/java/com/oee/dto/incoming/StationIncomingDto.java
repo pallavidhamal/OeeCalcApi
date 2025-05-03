@@ -11,9 +11,9 @@ import lombok.ToString;
 public class StationIncomingDto {
 
 	private String name;
-	private String stationTypeId;
-	private String uomId;
-	private String workcenterId;
+	private String stationtypeid;
+	private String uomid;
+	private String workcenterid;
 
 
 }

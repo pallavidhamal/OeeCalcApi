@@ -37,6 +37,22 @@ public class UomServiceImpl implements UomService {
 		  
 		
 	}
+	
+	@Override
+	public List<UomDto> getAllActiveUoms() {
+		// TODO Auto-generated method stub
+		
+		List<UomEntity> uomEntityList = uomRepository.findByIsdeleted("N");
+		  
+		  if (uomEntityList == null) 
+		  { 
+			  throw  BRSException.throwException("UOM List does not exist"); 
+		  }
+		  
+		  return UomMapper.toUomDtoList(uomEntityList);
+		  
+		
+	}
 
 	@Override
 	public UomEntity getUomByID(String uomid) {

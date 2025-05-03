@@ -56,7 +56,7 @@ public class StationTypeServiceImpl implements StationTypeService {
 	public List<StationTypeDto> getAllActiveStationTypes() {
 		// TODO Auto-generated method stub
 		
-		List<StationTypeEntity> stationTypeEntityList = stationTypeRepository.findByIsdeleted("N");;
+		List<StationTypeEntity> stationTypeEntityList = stationTypeRepository.findByIsdeleted("N");
 		  
 		  if (stationTypeEntityList == null) 
 		  { 
