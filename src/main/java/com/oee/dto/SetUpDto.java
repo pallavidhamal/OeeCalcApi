@@ -18,12 +18,13 @@ import lombok.experimental.Accessors;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SetUpDto {
 	
+	private String id;
 	private String name;
 	private int cycletime;
 
 	private String item;
-
+	private String itemdesc;
 	private String station;
-
+	private String uom;
 
 }

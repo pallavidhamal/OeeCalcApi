@@ -11,7 +11,7 @@ public interface SetUpService {
 
 	List<SetUpDto> getAllSetUps();
 	
-	SetUpEntity getSetUpByID(String setUpID);
+	SetUpDto getSetUpByID(String setUpID);
 	
 	boolean addSetUp( SetUpIncomingDto setUpIncomingDto);
 	boolean editSetUp( SetUpIncomingDto setUpIncomingDto);

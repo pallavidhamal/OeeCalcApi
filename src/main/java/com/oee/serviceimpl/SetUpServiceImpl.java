@@ -54,7 +54,7 @@ public class SetUpServiceImpl implements SetUpService {
 	}
 
 	@Override
-	public SetUpEntity getSetUpByID(String setUpID) {
+	public SetUpDto getSetUpByID(String setUpID) {
 		// TODO Auto-generated method stub
 		
 		SetUpEntity setUpEntity = setUpRepository.findById(setUpID).get();
@@ -63,7 +63,7 @@ public class SetUpServiceImpl implements SetUpService {
 			throw BRSException.throwException("SetUp Details does not exist.");
 		}
 		
-		return setUpEntity;	
+		return SetUpMapper.toSetUpDto(setUpEntity);	
 		}
 		
 		
@@ -90,6 +90,9 @@ public class SetUpServiceImpl implements SetUpService {
 		  setUpEntity.setIsdeleted("N");
 		  
 		  setUpEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
+		  
+		  logger.info("--- before saving set up ----");
+		  
 		  
 		  setUpRepository.save(setUpEntity);
 		  

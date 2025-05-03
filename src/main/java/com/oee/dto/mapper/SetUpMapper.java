@@ -10,10 +10,14 @@ public class SetUpMapper {
 
 	public static SetUpDto toSetUpDto(SetUpEntity setUpEntity) {
 		return new SetUpDto()
+				.setId(setUpEntity.getId())
 				.setName(setUpEntity.getName())
 				.setCycletime(setUpEntity.getCycletime())
 				.setItem(setUpEntity.getItementity().getItemcode())
-				.setStation(setUpEntity.getStationentity().getName());
+				.setItemdesc(setUpEntity.getItementity().getItemdesc())
+				.setStation(setUpEntity.getStationentity().getName())
+				.setUom(setUpEntity.getStationentity().getUomentity().getName());
+		
 	}
 	
 	public static List<SetUpDto> toSetUpDtoList(List<SetUpEntity> SetUpEntityList) {
