@@ -21,5 +21,6 @@ public class ItemDto {
 	private String itemid;
 	private String itemcode;
 	private String itemdesc;
+	private String isdeleted;
 
 }

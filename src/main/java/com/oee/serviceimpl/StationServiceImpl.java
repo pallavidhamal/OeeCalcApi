@@ -118,6 +118,7 @@ public class StationServiceImpl implements StationService {
 		  UomEntity uomEntity =  uomService.getUomByID(stationIncomingDto.getUomid());
 
 		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(stationIncomingDto.getWorkcenterid());
+		
 		  
 		  stationEntity.setStationtypeentity(stationTypeEntity);
 		  stationEntity.setUomentity(uomEntity);

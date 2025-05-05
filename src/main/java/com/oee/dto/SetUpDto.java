@@ -26,5 +26,6 @@ public class SetUpDto {
 	private String itemdesc;
 	private String station;
 	private String uom;
+	private String isdeleted;
 
 }

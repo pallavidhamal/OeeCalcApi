@@ -12,7 +12,8 @@ public class ItemMapper {
 		return new ItemDto()
 				.setItemid(itemEntity.getId())
 				.setItemcode(itemEntity.getItemcode())
-				.setItemdesc(itemEntity.getItemdesc());
+				.setItemdesc(itemEntity.getItemdesc())
+				.setIsdeleted(itemEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
 				
 	}
 	

@@ -47,7 +47,7 @@ public class SetUpController {
 	 @GetMapping(value = "/get/{setupId}") 
 	 public Response  getSetUpById(@PathVariable("setupId") String setupId)
 	 {
-	  logger.info("----- StationController deleteHtPart----- ");
+	  logger.info("-----  getSetUpById----- ");
 	  return Response.ok().setPayload(setUpService.getSetUpByID(setupId)); 
 	  }
 	  

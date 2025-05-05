@@ -19,5 +19,7 @@ public interface ItemService {
 	boolean addItem( ItemIncomingDto itemIncomingDto);
 	boolean editItem( ItemIncomingDto itemIncomingDto);
 	boolean deleteItem(String itemid);
+
+	ItemDto getItemById(String itemid);
 	
 }

@@ -16,7 +16,8 @@ public class SetUpMapper {
 				.setItem(setUpEntity.getItementity().getItemcode())
 				.setItemdesc(setUpEntity.getItementity().getItemdesc())
 				.setStation(setUpEntity.getStationentity().getName())
-				.setUom(setUpEntity.getStationentity().getUomentity().getName());
+				.setUom(setUpEntity.getStationentity().getUomentity().getName())
+				.setIsdeleted(setUpEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
 		
 	}
 	

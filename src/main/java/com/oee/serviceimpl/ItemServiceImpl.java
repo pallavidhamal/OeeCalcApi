@@ -44,7 +44,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public ItemEntity getItemByID(String itemid) {
+	public ItemDto getItemById(String itemid) {
 		// TODO Auto-generated method stub
 		logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
 		
@@ -54,31 +54,36 @@ public class ItemServiceImpl implements ItemService {
 			throw BRSException.throwException("Item Details does not exist.");
 		}
 		
-		return itemEntity;	
+		return ItemMapper.toItemDto(itemEntity);
+		
 		}
 
+	
 	@Override
 	public boolean addItem(ItemIncomingDto itemIncomingDto) {
 		// TODO Auto-generated method stub
 
 		
-		/*
-		 * if (itemIncomingDto.getItemcode() == "") {
-		 * 
-		 * throw BRSException.throwException(EntityType.ITEMCODE,
-		 * ExceptionType.BLANK_VALUE, "Item Code"); } if (itemIncomingDto.getItemdesc()
-		 * == "") {
-		 * 
-		 * throw BRSException.throwException(EntityType.ITEMDESC,
-		 * ExceptionType.BLANK_VALUE, "Item Desc"); }
-		 */
 		
-			ItemEntity itemEntity  =new ItemEntity();
-			
-			/*
-			 * if(itemEntity != null) { throw BRSException.throwException(EntityType.ITEM,
-			 * ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode()); }
-			 */
+		  if (itemIncomingDto.getItemcode() == "") {
+		  
+		  throw BRSException.throwException(EntityType.ITEMCODE,ExceptionType.BLANK_VALUE, "Item Code"); 
+		  
+		  } 
+		  if (itemIncomingDto.getItemdesc()  == "") {
+		  
+		  throw BRSException.throwException(EntityType.ITEMDESC, ExceptionType.BLANK_VALUE, "Item Desc"); 
+		  
+		  }
+		 
+		
+			ItemEntity itemEntity  =itemRepository.findByItemcode(itemIncomingDto.getItemcode());
+		  if(itemEntity != null)
+		  {
+			  throw BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode());
+		  
+		  }
+			 
 			
 		  itemEntity.setItemcode(itemIncomingDto.getItemcode());
 		  itemEntity.setItemdesc(itemIncomingDto.getItemdesc());
@@ -147,5 +152,20 @@ public class ItemServiceImpl implements ItemService {
 		
 		return true;		
 	}
+
+	@Override
+	public ItemEntity getItemByID(String itemId) {
+		// TODO Auto-generated method stub
+		 ItemEntity itemEntity = itemRepository.findById(itemId).get();
+		  
+		  if (itemEntity == null) { throw BRSException.throwException(EntityType.ITEM,
+		  ExceptionType.ENTITY_NOT_FOUND, itemId);
+		  }
+		  return itemEntity;
+	}
+
+	
+	
+
 
 }

@@ -81,6 +81,8 @@ public class SetUpServiceImpl implements SetUpService {
 		  
 		  
 		  ItemEntity itemEntity =  itemService.getItemByID(setUpIncomingDto.getItemId());
+		  
+		  
 		 
 		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationId());
 

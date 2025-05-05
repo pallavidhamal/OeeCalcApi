@@ -36,6 +36,13 @@ public class ItemController {
 		// logger.info("----- FittingTypeController getAllFittingTypeDetails ----- ");
 		return Response.ok().setPayload(itemService.getAllItems());
 	}
+	
+	@GetMapping(value = "/get/{itemid}")
+	public Response getItemById(@PathVariable("itemid") String itemid) {
+		logger.info("----- StationController deleteHtPart----- ");
+
+		return Response.ok().setPayload(itemService.getItemById(itemid));
+	}
 
 	@PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE)
 	public Response addItem(@RequestBody ItemIncomingDto itemIncomingDto) {
@@ -47,18 +54,21 @@ public class ItemController {
 
 	@PutMapping(value = "/edit", consumes = APPLICATION_JSON_VALUE)
 	public Response editItem(@RequestBody ItemIncomingDto itemIncomingDto) {
-		logger.info("----- HtPartsController editHtPart----- ");
+		logger.info("----- editItem----- ");
 
 		return Response.ok().setPayload(itemService.editItem(itemIncomingDto));
 
 	}
 
-	@PutMapping(value = "/delete/{htpartid}")
-	public Response deleteHtPart(@PathVariable("htpartid") String itemid) {
-		logger.info("----- HtPartsController deleteHtPart----- ");
+	@PutMapping(value = "/delete/{itemid}")
+	public Response deleteItem(@PathVariable("itemid") String itemid) {
+		logger.info("----- HtPartsController deleteItem----- ");
 
 		return Response.ok().setPayload(itemService.deleteItem(itemid));
 
 	}
 
+	
+	
+	
 }
