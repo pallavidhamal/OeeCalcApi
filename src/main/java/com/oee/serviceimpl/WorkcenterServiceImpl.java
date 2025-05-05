@@ -11,7 +11,7 @@ import com.oee.dto.WorkcenterDto;
 import com.oee.dto.incoming.WorkcenterIncomingDto;
 import com.oee.dto.mapper.WorkcenterMapper;
 import com.oee.entity.StationTypeEntity;
-import com.oee.entity.WorkcentreEntity;
+import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
@@ -34,7 +34,7 @@ public class WorkcenterServiceImpl implements WorkcenterService {
 		// TODO Auto-generated method stub
 		//logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
 		
-		List<WorkcentreEntity> workcenterEntityList = workcenterRepository.findAll();
+		List<WorkcenterEntity> workcenterEntityList = workcenterRepository.findAll();
 		
 		if (workcenterEntityList == null) {
 			throw BRSException.throwException("Workcenter List does not exist");
@@ -45,11 +45,11 @@ public class WorkcenterServiceImpl implements WorkcenterService {
 	}
 
 	@Override
-	public WorkcentreEntity getWorkcenterByID(String wcID) {  
+	public WorkcenterEntity getWorkcenterByID(String wcID) {  
 		// TODO Auto-generated method stub
 		logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
 		
-		WorkcentreEntity workcentreEntity = workcenterRepository.findById(wcID).get();
+		WorkcenterEntity workcentreEntity = workcenterRepository.findById(wcID).get();
 		
 		if (workcentreEntity == null) {
 			throw BRSException.throwException("Workcentre Details does not exist.");
@@ -64,7 +64,7 @@ public class WorkcenterServiceImpl implements WorkcenterService {
 		// TODO Auto-generated method stub
 		//logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
 		
-		List<WorkcentreEntity> workcenterEntityList = workcenterRepository.findByIsdeleted("N");
+		List<WorkcenterEntity> workcenterEntityList = workcenterRepository.findByIsdeleted("N");
 		
 		if (workcenterEntityList == null) {
 			throw BRSException.throwException("Workcenter List does not exist");

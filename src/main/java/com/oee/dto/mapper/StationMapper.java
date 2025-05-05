@@ -12,9 +12,9 @@ public class StationMapper {
 		return new StationDto()
 				.setId(stationEntity.getId())
 				.setName(stationEntity.getName())
-				.setStationtype(stationEntity.getStationtypeentity().getName())
-				.setUom(stationEntity.getUomentity().getName())
-				.setWorkcenter(stationEntity.getWorkcentreentity().getName())
+				.setStationtype( StationTypeMapper.toStationTypeDto(stationEntity.getStationtypeentity()))
+				.setUom(UomMapper.toUomDto(stationEntity.getUomentity()))
+				.setWorkcenter( WorkcenterMapper.toWorkcenterDto(stationEntity.getWorkcenterentity()))
 				.setIsdeleted(stationEntity.getIsdeleted().equals("N") ?  "Active" : "Inactive");
 	}
 	

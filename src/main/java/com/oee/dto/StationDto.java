@@ -20,12 +20,9 @@ public class StationDto {
 	
 	private String id;
 	private String name;
-	private String stationtype;
-
-	private String uom;
-
-	private String workcenter;
+	private StationTypeDto stationtype;
+	private UomDto uom;
+	private WorkcenterDto workcenter;
 	private String isdeleted;
-
 
 }

@@ -40,8 +40,8 @@ public class StationController {
 		return Response.ok().setPayload(stationService.getAllActiveStations());
 	}
 
-	@PutMapping(value = "/get/{htpartid}")
-	public Response getStationById(@PathVariable("htpartid") String stationid) {
+	@GetMapping(value = "/get/{stationid}")
+	public Response getStationById(@PathVariable("stationid") String stationid) {
 		logger.info("----- StationController deleteHtPart----- ");
 
 		return Response.ok().setPayload(stationService.getStationByID(stationid));

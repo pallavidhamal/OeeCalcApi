@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.oee.entity.ItemEntity;
-import com.oee.entity.WorkcentreEntity;
+import com.oee.entity.WorkcenterEntity;
 
 @Repository
-public interface WorkcenterRepository  extends JpaRepository<WorkcentreEntity, String> {
+public interface WorkcenterRepository  extends JpaRepository<WorkcenterEntity, String> {
 
-	List<WorkcentreEntity> findByIsdeleted(String string);
+	List<WorkcenterEntity> findByIsdeleted(String string);
 
 }

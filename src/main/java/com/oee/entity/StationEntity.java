@@ -23,7 +23,7 @@ public class StationEntity extends BaseEntity {
 	
 	@OneToOne
 	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
-	private WorkcentreEntity workcentreentity;
+	private WorkcenterEntity workcenterentity;
 	
 	@OneToOne
 	@JoinColumn(name = "fk_stationtypeentity", referencedColumnName = "id")

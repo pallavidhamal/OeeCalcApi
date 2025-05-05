@@ -13,7 +13,8 @@ public interface StationService {
 	
 	List<StationDto> getAllActiveStations();
 	
-	StationEntity getStationByID(String stationID);
+	StationEntity 	getStationEntityByID(String stationID);
+	StationDto 		getStationByID(String stationID);
 	
 	boolean addStation( StationIncomingDto stationIncomingDto);
 	boolean editStation( StationIncomingDto stationIncomingDto);

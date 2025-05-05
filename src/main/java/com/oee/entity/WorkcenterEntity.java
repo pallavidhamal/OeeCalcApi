@@ -12,8 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "master_workcentre")
-public class WorkcentreEntity extends BaseEntity {
+@Table(name = "master_workcenter")
+public class WorkcenterEntity extends BaseEntity {
 
 	private String name ;
 	

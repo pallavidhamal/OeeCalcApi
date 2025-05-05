@@ -13,7 +13,7 @@ import com.oee.dto.mapper.StationMapper;
 import com.oee.entity.StationEntity;
 import com.oee.entity.StationTypeEntity;
 import com.oee.entity.UomEntity;
-import com.oee.entity.WorkcentreEntity;
+import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
 import com.oee.repository.StationRepository;
 import com.oee.repository.StationTypeRepository;
@@ -78,7 +78,19 @@ public class StationServiceImpl implements StationService {
 	}
 
 	@Override
-	public StationEntity getStationByID(String stationID) {
+	public StationDto getStationByID(String stationID) {
+		// TODO Auto-generated method stub
+		
+		StationEntity stationEntity = stationRepository.findById(stationID).get();
+		
+		if (stationEntity == null) {
+			throw BRSException.throwException("Station Details does not exist.");
+		}
+		
+		return StationMapper.toStationDto(stationEntity);	
+		}
+	@Override
+	public StationEntity getStationEntityByID(String stationID) {
 		// TODO Auto-generated method stub
 		
 		StationEntity stationEntity = stationRepository.findById(stationID).get();
@@ -88,8 +100,7 @@ public class StationServiceImpl implements StationService {
 		}
 		
 		return stationEntity;	
-		}
-		
+		}	
 		
 
 	@Override
@@ -102,15 +113,15 @@ public class StationServiceImpl implements StationService {
 		 
 		  stationEntity.setName(stationIncomingDto.getName());
 		  
-		  StationTypeEntity stationTypeEntity =  stationTypeService.getStationTypeByID(stationIncomingDto.getStationTypeId());
+		  StationTypeEntity stationTypeEntity =  stationTypeService.getStationTypeByID(stationIncomingDto.getStationtypeid());
 		 
-		  UomEntity uomEntity =  uomService.getUomByID(stationIncomingDto.getUomId());
+		  UomEntity uomEntity =  uomService.getUomByID(stationIncomingDto.getUomid());
 
-		  WorkcentreEntity workcentreEntity=workcenterService.getWorkcenterByID(stationIncomingDto.getWorkcenterId());
+		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(stationIncomingDto.getWorkcenterid());
 		  
 		  stationEntity.setStationtypeentity(stationTypeEntity);
 		  stationEntity.setUomentity(uomEntity);
-		  stationEntity.setWorkcentreentity(workcentreEntity);
+		  stationEntity.setWorkcenterentity(workcentreEntity);
 		  stationEntity.setIsdeleted("N");
 		  
 		  stationEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
