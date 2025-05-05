@@ -14,7 +14,8 @@ public class StationMapper {
 				.setName(stationEntity.getName())
 				.setStationtype(stationEntity.getStationtypeentity().getName())
 				.setUom(stationEntity.getUomentity().getName())
-				.setWorkcenter(stationEntity.getWorkcentreentity().getName());
+				.setWorkcenter(stationEntity.getWorkcentreentity().getName())
+				.setIsdeleted(stationEntity.getIsdeleted().equals("N") ?  "Active" : "Inactive");
 	}
 	
 	public static List<StationDto> toStationDtoList(List<StationEntity> StationEntityList) {

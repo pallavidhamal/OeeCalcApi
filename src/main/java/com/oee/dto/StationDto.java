@@ -25,6 +25,7 @@ public class StationDto {
 	private String uom;
 
 	private String workcenter;
+	private String isdeleted;
 
 
 }
