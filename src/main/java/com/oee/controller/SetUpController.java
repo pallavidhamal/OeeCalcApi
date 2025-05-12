@@ -76,7 +76,7 @@ public class SetUpController {
 
 				return Response.ok().setPayload(setUpService.deleteSetUp(setupId));
 
-			}
+		}
 		 
 		 
 }

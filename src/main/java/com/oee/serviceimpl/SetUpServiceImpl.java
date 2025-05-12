@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oee.dto.SetUpDto;
+import com.oee.dto.ShiftDto;
 import com.oee.dto.incoming.SetUpIncomingDto;
 import com.oee.dto.mapper.SetUpMapper;
+import com.oee.dto.mapper.ShiftMapper;
 import com.oee.entity.ItemEntity;
 import com.oee.entity.SetUpEntity;
+import com.oee.entity.ShiftEntity;
 import com.oee.entity.StationEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
@@ -165,10 +168,26 @@ public class SetUpServiceImpl implements SetUpService {
 		setUpEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
 		
 		setUpRepository.save(setUpEntity);
-		
 		logger.info("------ setUpEntity Deleted Successfully ------");
 		
 		return true;		
 	}
 
+	@Override
+	public List<SetUpDto> getSetUpsByItemMachine(SetUpIncomingDto setUpIncomingDto) 
+	{
+		// TODO Auto-generated method stub
+		/*
+		    List<SetUpEntity> setUpEntityList = setUpRepository.getSetUpsByItemMachine(setUpIncomingDto.getStationId(),setUpIncomingDto.getItemId());
+		
+		if (shiftEntityList == null) {
+			throw BRSException.throwException("Shift Details does not exist.");
+		}
+		
+		return ShiftMapper.toShiftDtoList(shiftEntityList);	
+		
+		}*/
+		
+		return null;
+	}
 }

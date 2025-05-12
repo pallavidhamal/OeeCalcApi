@@ -16,9 +16,11 @@ import lombok.experimental.Accessors;
 @ToString
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UnitDto {
+public class ShiftDto {
 	
-	private String id;
+	private String shiftid;
 	private String name;
+	private String shifthour;
+	private String isdeleted;
 
 }

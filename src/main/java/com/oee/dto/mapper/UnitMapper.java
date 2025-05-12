@@ -10,7 +10,9 @@ import com.oee.entity.UnitEntity;
 public class UnitMapper {
 
 	public static UnitDto toUnitDto(UnitEntity unitEntity) {
-		return new UnitDto().setName(unitEntity.getName());
+		
+		return new UnitDto().setName(unitEntity.getName())
+				.setId(unitEntity.getId());
 
 	}
 

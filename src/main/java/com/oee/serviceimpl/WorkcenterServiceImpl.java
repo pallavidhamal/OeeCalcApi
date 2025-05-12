@@ -73,6 +73,19 @@ public class WorkcenterServiceImpl implements WorkcenterService {
 		return WorkcenterMapper.toWorkcenterDtoList(workcenterEntityList);
 		
 	}
+
+	@Override
+	public List<WorkcenterDto> getWorkcenterByUnit(String UnitID) {
+		// TODO Auto-generated method stub
+		List<WorkcenterEntity> workcenterEntityList = workcenterRepository.getWorkcenterByUnit(UnitID);
+		
+		if (workcenterEntityList == null) {
+			throw BRSException.throwException("Workcentre Details does not exist.");
+		}
+		
+		return WorkcenterMapper.toWorkcenterDtoList(workcenterEntityList);
+		
+	}
 	}
 
 

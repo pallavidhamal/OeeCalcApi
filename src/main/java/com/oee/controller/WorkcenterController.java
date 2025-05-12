@@ -48,6 +48,19 @@ import com.oee.service.WorkcenterService;
   //logger.info("----- FittingTypeController getAllFittingTypeDetails ----- ");
   return Response.ok().setPayload(workcenterService.getAllActiveWorkcenters()); }
   
+  
+
+	@GetMapping( value = "/getWorkcenterByUnit/{unitid}" )
+	public Response getWorkcenterByUnit(@PathVariable("unitid") String unitid) {
+		logger.info("***UnitController get***");
+		
+		return Response.ok().setPayload(workcenterService.getWorkcenterByUnit(unitid));
+	
+	}
+	
+  
+  
+  
 /*
  * @PostMapping( value = "/add" , consumes = APPLICATION_JSON_VALUE) public
  * Response addWorkcenter(@RequestBody WorkcenterIncomingDto workcenterIncomingDto) {
