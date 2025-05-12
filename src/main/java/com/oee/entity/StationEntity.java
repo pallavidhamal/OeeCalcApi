@@ -1,3 +1,4 @@
+
 package com.oee.entity;
 
 import com.oee.entity.id.BaseEntity;
@@ -15,18 +16,21 @@ import lombok.Setter;
 @Table(name = "stationMaster")
 public class StationEntity extends BaseEntity {
 
-	private String name ;
-	
+	private String name;
+
 	@OneToOne
+
 	@JoinColumn(name = "fk_uomentity", referencedColumnName = "id")
 	private UomEntity uomentity;
-	
+
 	@OneToOne
+
 	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
 	private WorkcenterEntity workcenterentity;
-	
+
 	@OneToOne
+
 	@JoinColumn(name = "fk_stationtypeentity", referencedColumnName = "id")
 	private StationTypeEntity stationtypeentity;
-	
+
 }

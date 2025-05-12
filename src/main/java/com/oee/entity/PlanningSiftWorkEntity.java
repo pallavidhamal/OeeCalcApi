@@ -1,0 +1,45 @@
+package com.oee.entity;
+import com.oee.entity.id.BaseEntity;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "master_planning_shift_work")
+public class PlanningSiftWorkEntity extends BaseEntity {
+
+	@OneToOne
+	@JoinColumn(name = "fk_station", referencedColumnName = "id")
+	private StationEntity station;
+	
+	@OneToOne
+	@JoinColumn(name = "fk_shift", referencedColumnName = "id")
+	private ShiftEntity shift;
+	
+	@OneToOne
+	@JoinColumn(name = "fk_item", referencedColumnName = "id")
+	private ItemEntity item;
+	
+	@OneToOne
+	@JoinColumn(name = "fk_setup", referencedColumnName = "id")
+	private SetUpEntity setup;
+	
+	private String setuptime ;
+	
+	private String plannedquantity ;
+	private String plannedmins ;
+	private String timeutilised ;
+	
+	
+	@ManyToOne
+	@JoinColumn(name = "planningentity_id", nullable = false)
+	private PlanningEntity planningentity;
+}

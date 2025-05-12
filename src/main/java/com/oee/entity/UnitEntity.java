@@ -1,7 +1,7 @@
 package com.oee.entity;
 
-
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.oee.entity.id.BaseEntity;
 
@@ -17,16 +17,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "master_unit")
+@Table(name = "master_unit") 
 public class UnitEntity extends BaseEntity {
-
-	private String name ;
-	
-	@OneToOne
-	@JoinColumn(name = "fk_companyentity", referencedColumnName = "id")
-	private CompanyEntity companyentity;
-	
-	@OneToMany(mappedBy = "unitentity", cascade = CascadeType.ALL)
-//	@OrderBy("startWeight Asc")
-	private Set<ShiftEntity> shiftentities;
+  
+  private String name ;
+  
+  @OneToOne
+  @JoinColumn(name = "fk_companyentity", referencedColumnName = "id") private
+  CompanyEntity companyentity;
+  
+  // @OneToMany(mappedBy = "unitentity", cascade = CascadeType.ALL)
+  // @OrderBy("startWeight Asc") // private Set<ShiftEntity> shiftentities;
+  
+  @OneToMany(mappedBy = "unitentity", cascade = CascadeType.ALL, orphanRemoval = true) 
+  // @OrderBy("startWeight Asc") 
+  private List<ShiftEntity> shiftentities = new ArrayList<>(); 
+ 
 }

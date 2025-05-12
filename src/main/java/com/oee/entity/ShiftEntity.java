@@ -18,8 +18,7 @@ public class ShiftEntity extends BaseEntity {
 	private String name ;
 	private String shifthour ;
 	
-	
 	@ManyToOne
-	@JoinColumn(name = "unitentity_id", nullable = false)
-	private UnitEntity unitentity;
+    @JoinColumn(name = "unitentity_id")
+    private UnitEntity unitentity;
 }
