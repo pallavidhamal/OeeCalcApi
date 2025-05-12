@@ -1,6 +1,7 @@
 package com.oee.serviceimpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import com.oee.entity.ItemEntity;
 import com.oee.entity.SetUpEntity;
 import com.oee.entity.StationEntity;
 import com.oee.exception.BRSException;
+import com.oee.exception.EntityType;
+import com.oee.exception.ExceptionType;
 import com.oee.repository.SetUpRepository;
 import com.oee.service.ItemService;
 import com.oee.service.SetUpService;
@@ -108,13 +111,64 @@ public class SetUpServiceImpl implements SetUpService {
 	@Override
 	public boolean editSetUp(SetUpIncomingDto setUpIncomingDto) {
 		// TODO Auto-generated method stub
-		return false;
+		  SetUpEntity setUpEntity = new SetUpEntity();
+		 
+		  
+		  setUpEntity  = setUpRepository.findById(setUpIncomingDto.getSetupid()).get();
+		  
+		  			
+			if(setUpEntity == null) {
+				throw BRSException.throwException(EntityType.SETUP, ExceptionType.ENTITY_NOT_FOUND, setUpIncomingDto.getSetupid());
+			}
+		  
+		  setUpEntity.setName(setUpIncomingDto.getName());
+		  setUpEntity.setCycletime(setUpIncomingDto.getCycletime());
+		  
+		  
+		  ItemEntity itemEntity =  itemService.getItemByID(setUpIncomingDto.getItemId());
+		  
+		  
+		 
+		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationId());
+
+		  
+		  setUpEntity.setItementity(itemEntity);
+		  setUpEntity.setStationentity(stationEntity);
+		  setUpEntity.setIsdeleted("N");
+		  
+		  setUpEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
+		  
+		  logger.info("--- before saving set up ----");
+		  
+		  
+		  setUpRepository.save(setUpEntity);
+		  
+		  logger.info("--- SetUp updeated Successfully ----");
+		 
+		  
+		  return true;
 	}
 
 	@Override
 	public boolean deleteSetUp(String setUpid) {
 		// TODO Auto-generated method stub
-		return false;
+		logger.info("------ delete setup -------");
+		
+		SetUpEntity setUpEntity  = setUpRepository.findById(setUpid).get();
+		
+		if (setUpEntity == null) {
+			throw BRSException.throwException(EntityType.SETUP, ExceptionType.ENTITY_NOT_FOUND, setUpid);	
+			
+		}
+		
+		setUpEntity.setIsdeleted(setUpEntity.getIsdeleted().equalsIgnoreCase("Y") ? "N" : "Y");
+		setUpEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
+		
+		setUpRepository.save(setUpEntity);
+		
+		logger.info("------ setUpEntity Deleted Successfully ------");
+		
+		return true;		
 	}
 
 }

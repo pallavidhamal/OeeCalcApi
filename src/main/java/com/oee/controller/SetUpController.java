@@ -38,7 +38,7 @@ public class SetUpController {
 	
 	 @PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE)
 	 public  Response addSetUp(@RequestBody SetUpIncomingDto setUpIncomingDto) {
-	  logger.info("----- StationController addHtPart----- ");
+	  logger.info("----- SetupController addHtPart----- ");
 	  
 	  return   Response.created().setPayload(setUpService.addSetUp(setUpIncomingDto));
 	  }
@@ -47,31 +47,36 @@ public class SetUpController {
 	 @GetMapping(value = "/get/{setupId}") 
 	 public Response  getSetUpById(@PathVariable("setupId") String setupId)
 	 {
-	  logger.info("-----  getSetUpById----- ");
+	  logger.info("----- SetupController getSetUpById----- ");
 	  return Response.ok().setPayload(setUpService.getSetUpByID(setupId)); 
 	  }
 	  
 	
 		
+		
 		/*
 		 * @GetMapping(value = "/allActive") public Response getAllActiveStations() {
 		 * return Response.ok().setPayload(stationService.getAllActiveStations()); }
 		 * 
-		 * 
-		 * 
-		 * 
-		 * @PutMapping(value = "/edit", consumes = APPLICATION_JSON_VALUE) public
-		 * Response editStation(@RequestBody StationIncomingDto stationIncomingDto) {
-		 * logger.info("----- StationController editHtPart----- ");
-		 * 
-		 * return
-		 * Response.ok().setPayload(stationService.editStation(stationIncomingDto)); }
-		 * 
-		 * @PutMapping(value = "/delete/{htpartid}") public Response
-		 * deleteStation(@PathVariable("htpartid") String stationid) {
-		 * logger.info("----- StationController deleteHtPart----- ");
-		 * 
-		 * return Response.ok().setPayload(stationService.deleteStation(stationid)); }
-		 */
+		 */ 
+		  
+		  
+		  @PutMapping(value = "/edit", consumes = APPLICATION_JSON_VALUE) 
+		  public  Response editSetup(@RequestBody SetUpIncomingDto setUpIncomingDto) 
+		  {
+		  logger.info("----- SetupController edit----- ");
+		  
+		  return   Response.ok().setPayload(setUpService.editSetUp(setUpIncomingDto));
+		  
+		  }
+		  
+		  @PutMapping(value = "/delete/{setupid}")
+			public Response deleteSetup(@PathVariable("setupid") String setupId) {
+				logger.info("----- SetupController delete ----- ");
+
+				return Response.ok().setPayload(setUpService.deleteSetUp(setupId));
+
+			}
+		 
 		 
 }

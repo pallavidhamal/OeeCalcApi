@@ -13,8 +13,10 @@ public class SetUpMapper {
 				.setId(setUpEntity.getId())
 				.setName(setUpEntity.getName())
 				.setCycletime(setUpEntity.getCycletime())
+				.setItemid(setUpEntity.getItementity().getId())
 				.setItem(setUpEntity.getItementity().getItemcode())
 				.setItemdesc(setUpEntity.getItementity().getItemdesc())
+				.setStationid(setUpEntity.getStationentity().getId())
 				.setStation(setUpEntity.getStationentity().getName())
 				.setUom(setUpEntity.getStationentity().getUomentity().getName())
 				.setIsdeleted(setUpEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");

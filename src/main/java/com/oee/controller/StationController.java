@@ -61,9 +61,9 @@ public class StationController {
 		return Response.ok().setPayload(stationService.editStation(stationIncomingDto));
 	}
 
-	@PutMapping(value = "/delete/{htpartid}")
-	public Response deleteStation(@PathVariable("htpartid") String stationid) {
-		logger.info("----- StationController deleteHtPart----- ");
+	@PutMapping(value = "/delete/{stationid}")
+	public Response deleteStation(@PathVariable("stationid") String stationid) {
+		logger.info("----- StationController station----- ");
 
 		return Response.ok().setPayload(stationService.deleteStation(stationid));
 	}

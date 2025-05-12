@@ -9,7 +9,9 @@ public enum EntityType {
     USER,
     ITEMCODE,
     ITEMDESC,
-    ITEM
+    ITEM,
+    SETUP,
+    STATION
     
    
 }

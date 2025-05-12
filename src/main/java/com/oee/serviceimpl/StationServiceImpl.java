@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 import com.oee.dto.StationDto;
 import com.oee.dto.incoming.StationIncomingDto;
 import com.oee.dto.mapper.StationMapper;
+import com.oee.entity.SetUpEntity;
 import com.oee.entity.StationEntity;
 import com.oee.entity.StationTypeEntity;
 import com.oee.entity.UomEntity;
 import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
+import com.oee.exception.EntityType;
+import com.oee.exception.ExceptionType;
 import com.oee.repository.StationRepository;
 import com.oee.repository.StationTypeRepository;
 import com.oee.service.StationService;
@@ -89,6 +92,8 @@ public class StationServiceImpl implements StationService {
 		
 		return StationMapper.toStationDto(stationEntity);	
 		}
+	
+	
 	@Override
 	public StationEntity getStationEntityByID(String stationID) {
 		// TODO Auto-generated method stub
@@ -139,13 +144,62 @@ public class StationServiceImpl implements StationService {
 	@Override
 	public boolean editStation(StationIncomingDto stationIncomingDto) {
 		// TODO Auto-generated method stub
-		return false;
-	}
+		
+		
+		  StationEntity stationEntity = new StationEntity();
+		  
+		  
+		  stationEntity  = stationRepository.findById(stationIncomingDto.getStationid()).get();
+		  
+		  			
+			if(stationEntity == null) {
+				throw BRSException.throwException(EntityType.STATION, ExceptionType.ENTITY_NOT_FOUND, stationIncomingDto.getStationid());
+			}
+		  
+		 
+		  stationEntity.setName(stationIncomingDto.getName());
+		  
+		  StationTypeEntity stationTypeEntity =  stationTypeService.getStationTypeByID(stationIncomingDto.getStationtypeid());
+		 
+		  UomEntity uomEntity =  uomService.getUomByID(stationIncomingDto.getUomid());
+
+		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(stationIncomingDto.getWorkcenterid());
+		
+		  
+		  stationEntity.setStationtypeentity(stationTypeEntity);
+		  stationEntity.setUomentity(uomEntity);
+		  stationEntity.setWorkcenterentity(workcentreEntity);
+		  stationEntity.setIsdeleted("N");
+		  
+		  stationEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
+		  
+		  stationRepository.save(stationEntity);
+		  
+		  logger.info("--- Station Added Successfully ----");
+		 
+		  
+		  return true;	}
 
 	@Override
 	public boolean deleteStation(String stationid) {
 		// TODO Auto-generated method stub
-		return false;
+		logger.info("------ delete station -------");
+		
+		StationEntity stationEntity  = stationRepository.findById(stationid).get();
+		
+		if (stationEntity == null) {
+			throw BRSException.throwException(EntityType.STATION, ExceptionType.ENTITY_NOT_FOUND, stationid);	
+			
+		}
+		
+		stationEntity.setIsdeleted(stationEntity.getIsdeleted().equalsIgnoreCase("Y") ? "N" : "Y");
+		stationEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
+		
+		stationRepository.save(stationEntity);
+		
+		logger.info("------ setUpEntity Deleted Successfully ------");
+		
+		return true;
 	}
 
 }

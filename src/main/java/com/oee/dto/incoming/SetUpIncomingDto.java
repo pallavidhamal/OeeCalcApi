@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 public class SetUpIncomingDto {
 
+	private String setupid;
 	private String name;
 	private String itemId;
 	private String stationId;

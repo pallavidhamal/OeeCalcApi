@@ -21,9 +21,10 @@ public class SetUpDto {
 	private String id;
 	private String name;
 	private int cycletime;
-
+	private String itemid;
 	private String item;
 	private String itemdesc;
+	private String stationid;
 	private String station;
 	private String uom;
 	private String isdeleted;
