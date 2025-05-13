@@ -14,8 +14,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "master_unit") 
 public class UnitEntity extends BaseEntity {
@@ -31,6 +29,35 @@ public class UnitEntity extends BaseEntity {
   
   @OneToMany(mappedBy = "unitentity", cascade = CascadeType.ALL, orphanRemoval = true) 
   // @OrderBy("startWeight Asc") 
-  private List<ShiftEntity> shiftentities = new ArrayList<>(); 
+  private List<ShiftEntity> shiftentities = new ArrayList<>();
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
+
+public CompanyEntity getCompanyentity() {
+	return companyentity;
+}
+
+public void setCompanyentity(CompanyEntity companyentity) {
+	this.companyentity = companyentity;
+}
+
+public List<ShiftEntity> getShiftentities() {
+	return shiftentities;
+}
+
+public void setShiftentities(List<ShiftEntity> shiftentities) {
+	this.shiftentities = shiftentities;
+	for(ShiftEntity shiftEntity : shiftentities) {
+		
+		shiftEntity.setUnitentity(this);
+	}
+} 
  
+  
 }

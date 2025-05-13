@@ -32,4 +32,16 @@ public class YearEntity extends BaseEntity {
 		this.name = name;
 	}
 
+	public List<YearHolidayEntity> getYearholidayentities() {
+		return yearholidayentities;
+	}
+
+	public void setYearholidayentities(List<YearHolidayEntity> yearholidayentities) {
+		this.yearholidayentities = yearholidayentities;
+		for(YearHolidayEntity yearHolidayEntity : yearholidayentities ) {
+			
+			yearHolidayEntity.setYearentity(this);
+		}
+	}
+
 }
