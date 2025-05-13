@@ -13,9 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
+
 @Table(name = "master_planning")
 public class PlanningEntity extends BaseEntity {
 
@@ -41,6 +44,65 @@ public class PlanningEntity extends BaseEntity {
 	
 	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL , orphanRemoval = true)
 //	@OrderBy("startWeight Asc")
-	private List<PlanningSiftWorkEntity> planningSiftWorkEntities = new ArrayList<>();
+	private List<PlanningShiftWorkEntity> planningSiftWorkEntities = new ArrayList<>();
+
+	public UnitEntity getUnitentity() {
+		return unitentity;
+	}
+
+	public void setUnitentity(UnitEntity unitentity) {
+		this.unitentity = unitentity;
+	}
+
+	public WorkcenterEntity getWorkcenterentity() {
+		return workcenterentity;
+	}
+
+	public void setWorkcenterentity(WorkcenterEntity workcenterentity) {
+		this.workcenterentity = workcenterentity;
+	}
+
+	public String getFromdate() {
+		return fromdate;
+	}
+
+	public void setFromdate(String fromdate) {
+		this.fromdate = fromdate;
+	}
+
+	public String getTodate() {
+		return todate;
+	}
+
+	public void setTodate(String todate) {
+		this.todate = todate;
+	}
+
+	public String getTimepershift() {
+		return timepershift;
+	}
+
+	public void setTimepershift(String timepershift) {
+		this.timepershift = timepershift;
+	}
+
+	public List<PlanningShiftWorkEntity> getPlanningSiftWorkEntities() {
+		return planningSiftWorkEntities;
+	}
+
+	public void setPlanningSiftWorkEntities(List<PlanningShiftWorkEntity> planningSiftWorkEntities) {
+		this.planningSiftWorkEntities = planningSiftWorkEntities;
+		
+		for(PlanningShiftWorkEntity planningShiftWorkEntity: planningSiftWorkEntities)
+		{
+			planningShiftWorkEntity.setPlanningentity(this);
+		}
+		
+	}
+	
+	
+	
+	
+	
 	
 }

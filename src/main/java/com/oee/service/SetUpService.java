@@ -17,6 +17,8 @@ public interface SetUpService {
 	
 	SetUpDto getSetUpByID(String setUpID);
 	
+	SetUpEntity getSetUpById(String setUpID);
+	
 	boolean addSetUp( SetUpIncomingDto setUpIncomingDto);
 	boolean editSetUp( SetUpIncomingDto setUpIncomingDto);
 	boolean deleteSetUp(String setUpID);

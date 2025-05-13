@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "master_planning_shift_work")
-public class PlanningSiftWorkEntity extends BaseEntity {
+public class PlanningShiftWorkEntity extends BaseEntity {
 
 	@OneToOne
 	@JoinColumn(name = "fk_station", referencedColumnName = "id")

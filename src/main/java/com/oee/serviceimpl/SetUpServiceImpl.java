@@ -190,4 +190,18 @@ public class SetUpServiceImpl implements SetUpService {
 		
 		return null;
 	}
+
+	@Override
+	public SetUpEntity getSetUpById(String setUpID) {
+		// TODO Auto-generated method stub
+		
+		SetUpEntity setUpEntity = setUpRepository.findById(setUpID).get();
+		
+		if (setUpEntity == null) {
+			throw BRSException.throwException("SetUp Details does not exist.");
+		}
+		
+		return setUpEntity;	
+		}
+		
 }
