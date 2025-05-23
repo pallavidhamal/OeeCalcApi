@@ -213,9 +213,6 @@ public class PlanningServiceImpl implements PlanningService {
 		
 		UnitEntity unitEntity = new UnitEntity();
 		unitEntity  = unitRepository.findById(planningIncomingDto.getUnitid()).get();
-		if(unitEntity == null) {
-			throw BRSException.throwException(EntityType.UNIT, ExceptionType.ENTITY_NOT_FOUND, planningIncomingDto.getUnitid());
-		}
 		
 		WorkcenterEntity wsEntity = new WorkcenterEntity();
 		
@@ -224,12 +221,7 @@ public class PlanningServiceImpl implements PlanningService {
 		if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.getWorkcenterid().equals("0")))
 		wsEntity  = wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
 		
-		/*
-		 * if(wsEntity == null) { throw
-		 * BRSException.throwException(EntityType.WORKCENTER,
-		 * ExceptionType.ENTITY_NOT_FOUND, planningIncomingDto.getWorkcenterid()); }
-		 */
-		List<PlanningEntity>  planningEntityList =planningRepository.getFilterPlannings(unitEntity.getId());
+		List<PlanningEntity>  planningEntityList =planningRepository.getFilterPlannings(unitEntity.getId(),wsEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
 		
 		return PlanningMapper.toOnlyPlanningDtoList(planningEntityList);
 	}
