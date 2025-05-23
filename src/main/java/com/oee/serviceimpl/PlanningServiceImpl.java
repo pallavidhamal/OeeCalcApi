@@ -1,7 +1,6 @@
 package com.oee.serviceimpl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,18 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oee.dto.PlanningDto;
-import com.oee.dto.ShiftDto;
 import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.mapper.PlanningMapper;
-import com.oee.dto.mapper.ShiftMapper;
-import com.oee.entity.ItemEntity;
 import com.oee.entity.PlanningEntity;
-import com.oee.entity.ShiftEntity;
-import com.oee.entity.StationEntity;
+import com.oee.entity.UnitEntity;
+import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
 import com.oee.repository.PlanningRepository;
+import com.oee.repository.UnitRepository;
+import com.oee.repository.WorkcenterRepository;
 import com.oee.service.ItemService;
 import com.oee.service.PlanningService;
 import com.oee.service.PlanningShiftWorkService;
@@ -35,6 +33,12 @@ public class PlanningServiceImpl implements PlanningService {
 	@Autowired
 	PlanningRepository planningRepository;
 
+	@Autowired
+	UnitRepository unitRepository;
+	
+	@Autowired
+	WorkcenterRepository wsRepository;
+	
 	@Autowired
 	ItemService itemService;
 	
@@ -63,10 +67,26 @@ public class PlanningServiceImpl implements PlanningService {
 		if (planningEntityList == null) {
 			throw BRSException.throwException("Planning List does not exist");
 		}
-		return PlanningMapper.toPlanningDtoList(planningEntityList);
+		return PlanningMapper.toOnlyPlanningDtoList(planningEntityList);
 
 	}
 
+	
+	@Override
+	public List<PlanningDto> getAllPlanningsWDetails() {
+
+		// TODO Auto-generated method stub
+		// logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
+
+		List<PlanningEntity> planningEntityList = planningRepository.findAll();
+
+		if (planningEntityList == null) {
+			throw BRSException.throwException("Planning List does not exist");
+		}
+		return PlanningMapper.toPlanningDtoList(planningEntityList);
+
+	}
+	
 	@Override
 	public PlanningDto getPlanningByID(String planningID) {
 		// TODO Auto-generated method stub
@@ -185,4 +205,32 @@ public class PlanningServiceImpl implements PlanningService {
 	 * 
 	 * return null; }
 	 */
+
+
+	@Override
+	public List<PlanningDto> getFilterPlannings(PlanningIncomingDto planningIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		UnitEntity unitEntity = new UnitEntity();
+		unitEntity  = unitRepository.findById(planningIncomingDto.getUnitid()).get();
+		if(unitEntity == null) {
+			throw BRSException.throwException(EntityType.UNIT, ExceptionType.ENTITY_NOT_FOUND, planningIncomingDto.getUnitid());
+		}
+		
+		WorkcenterEntity wsEntity = new WorkcenterEntity();
+		
+		logger.info("------ ws id -------"+planningIncomingDto.getWorkcenterid());
+		
+		if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.getWorkcenterid().equals("0")))
+		wsEntity  = wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
+		
+		/*
+		 * if(wsEntity == null) { throw
+		 * BRSException.throwException(EntityType.WORKCENTER,
+		 * ExceptionType.ENTITY_NOT_FOUND, planningIncomingDto.getWorkcenterid()); }
+		 */
+		List<PlanningEntity>  planningEntityList =planningRepository.getFilterPlannings(unitEntity.getId());
+		
+		return PlanningMapper.toOnlyPlanningDtoList(planningEntityList);
+	}
 }

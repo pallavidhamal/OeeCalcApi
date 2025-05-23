@@ -11,7 +11,9 @@ public enum EntityType {
     ITEMDESC,
     ITEM,
     SETUP,
-    STATION
+    STATION,
+    UNIT,
+    WORKCENTER
     
    
 }

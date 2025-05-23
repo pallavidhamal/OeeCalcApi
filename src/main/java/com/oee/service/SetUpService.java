@@ -24,5 +24,5 @@ public interface SetUpService {
 	boolean deleteSetUp(String setUpID);
 	
 	
-	List<SetUpDto> getSetUpsByItemMachine( SetUpIncomingDto setUpIncomingDto) ;
+	List<SetUpDto> getSetUpsByItemMachine(String stationid,String itemid) ;
 }

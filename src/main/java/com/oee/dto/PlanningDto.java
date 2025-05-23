@@ -24,7 +24,8 @@ public class PlanningDto {
 	private String fromdate ;
 	private String todate ;
 	private String timePerShift;
-	
+	private String unitname;
+	private String workcentername;
 	private List<PlanningShiftWorkDto> planningShiftWork;
 
 	

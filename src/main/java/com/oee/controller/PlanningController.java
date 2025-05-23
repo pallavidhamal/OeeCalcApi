@@ -32,15 +32,28 @@ public class PlanningController {
 
 	@GetMapping(value = "/all")
 	public Response getAllPlannings() {
-		return Response.ok().setPayload(planningService.getAllPlannings());
+		return Response.ok().setPayload(planningService.getAllPlanningsWDetails());
 	}
 
+	
+	@GetMapping(value = "/allplan")
+	public Response getAllPlanningOnly() {
+		return Response.ok().setPayload(planningService.getAllPlannings());
+	}
+	
 	
 	 @PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE)
 	 public  Response addPlanning(@RequestBody PlanningIncomingDto planningIncomingDto) {
 	  logger.info("----- PlanningController addHtPart----- ");
 	  
 	  return   Response.created().setPayload(planningService.addPlanning(planningIncomingDto));
+	  }
+	
+	 @PostMapping(value = "/filterPlanning", consumes = APPLICATION_JSON_VALUE)
+	 public  Response getFilterPlanning(@RequestBody PlanningIncomingDto planningIncomingDto) {
+	  logger.info("----- PlanningController addHtPart----- ");
+	  
+	     return Response.ok().setPayload(planningService.getFilterPlannings(planningIncomingDto));
 	  }
 	
 	 

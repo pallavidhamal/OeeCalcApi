@@ -174,22 +174,20 @@ public class SetUpServiceImpl implements SetUpService {
 	}
 
 	@Override
-	public List<SetUpDto> getSetUpsByItemMachine(SetUpIncomingDto setUpIncomingDto) 
+	public List<SetUpDto> getSetUpsByItemMachine(String stationid,String itemid) 
 	{
 		// TODO Auto-generated method stub
-		/*
-		    List<SetUpEntity> setUpEntityList = setUpRepository.getSetUpsByItemMachine(setUpIncomingDto.getStationId(),setUpIncomingDto.getItemId());
 		
-		if (shiftEntityList == null) {
-			throw BRSException.throwException("Shift Details does not exist.");
+		List<SetUpEntity> setUpEntityList = setUpRepository.getSetUpsByItemMachine( stationid, itemid);
+		
+		if (setUpEntityList == null) {
+			throw BRSException.throwException("setup list does not exist.");
 		}
 		
-		return ShiftMapper.toShiftDtoList(shiftEntityList);	
+		return SetUpMapper.toSetUpDtoList(setUpEntityList);	
 		
-		}*/
-		
-		return null;
 	}
+		
 
 	@Override
 	public SetUpEntity getSetUpById(String setUpID) {
