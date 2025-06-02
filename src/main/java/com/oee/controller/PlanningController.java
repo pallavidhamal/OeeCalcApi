@@ -57,11 +57,11 @@ public class PlanningController {
 	  }
 	
 	 
-	 @GetMapping(value = "/get/{setupId}") 
-	 public Response  getPlanningById(@PathVariable("setupId") String setupId)
+	 @GetMapping(value = "/get/{planId}") 
+	 public Response  getPlanningById(@PathVariable("planId") String planId)
 	 {
 	  logger.info("----- PlanningController getPlanningById----- ");
-	  return Response.ok().setPayload(planningService.getPlanningByID(setupId)); 
+	  return Response.ok().setPayload(planningService.getPlanningByID(planId)); 
 	  }
 	  
 	

@@ -20,6 +20,8 @@ import lombok.experimental.Accessors;
 public class PlanningDto {
 	
 	private String id;
+	private String unitid;
+	private String workcenterid;
 	private String isdeleted;
 	private String fromdate ;
 	private String todate ;

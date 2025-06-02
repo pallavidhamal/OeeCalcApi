@@ -14,8 +14,12 @@ public class PlanningMapper {
 				.setFromdate(planningEntity.getFromdate())
 				.setTodate(planningEntity.getTodate())
 				.setTimePerShift(planningEntity.getTimepershift())
+				
+				.setUnitid(planningEntity.getUnitentity().getId())
 				.setUnitname(planningEntity.getUnitentity().getName())
+				.setWorkcenterid(planningEntity.getWorkcenterentity().getId())
 				.setWorkcentername(planningEntity.getWorkcenterentity().getName())
+				
 				.setIsdeleted(planningEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive")
 				.setPlanningShiftWork(PlanningShiftWorkMapper.toPlanningDtoList(planningEntity.getPlanningSiftWorkEntities()));
 				
@@ -39,8 +43,12 @@ public class PlanningMapper {
 				.setFromdate(planningEntity.getFromdate())
 				.setTodate(planningEntity.getTodate())
 				.setTimePerShift(planningEntity.getTimepershift())
+				
+				.setUnitid(planningEntity.getUnitentity().getId())
 				.setUnitname(planningEntity.getUnitentity().getName())
+				.setWorkcenterid(planningEntity.getWorkcenterentity().getId())
 				.setWorkcentername(planningEntity.getWorkcenterentity().getName())
+				
 				.setIsdeleted(planningEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
 				//.setPlanningShiftWork(PlanningShiftWorkMapper.toPlanningDtoList(planningEntity.getPlanningSiftWorkEntities()));
 				
