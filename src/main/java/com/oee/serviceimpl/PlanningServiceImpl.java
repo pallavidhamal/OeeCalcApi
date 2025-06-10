@@ -1,5 +1,7 @@
 package com.oee.serviceimpl;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -104,24 +106,45 @@ public class PlanningServiceImpl implements PlanningService {
 	public boolean addPlanning(PlanningIncomingDto planningIncomingDto) {
 		// TODO Auto-generated method stub
 
-		PlanningEntity planningEntity = new PlanningEntity();
 		
 		
-		planningEntity.setFromdate(planningIncomingDto.getFromdate());
-		planningEntity.setTodate(planningIncomingDto.getTodate());
-		planningEntity.setTimepershift(planningIncomingDto.getTimepershift());
-		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto()));
-		planningEntity.setUnitentity(unitService.getEntityById(planningIncomingDto.getUnitid()));
-		planningEntity.setWorkcenterentity(wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid()));
-		planningEntity.setIsdeleted("N");
-		planningEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
-   
-		logger.info("--- before saving set up ----");
+		String fromdt=planningIncomingDto.getFromdate();
+		String todt=planningIncomingDto.getTodate();
 
-		planningRepository.save(planningEntity);
+		
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         LocalDate dateFrom = LocalDate.parse(fromdt, formatter);
+         
+         LocalDate dateTo = LocalDate.parse(todt, formatter);
+         LocalDate dateCur=dateFrom;
+         
+         while (dateCur.isBefore(dateTo.plusDays(1))) {
+        	 
+        	PlanningEntity planningEntity = new PlanningEntity();
+        	 
+        	 
+        	planningEntity.setFromdate(dateCur.toString());
+     		planningEntity.setTodate(dateCur.toString());
+     		planningEntity.setTimepershift(planningIncomingDto.getTimepershift());
+     		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto()));
+     		planningEntity.setUnitentity(unitService.getEntityById(planningIncomingDto.getUnitid()));
+     		planningEntity.setWorkcenterentity(wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid()));
+     		planningEntity.setIsdeleted("N");
+     		planningEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
+        
+     		logger.info("--- before saving set up ----");
 
-		logger.info("--- Planning Added Successfully ----");
+     		planningRepository.save(planningEntity);
 
+     		logger.info("--- Planning Added Successfully ----");
+
+     		logger.info("--- datecurrent ----"+dateCur);
+     		dateCur=dateCur.plusDays(1);
+        	 
+        	 
+         }
+		
+		
 		return true;
 		
 
