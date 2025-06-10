@@ -33,6 +33,11 @@ public class PlanningEntity extends BaseEntity {
 	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
 	private WorkcenterEntity workcenterentity;
 	
+	@OneToOne
+	@JoinColumn(name = "fk_shift", referencedColumnName = "id")
+	private ShiftEntity shift;
+	
+	
 	@Column(name = "fromDate")
 	private String fromdate ;
 	
@@ -45,6 +50,13 @@ public class PlanningEntity extends BaseEntity {
 	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL , orphanRemoval = true)
 //	@OrderBy("startWeight Asc")
 	private List<PlanningShiftWorkEntity> planningSiftWorkEntities = new ArrayList<>();
+	
+	
+	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL , orphanRemoval = true)
+//	@OrderBy("startWeight Asc")
+	private List<PlanningStationsEntity> planningStationsEntity = new ArrayList<>();
+	
+	
 
 	public UnitEntity getUnitentity() {
 		return unitentity;
@@ -101,7 +113,15 @@ public class PlanningEntity extends BaseEntity {
 	}
 	
 	
-	
+	public void setPlanningStationsEntity(List<PlanningStationsEntity> planningStationsEntity) {
+		this.planningStationsEntity = planningStationsEntity;
+		
+		for(PlanningStationsEntity planningStationEntity: planningStationsEntity)
+		{
+			planningStationEntity.setPlanningentity(this);
+		}
+		
+	}
 	
 	
 	

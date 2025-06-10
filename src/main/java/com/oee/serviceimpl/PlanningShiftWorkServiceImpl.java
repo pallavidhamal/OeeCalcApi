@@ -44,7 +44,6 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 			List<PlanningShiftWorkIncomingDto> planningShiftWorkIncomingDtos) 
 	{
 		
-		
 		List<PlanningShiftWorkEntity>	planningShiftWorkEntityEntities	= new ArrayList<PlanningShiftWorkEntity>();
 		
 		planningShiftWorkIncomingDtos.forEach(planningShiftWorkIncomingDto->{
@@ -52,8 +51,8 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 			PlanningShiftWorkEntity	planningShiftWorkEntity	= new PlanningShiftWorkEntity();
 			
 			planningShiftWorkEntity.setItem(itemService.getItemByID(planningShiftWorkIncomingDto.getItemid()));
-			planningShiftWorkEntity.setShift(shiftService.getShiftByID(planningShiftWorkIncomingDto.getShiftid()));
-			planningShiftWorkEntity.setStation(stationService.getStationEntityByID(planningShiftWorkIncomingDto.getStationid()));
+		//	planningShiftWorkEntity.setShift(shiftService.getShiftByID(planningShiftWorkIncomingDto.getShiftid()));
+		//	planningShiftWorkEntity.setStation(stationService.getStationEntityByID(planningShiftWorkIncomingDto.getStationid()));
 			planningShiftWorkEntity.setSetup(setupService.getSetUpById(planningShiftWorkIncomingDto.getSetupid()));
 			
 			planningShiftWorkEntity.setIsdeleted("N");

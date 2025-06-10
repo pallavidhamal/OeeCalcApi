@@ -13,15 +13,19 @@ public class PlanningShiftWorkMapper {
 	public static PlanningShiftWorkDto toPlanningShiftworkDto(PlanningShiftWorkEntity planningshiftEntity) {
 		return new PlanningShiftWorkDto()
 				.setId(planningshiftEntity.getId())
-				.setStationid(planningshiftEntity.getStation().getId())
-				.setStationname(planningshiftEntity.getStation().getName())
-				.setShiftid(planningshiftEntity.getShift().getId())
-				.setShiftname(planningshiftEntity.getShift().getName())
 				.setItemid(planningshiftEntity.getItem().getId())
 				.setItemname(planningshiftEntity.getItem().getItemdesc())
 				.setSetupid(planningshiftEntity.getSetup().getId())
 				.setSetupname(planningshiftEntity.getSetup().getName())
 				.setIsdeleted(planningshiftEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
+		
+		
+		/*
+		 * .setStationid(planningshiftEntity.getStation().getId())
+		 * .setStationname(planningshiftEntity.getStation().getName())
+		 * .setShiftid(planningshiftEntity.getShift().getId())
+		 * .setShiftname(planningshiftEntity.getShift().getName())
+		 */
 		
 	}
 	

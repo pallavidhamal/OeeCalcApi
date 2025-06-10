@@ -24,6 +24,7 @@ import com.oee.repository.WorkcenterRepository;
 import com.oee.service.ItemService;
 import com.oee.service.PlanningService;
 import com.oee.service.PlanningShiftWorkService;
+import com.oee.service.PlanningStationService;
 import com.oee.service.StationService;
 import com.oee.service.UnitService;
 import com.oee.service.WorkcenterService;
@@ -55,6 +56,9 @@ public class PlanningServiceImpl implements PlanningService {
 	
 	@Autowired
 	PlanningShiftWorkService planningShiftWorkService;
+	
+	@Autowired
+	PlanningStationService planningStationService;
 
 	private static final Logger logger = LoggerFactory.getLogger(PlanningServiceImpl.class);
 
@@ -126,6 +130,7 @@ public class PlanningServiceImpl implements PlanningService {
         	planningEntity.setFromdate(dateCur.toString());
      		planningEntity.setTodate(dateCur.toString());
      		planningEntity.setTimepershift(planningIncomingDto.getTimepershift());
+     		planningEntity.setPlanningStationsEntity(planningStationService.getPlanningStationEntities(planningIncomingDto.getPlanningStationIncomingDto()));
      		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto()));
      		planningEntity.setUnitentity(unitService.getEntityById(planningIncomingDto.getUnitid()));
      		planningEntity.setWorkcenterentity(wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid()));

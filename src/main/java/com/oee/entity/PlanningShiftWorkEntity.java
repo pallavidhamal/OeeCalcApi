@@ -16,13 +16,12 @@ import lombok.Setter;
 @Table(name = "master_planning_shift_work")
 public class PlanningShiftWorkEntity extends BaseEntity {
 
-	@OneToOne
-	@JoinColumn(name = "fk_station", referencedColumnName = "id")
-	private StationEntity station;
-	
-	@OneToOne
-	@JoinColumn(name = "fk_shift", referencedColumnName = "id")
-	private ShiftEntity shift;
+	/*
+	 * @OneToOne
+	 * 
+	 * @JoinColumn(name = "fk_station", referencedColumnName = "id") private
+	 * StationEntity station;
+	 */
 	
 	@OneToOne
 	@JoinColumn(name = "fk_item", referencedColumnName = "id")
@@ -33,7 +32,7 @@ public class PlanningShiftWorkEntity extends BaseEntity {
 	private SetUpEntity setup;
 	
 	private String setuptime ;
-	
+	private String cycletime ;
 	private String plannedquantity ;
 	private String plannedmins ;
 	private String timeutilised ;
