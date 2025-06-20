@@ -20,7 +20,12 @@ public class PlanningShiftWorkEntity extends BaseEntity {
 	@JoinColumn(name = "fk_station", referencedColumnName = "id")
 	private StationEntity station;
 	
-	
+	/*
+	 * @OneToOne
+	 * 
+	 * @JoinColumn(name = "fk_station", referencedColumnName = "id") private
+	 * StationEntity station;
+	 */
 	
 	@OneToOne
 	@JoinColumn(name = "fk_item", referencedColumnName = "id")
@@ -38,7 +43,6 @@ public class PlanningShiftWorkEntity extends BaseEntity {
 	private String plannedmins ;
 	private String itemtimeutilised ;
 	private String machinetimeutilised ;
-	
 	
 	@ManyToOne
 	@JoinColumn(name = "planningentity_id", nullable = false)

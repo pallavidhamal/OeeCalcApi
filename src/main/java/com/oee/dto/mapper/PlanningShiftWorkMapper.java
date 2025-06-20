@@ -27,6 +27,14 @@ public class PlanningShiftWorkMapper {
 				.setMachinetimeutilised(planningshiftEntity.getMachinetimeutilised())
 				.setItemtimeutilised(planningshiftEntity.getItemtimeutilised());
 		
+		
+		/*
+		 * .setStationid(planningshiftEntity.getStation().getId())
+		 * .setStationname(planningshiftEntity.getStation().getName())
+		 * .setShiftid(planningshiftEntity.getShift().getId())
+		 * .setShiftname(planningshiftEntity.getShift().getName())
+		 */
+		
 	}
 	
 	public static List<PlanningShiftWorkDto> toPlanningDtoList(List<PlanningShiftWorkEntity> planningshiftEntityList) {

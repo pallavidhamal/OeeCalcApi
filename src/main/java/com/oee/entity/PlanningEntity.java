@@ -50,6 +50,13 @@ public class PlanningEntity extends BaseEntity {
 	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL , orphanRemoval = true)
 //	@OrderBy("startWeight Asc")
 	private List<PlanningShiftWorkEntity> planningSiftWorkEntities = new ArrayList<>();
+	
+	
+//	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL , orphanRemoval = true)
+//	@OrderBy("startWeight Asc")
+//	private List<PlanningStationsEntity> planningStationsEntity = new ArrayList<>();
+	
+	
 
 	public UnitEntity getUnitentity() {
 		return unitentity;
@@ -112,6 +119,4 @@ public class PlanningEntity extends BaseEntity {
 	public void setShift(ShiftEntity shift) {
 		this.shift = shift;
 	}
-
-	
 }

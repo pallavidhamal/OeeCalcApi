@@ -23,5 +23,5 @@ public class PlanningIncomingDto {
 
 	private List<PlanningShiftWorkIncomingDto> planningShiftWorkIncomingDto;
 
-	
+	private List<PlanningStationIncomingDto> planningStationIncomingDto;
 }
