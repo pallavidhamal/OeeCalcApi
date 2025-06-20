@@ -33,6 +33,11 @@ public class PlanningEntity extends BaseEntity {
 	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
 	private WorkcenterEntity workcenterentity;
 	
+	@OneToOne
+	@JoinColumn(name = "fk_shift", referencedColumnName = "id")
+	private ShiftEntity shift;
+	
+	
 	@Column(name = "fromDate")
 	private String fromdate ;
 	
@@ -99,10 +104,14 @@ public class PlanningEntity extends BaseEntity {
 		}
 		
 	}
-	
-	
-	
-	
-	
+
+	public ShiftEntity getShift() {
+		return shift;
+	}
+
+	public void setShift(ShiftEntity shift) {
+		this.shift = shift;
+	}
+
 	
 }

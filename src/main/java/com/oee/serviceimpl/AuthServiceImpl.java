@@ -109,10 +109,10 @@ public class AuthServiceImpl implements AuthService{
 		 }
 		 
 		
-		 String encodedPassword = encoder.encode(loginRequest.getPassword());
+	//	 String encodedPassword = encoder.encode(loginRequest.getPassword());
 		
-		 System.out.println("-----encodedPassword--------"+encodedPassword);
-		 System.out.println("-----masterEntity.getPassword()--------"+masterEntity.getPassword());
+	//	 System.out.println("-----encodedPassword--------"+encodedPassword);
+	//	 System.out.println("-----masterEntity.getPassword()--------"+masterEntity.getPassword());
 		 
 		 boolean isPasswordMatch = encoder.matches(loginRequest.getPassword(), masterEntity.getPassword());
 			System.out.println("Password : " + loginRequest.getPassword() + "   isPasswordMatch    : " + isPasswordMatch);
@@ -132,12 +132,15 @@ public class AuthServiceImpl implements AuthService{
 			
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();	
 		
+		
+		masterEntity.setFirstloginstatus("Y");
+		
+		
 		empInfoRepository.save(masterEntity);		
 		//
 		
 		RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 			if(masterEntity!=null) {
-				
 				response=authUserMapper.toUserLoginDto(masterEntity, jwt,refreshToken.getToken());
 			}
 		  

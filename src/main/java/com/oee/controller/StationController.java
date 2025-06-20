@@ -4,7 +4,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,11 +22,15 @@ import com.oee.service.StationService;
 @RequestMapping(value = "/api/v1/station", produces = APPLICATION_JSON_VALUE)
 public class StationController {
 
-	@Autowired
 	StationService stationService;
 
 	private static final Logger logger = LoggerFactory.getLogger(StationController.class);
 
+	public StationController (StationService stationService) {
+		this.stationService = stationService;
+	}
+	
+	
 	@SuppressWarnings("rawtypes")
 
 	@GetMapping(value = "/all")

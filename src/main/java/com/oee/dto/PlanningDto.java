@@ -25,6 +25,8 @@ public class PlanningDto {
 	private String isdeleted;
 	private String fromdate ;
 	private String todate ;
+	private String shiftid;
+	private String shiftname;
 	private String timePerShift;
 	private String unitname;
 	private String workcentername;

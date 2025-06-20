@@ -50,7 +50,8 @@ public class JwtUtils {
 		        .subject(username)
 		        .issuer("DCB")
 		        .issuedAt(new Date(System.currentTimeMillis()))
-		        .expiration(new Date(System.currentTimeMillis()+ 60*10*1000))
+//		        .expiration(new Date(System.currentTimeMillis()+ 60*10*1000))
+		        .expiration(new Date(System.currentTimeMillis()+ 60*100*1000))
 		        .and()
 		        .signWith(generateKey())
 		        .compact();

@@ -62,7 +62,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public boolean addItem(ItemIncomingDto itemIncomingDto) {
 		// TODO Auto-generated method stub
-
+		ItemEntity itemEntity  = new ItemEntity();
 		
 		
 		  if (itemIncomingDto.getItemcode() == "") {
@@ -77,8 +77,8 @@ public class ItemServiceImpl implements ItemService {
 		  }
 		 
 		
-			ItemEntity itemEntity  =itemRepository.findByItemcode(itemIncomingDto.getItemcode());
-		  if(itemEntity != null)
+		  ItemEntity itemExistEntity = itemRepository.findByItemcode(itemIncomingDto.getItemcode());
+		  if(itemExistEntity != null)
 		  {
 			  throw BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode());
 		  
@@ -113,11 +113,19 @@ public class ItemServiceImpl implements ItemService {
 			}
 			
 			// Check If HT Part ID exists in HT Part Entity
+			ItemEntity itemcodeEntity  = itemRepository.findByItemcode(itemIncomingDto.getItemcode());
+			
+			if(itemcodeEntity != null) {
+				throw BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode());
+			}
+			
+			// Check If HT Part ID exists in HT Part Entity
 			ItemEntity itemEntity  = itemRepository.findById(itemIncomingDto.getItemid()).get();
 			
 			if(itemEntity == null) {
 				throw BRSException.throwException(EntityType.ITEM, ExceptionType.ENTITY_NOT_FOUND, itemIncomingDto.getItemid());
 			}
+			
 			
 			  itemEntity.setItemcode(itemIncomingDto.getItemcode());
 			  itemEntity.setItemdesc(itemIncomingDto.getItemdesc());

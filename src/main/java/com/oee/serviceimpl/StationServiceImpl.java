@@ -114,17 +114,24 @@ public class StationServiceImpl implements StationService {
 
 		
 		  
-		  StationEntity stationEntity = new StationEntity();
+		  StationEntity stationEntity = stationRepository.findByName(stationIncomingDto.getName());
 		 
-		  stationEntity.setName(stationIncomingDto.getName());
+		 
+		  
+		  if(stationEntity != null) {
+				throw BRSException.throwException(EntityType.STATION, ExceptionType.DUPLICATE_ENTITY, stationIncomingDto.getName());
+			}else {
+				stationEntity = new StationEntity();
+			}
 		  
 		  StationTypeEntity stationTypeEntity =  stationTypeService.getStationTypeByID(stationIncomingDto.getStationtypeid());
-		 
+		  
 		  UomEntity uomEntity =  uomService.getUomByID(stationIncomingDto.getUomid());
 
 		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(stationIncomingDto.getWorkcenterid());
 		
 		  
+		  stationEntity.setName(stationIncomingDto.getName());
 		  stationEntity.setStationtypeentity(stationTypeEntity);
 		  stationEntity.setUomentity(uomEntity);
 		  stationEntity.setWorkcenterentity(workcentreEntity);
@@ -132,7 +139,7 @@ public class StationServiceImpl implements StationService {
 		  
 		  stationEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
 		  
-		  stationRepository.save(stationEntity);
+	//	  stationRepository.save(stationEntity);
 		  
 		  logger.info("--- Station Added Successfully ----");
 		 

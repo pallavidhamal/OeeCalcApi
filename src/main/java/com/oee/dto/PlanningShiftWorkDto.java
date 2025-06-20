@@ -20,9 +20,11 @@ public class PlanningShiftWorkDto {
 	
 	private String id;
 	private String setuptime ;
+	private String cycletime ;
 	private String plannedquantity ;
 	private String plannedmins ;
-	private String timeutilised ;
+	private String itemtimeutilised ;
+	private String machinetimeutilised ;
 	private String isdeleted;
 	
 	

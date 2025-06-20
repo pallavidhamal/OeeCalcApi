@@ -11,15 +11,15 @@ public class PlanningMapper {
 	public static PlanningDto toPlanningDto(PlanningEntity planningEntity) {
 		return new PlanningDto()
 				.setId(planningEntity.getId())
-				.setFromdate(planningEntity.getFromdate())
-				.setTodate(planningEntity.getTodate())
-				.setTimePerShift(planningEntity.getTimepershift())
-				
 				.setUnitid(planningEntity.getUnitentity().getId())
 				.setUnitname(planningEntity.getUnitentity().getName())
 				.setWorkcenterid(planningEntity.getWorkcenterentity().getId())
 				.setWorkcentername(planningEntity.getWorkcenterentity().getName())
-				
+				.setFromdate(planningEntity.getFromdate())
+				.setTodate(planningEntity.getTodate())
+				.setShiftid(planningEntity.getShift().getId())
+				.setShiftname(planningEntity.getShift().getName())
+				.setTimePerShift(planningEntity.getTimepershift())
 				.setIsdeleted(planningEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive")
 				.setPlanningShiftWork(PlanningShiftWorkMapper.toPlanningDtoList(planningEntity.getPlanningSiftWorkEntities()));
 				

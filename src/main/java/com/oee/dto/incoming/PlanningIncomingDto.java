@@ -15,6 +15,7 @@ public class PlanningIncomingDto {
 	private String fromdate;
 	private String todate;
 	private String timepershift;
+	private String shiftid;
 	private String stationId;
 	private int cycletime;
 	private String unitid;

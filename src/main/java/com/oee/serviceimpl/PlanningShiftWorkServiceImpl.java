@@ -29,9 +29,6 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 	SetUpService setupService;
 
 	@Autowired
-	ShiftService shiftService;
-
-	@Autowired
 	StationService stationService;
 
 	private static final Logger logger = LoggerFactory.getLogger(PlanningShiftWorkServiceImpl.class);
@@ -51,18 +48,27 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 			
 			PlanningShiftWorkEntity	planningShiftWorkEntity	= new PlanningShiftWorkEntity();
 			
-			planningShiftWorkEntity.setItem(itemService.getItemByID(planningShiftWorkIncomingDto.getItemid()));
-			planningShiftWorkEntity.setShift(shiftService.getShiftByID(planningShiftWorkIncomingDto.getShiftid()));
-			planningShiftWorkEntity.setStation(stationService.getStationEntityByID(planningShiftWorkIncomingDto.getStationid()));
-			planningShiftWorkEntity.setSetup(setupService.getSetUpById(planningShiftWorkIncomingDto.getSetupid()));
 			
-			planningShiftWorkEntity.setIsdeleted("N");
-			planningShiftWorkEntity.setPlannedmins(planningShiftWorkIncomingDto.getPlannedmins());
-			planningShiftWorkEntity.setPlannedquantity(planningShiftWorkIncomingDto.getPlannedquantity());
+			planningShiftWorkEntity.setStation(stationService.getStationEntityByID(planningShiftWorkIncomingDto.getStationid()));
+			planningShiftWorkEntity.setItem(itemService.getItemByID(planningShiftWorkIncomingDto.getItemid()));
+//			planningShiftWorkEntity.setShift(shiftService.getShiftByID(planningShiftWorkIncomingDto.getShiftid()));
+			
+			planningShiftWorkEntity.setSetup(setupService.getSetUpById(planningShiftWorkIncomingDto.getSetupid()));
 			planningShiftWorkEntity.setSetuptime(planningShiftWorkIncomingDto.getSetuptime());
-			planningShiftWorkEntity.setTimeutilised(planningShiftWorkIncomingDto.getTimeutilised());
-		
+			
+			planningShiftWorkEntity.setCycletime(planningShiftWorkIncomingDto.getCycletime());
+			
+			planningShiftWorkEntity.setPlannedquantity(planningShiftWorkIncomingDto.getPlannedquantity());
+			planningShiftWorkEntity.setPlannedmins(planningShiftWorkIncomingDto.getPlannedmins());
+			
+			
+
+			planningShiftWorkEntity.setItemtimeutilised(planningShiftWorkIncomingDto.getItemtimeutilised());
+			planningShiftWorkEntity.setMachinetimeutilised(planningShiftWorkIncomingDto.getMachinetimeutilised());
+			planningShiftWorkEntity.setIsdeleted("N");
+			
 			planningShiftWorkEntityEntities.add(planningShiftWorkEntity);
+
 			
 			});
 		

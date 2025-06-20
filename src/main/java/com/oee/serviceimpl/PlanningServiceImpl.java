@@ -24,6 +24,7 @@ import com.oee.repository.WorkcenterRepository;
 import com.oee.service.ItemService;
 import com.oee.service.PlanningService;
 import com.oee.service.PlanningShiftWorkService;
+import com.oee.service.ShiftService;
 import com.oee.service.StationService;
 import com.oee.service.UnitService;
 import com.oee.service.WorkcenterService;
@@ -46,6 +47,9 @@ public class PlanningServiceImpl implements PlanningService {
 	
 	@Autowired
 	UnitService unitService;
+	
+	@Autowired
+	ShiftService shiftService;
 	
 	@Autowired
 	WorkcenterService wsService;
@@ -122,16 +126,19 @@ public class PlanningServiceImpl implements PlanningService {
         	 
         	PlanningEntity planningEntity = new PlanningEntity();
         	 
-        	 
+        	
+        	planningEntity.setUnitentity(unitService.getEntityById(planningIncomingDto.getUnitid()));
+     		planningEntity.setWorkcenterentity(wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid()));
         	planningEntity.setFromdate(dateCur.toString());
      		planningEntity.setTodate(dateCur.toString());
+     		planningEntity.setShift(shiftService.getShiftByID(planningIncomingDto.getShiftid()));
      		planningEntity.setTimepershift(planningIncomingDto.getTimepershift());
      		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto()));
-     		planningEntity.setUnitentity(unitService.getEntityById(planningIncomingDto.getUnitid()));
-     		planningEntity.setWorkcenterentity(wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid()));
      		planningEntity.setIsdeleted("N");
      		planningEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
-        
+     		
+     		
+     		
      		logger.info("--- before saving set up ----");
 
      		planningRepository.save(planningEntity);

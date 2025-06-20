@@ -134,8 +134,8 @@ public class UserServiceImpl implements UserService{
 		userInfoEntity.setMobilenumber(userIncomingDto.getMobilenumber());
 		userInfoEntity.setIsdeleted(userIncomingDto.getStatus().equals("Active") ?  "N" : "Y");
 		userInfoEntity.setStatus(userIncomingDto.getStatus());
+		userInfoEntity.setFirstloginstatus("N");
 		
-//		userInfoEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
 		
 		userInfoRepository.save(userInfoEntity);
 		

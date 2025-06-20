@@ -12,4 +12,6 @@ public interface StationRepository  extends JpaRepository<StationEntity, String>
 
 	List<StationEntity> findByIsdeleted(String string);
 
+	StationEntity findByName(String name);
+
 }

@@ -49,7 +49,7 @@ public class SetUpController {
 	 {
 	  logger.info("----- SetupController getSetUpById----- ");
 	  return Response.ok().setPayload(setUpService.getSetUpByID(setupId)); 
-	  }
+	 }
 	  
 	 
 	  @GetMapping(value = "/getSetUpByStationItem/{stationid}/{itemid}") 

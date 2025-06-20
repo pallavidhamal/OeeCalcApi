@@ -15,13 +15,17 @@ public class PlanningShiftWorkMapper {
 				.setId(planningshiftEntity.getId())
 				.setStationid(planningshiftEntity.getStation().getId())
 				.setStationname(planningshiftEntity.getStation().getName())
-				.setShiftid(planningshiftEntity.getShift().getId())
-				.setShiftname(planningshiftEntity.getShift().getName())
 				.setItemid(planningshiftEntity.getItem().getId())
 				.setItemname(planningshiftEntity.getItem().getItemdesc())
 				.setSetupid(planningshiftEntity.getSetup().getId())
 				.setSetupname(planningshiftEntity.getSetup().getName())
-				.setIsdeleted(planningshiftEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
+				.setSetuptime(planningshiftEntity.getSetuptime())
+				.setCycletime(planningshiftEntity.getCycletime())
+				.setPlannedquantity(planningshiftEntity.getPlannedquantity())
+				.setPlannedmins(planningshiftEntity.getPlannedmins())
+				.setIsdeleted(planningshiftEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive")
+				.setMachinetimeutilised(planningshiftEntity.getMachinetimeutilised())
+				.setItemtimeutilised(planningshiftEntity.getItemtimeutilised());
 		
 	}
 	

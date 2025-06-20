@@ -70,7 +70,7 @@ public class SetUpServiceImpl implements SetUpService {
 		}
 		
 		return SetUpMapper.toSetUpDto(setUpEntity);	
-		}
+	}
 		
 		
 

@@ -33,6 +33,7 @@ public class UserInfoEntity extends BaseEntity implements UserDetails{
 	private String username;
 	private String password;
 	private String status;
+	private String firstloginstatus;
 	
 	private String reset_password;
 	
