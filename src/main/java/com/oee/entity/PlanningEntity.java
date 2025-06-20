@@ -47,7 +47,7 @@ public class PlanningEntity extends BaseEntity {
 	@Column(name = "timePerShift")
 	private String timepershift ;
 	
-	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL , orphanRemoval = true)
+	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL )
 //	@OrderBy("startWeight Asc")
 	private List<PlanningShiftWorkEntity> planningSiftWorkEntities = new ArrayList<>();
 	

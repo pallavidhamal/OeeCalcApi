@@ -12,16 +12,14 @@ import lombok.ToString;
 @ToString
 public class PlanningIncomingDto {
 
-	private String fromdate;
-	private String todate;
-	private String timepershift;
-	private String shiftid;
-	private String stationId;
-	private int cycletime;
+	private String id;
 	private String unitid;
 	private String workcenterid;
+	private String fromdate;
+	private String todate;
+	private String shiftid;
+	private String timepershift;
 
 	private List<PlanningShiftWorkIncomingDto> planningShiftWorkIncomingDto;
 
-	private List<PlanningStationIncomingDto> planningStationIncomingDto;
 }

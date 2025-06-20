@@ -157,45 +157,58 @@ public class PlanningServiceImpl implements PlanningService {
 
 	}
 
-	/*
-	 * @Override public boolean editPlanning(PlanningIncomingDto
-	 * planningIncomingDto) { // TODO Auto-generated method stub PlanningEntity
-	 * planningEntity = new PlanningEntity();
-	 * 
-	 * planningEntity =
-	 * planningRepository.findById(planningIncomingDto.getSetupid()).get();
-	 * 
-	 * if(planningEntity == null) { throw
-	 * BRSException.throwException(EntityType.SETUP, ExceptionType.ENTITY_NOT_FOUND,
-	 * planningIncomingDto.getSetupid()); }
-	 * 
-	 * planningEntity.setName(planningIncomingDto.getName());
-	 * planningEntity.setCycletime(planningIncomingDto.getCycletime());
-	 * 
-	 * ItemEntity itemEntity =
-	 * itemService.getItemByID(planningIncomingDto.getItemId());
-	 * 
-	 * StationEntity stationEntity =
-	 * stationService.getStationEntityByID(planningIncomingDto.getStationId());
-	 * 
-	 * 
-	 * planningEntity.setItementity(itemEntity);
-	 * planningEntity.setStationentity(stationEntity);
-	 * planningEntity.setIsdeleted("N");
-	 * 
-	 * planningEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin())
-	 * ;
-	 * 
-	 * logger.info("--- before saving set up ----");
-	 * 
-	 * 
-	 * planningRepository.save(planningEntity);
-	 * 
-	 * logger.info("--- Planning updeated Successfully ----");
-	 * 
-	 * 
-	 * return true; }
-	 */
+	
+	  @Override 
+	  public boolean editPlanning(PlanningIncomingDto planningIncomingDto) {
+			// TODO Auto-generated method stub
+
+			
+		  	PlanningEntity planningEntity = planningRepository.findById(planningIncomingDto.getId()).get();
+
+			if (planningEntity == null) {
+				throw BRSException.throwException(EntityType.SETUP, ExceptionType.ENTITY_NOT_FOUND, planningIncomingDto.getId());
+
+			}
+		  
+			
+			String fromdt=planningIncomingDto.getFromdate();
+			String todt=planningIncomingDto.getTodate();
+
+			
+			 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	         LocalDate dateFrom = LocalDate.parse(fromdt, formatter);
+	         
+	         LocalDate dateTo = LocalDate.parse(todt, formatter);
+	         LocalDate dateCur=dateFrom;
+	         
+	         while (dateCur.isBefore(dateTo.plusDays(1))) {
+	        	 
+	        	planningEntity.setUnitentity(unitService.getEntityById(planningIncomingDto.getUnitid()));
+	     		planningEntity.setWorkcenterentity(wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid()));
+	        	planningEntity.setFromdate(dateCur.toString());
+	     		planningEntity.setTodate(dateCur.toString());
+	     		planningEntity.setShift(shiftService.getShiftByID(planningIncomingDto.getShiftid()));
+	     		planningEntity.setTimepershift(planningIncomingDto.getTimepershift());
+	     		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto()));
+	     		planningEntity.setIsdeleted("N");
+	     		planningEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
+	     		
+	     		
+	     		
+	     		logger.info("--- before saving set up ----");
+
+	     		planningRepository.save(planningEntity);
+
+	     		logger.info("--- Planning Added Successfully ----");
+
+	     		logger.info("--- datecurrent ----"+dateCur);
+	     		dateCur=dateCur.plusDays(1);
+	        	 
+	        	 
+	         }
+			return true;
+		}
+	 
 
 	@Override
 	public boolean deletePlanning(String planningid) {

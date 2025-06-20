@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 public class PlanningShiftWorkIncomingDto {
 
+	private String id;
 	private String stationid;
 	private String itemid;
 	//private String shiftid;

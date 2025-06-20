@@ -10,7 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.oee.dto.incoming.PlanningShiftWorkIncomingDto;
 import com.oee.entity.PlanningShiftWorkEntity;
+import com.oee.exception.BRSException;
+import com.oee.exception.EntityType;
+import com.oee.exception.ExceptionType;
 import com.oee.repository.PlanningRepository;
+import com.oee.repository.PlanningShiftWorkRepository;
 import com.oee.service.ItemService;
 import com.oee.service.PlanningShiftWorkService;
 import com.oee.service.SetUpService;
@@ -21,7 +25,7 @@ import com.oee.service.StationService;
 public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 
 	@Autowired
-	PlanningRepository planningRepository;
+	PlanningShiftWorkRepository planningShiftWorkRepository;
 
 	@Autowired
 	ItemService itemService;
@@ -37,8 +41,7 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 
 	
 	@Override
-	public List<PlanningShiftWorkEntity> getPlanningShiftWorkEntities(
-			List<PlanningShiftWorkIncomingDto> planningShiftWorkIncomingDtos) 
+	public List<PlanningShiftWorkEntity> getPlanningShiftWorkEntities( List<PlanningShiftWorkIncomingDto> planningShiftWorkIncomingDtos) 
 	{
 		
 		
@@ -46,7 +49,12 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 		
 		planningShiftWorkIncomingDtos.forEach(planningShiftWorkIncomingDto->{
 			
-			PlanningShiftWorkEntity	planningShiftWorkEntity	= new PlanningShiftWorkEntity();
+			PlanningShiftWorkEntity	planningShiftWorkEntity	= planningShiftWorkRepository.findById(planningShiftWorkIncomingDto.getId()).get();
+
+			if (planningShiftWorkEntity == null) {
+					planningShiftWorkEntity = new PlanningShiftWorkEntity();
+
+			}
 			
 
 			planningShiftWorkEntity.setItem(itemService.getItemByID(planningShiftWorkIncomingDto.getItemid()));

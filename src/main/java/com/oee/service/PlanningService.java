@@ -17,7 +17,7 @@ public interface PlanningService {
 	PlanningDto getPlanningByID(String planningID);
 	
 	boolean addPlanning( PlanningIncomingDto planningIncomingDto);
-	//boolean editPlanning( PlanningIncomingDto planningIncomingDto);
+	boolean editPlanning( PlanningIncomingDto planningIncomingDto);
 	boolean deletePlanning(String planningID);
 	
 	List<PlanningDto> getFilterPlannings(PlanningIncomingDto planningIncomingDto);

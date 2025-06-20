@@ -35,62 +35,54 @@ public class PlanningController {
 		return Response.ok().setPayload(planningService.getAllPlanningsWDetails());
 	}
 
-	
 	@GetMapping(value = "/allplan")
 	public Response getAllPlanningOnly() {
 		return Response.ok().setPayload(planningService.getAllPlannings());
 	}
+
+	@PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE)
+	public Response addPlanning(@RequestBody PlanningIncomingDto planningIncomingDto) {
+		logger.info("----- PlanningController addHtPart----- ");
+
+		return Response.created().setPayload(planningService.addPlanning(planningIncomingDto));
+	}
+
+	@PostMapping(value = "/filterPlanning", consumes = APPLICATION_JSON_VALUE)
+	public Response getFilterPlanning(@RequestBody PlanningIncomingDto planningIncomingDto) {
+		logger.info("----- PlanningController addHtPart----- ");
+
+		return Response.ok().setPayload(planningService.getFilterPlannings(planningIncomingDto));
+	}
+
+	@GetMapping(value = "/get/{planId}")
+	public Response getPlanningById(@PathVariable("planId") String planId) {
+		logger.info("----- PlanningController getPlanningById----- ");
+		return Response.ok().setPayload(planningService.getPlanningByID(planId));
+	}
+
+	/*
+	 * @GetMapping(value = "/allActive") public Response getAllActiveStations() {
+	 * return Response.ok().setPayload(stationService.getAllActiveStations()); }
+	 * 
+	 */
+
 	
-	
-	 @PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE)
-	 public  Response addPlanning(@RequestBody PlanningIncomingDto planningIncomingDto) {
-	  logger.info("----- PlanningController addHtPart----- ");
+	  @PutMapping(value = "/update", consumes = APPLICATION_JSON_VALUE) 
+	  public Response editPlanning(@RequestBody PlanningIncomingDto planningIncomingDto) {
+	  logger.info("----- PlanningController edit----- ");
 	  
-	  return   Response.created().setPayload(planningService.addPlanning(planningIncomingDto));
-	  }
-	
-	 @PostMapping(value = "/filterPlanning", consumes = APPLICATION_JSON_VALUE)
-	 public  Response getFilterPlanning(@RequestBody PlanningIncomingDto planningIncomingDto) {
-	  logger.info("----- PlanningController addHtPart----- ");
+	  return
+	  Response.ok().setPayload(planningService.editPlanning(planningIncomingDto));
 	  
-	     return Response.ok().setPayload(planningService.getFilterPlannings(planningIncomingDto));
 	  }
-	
 	 
-	 @GetMapping(value = "/get/{planId}") 
-	 public Response  getPlanningById(@PathVariable("planId") String planId)
-	 {
-	  logger.info("----- PlanningController getPlanningById----- ");
-	  return Response.ok().setPayload(planningService.getPlanningByID(planId)); 
-	  }
-	  
-	
-		
-		
-		/*
-		 * @GetMapping(value = "/allActive") public Response getAllActiveStations() {
-		 * return Response.ok().setPayload(stationService.getAllActiveStations()); }
-		 * 
-		 */ 
-		  
-		/*
-		 * @PutMapping(value = "/edit", consumes = APPLICATION_JSON_VALUE) public
-		 * Response editPlanning(@RequestBody PlanningIncomingDto planningIncomingDto) {
-		 * logger.info("----- PlanningController edit----- ");
-		 * 
-		 * return
-		 * Response.ok().setPayload(planningService.editPlanning(planningIncomingDto));
-		 * 
-		 * }
-		 */
-		  
-		  @PutMapping(value = "/delete/{setupid}")
-			public Response deletePlanning(@PathVariable("setupid") String setupId) {
-				logger.info("----- PlanningController delete ----- ");
 
-				return Response.ok().setPayload(planningService.deletePlanning(setupId));
+	@PutMapping(value = "/delete/{setupid}")
+	public Response deletePlanning(@PathVariable("setupid") String setupId) {
+		logger.info("----- PlanningController delete ----- ");
 
-		}
-		 
-		 
+		return Response.ok().setPayload(planningService.deletePlanning(setupId));
+
+	}
+
 }
