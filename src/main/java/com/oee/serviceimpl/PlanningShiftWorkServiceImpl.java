@@ -49,12 +49,26 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 		
 		planningShiftWorkIncomingDtos.forEach(planningShiftWorkIncomingDto->{
 			
-			PlanningShiftWorkEntity	planningShiftWorkEntity	= planningShiftWorkRepository.findById(planningShiftWorkIncomingDto.getId()).get();
+			PlanningShiftWorkEntity	planningShiftWorkEntity=null;
+			
+			if(planningShiftWorkIncomingDto.getId()==null)
+			{
+				planningShiftWorkEntity = new PlanningShiftWorkEntity();
 
-			if (planningShiftWorkEntity == null) {
+			}
+			else
+			{
+			
+				planningShiftWorkEntity	= planningShiftWorkRepository.findById(planningShiftWorkIncomingDto.getId()).get();
+				if (planningShiftWorkEntity == null) {
 					planningShiftWorkEntity = new PlanningShiftWorkEntity();
 
 			}
+			
+				
+				
+			}
+			
 			
 
 			planningShiftWorkEntity.setItem(itemService.getItemByID(planningShiftWorkIncomingDto.getItemid()));
