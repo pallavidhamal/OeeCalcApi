@@ -51,7 +51,7 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 			
 			PlanningShiftWorkEntity	planningShiftWorkEntity=null;
 			
-			if(planningShiftWorkIncomingDto.getId()==null)
+			if(planningShiftWorkIncomingDto.getId()==null || planningShiftWorkIncomingDto.getId()== "" )
 			{
 				planningShiftWorkEntity = new PlanningShiftWorkEntity();
 
@@ -60,10 +60,11 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 			{
 			
 				planningShiftWorkEntity	= planningShiftWorkRepository.findById(planningShiftWorkIncomingDto.getId()).get();
+				
 				if (planningShiftWorkEntity == null) {
 					planningShiftWorkEntity = new PlanningShiftWorkEntity();
 
-			}
+				}
 			
 				
 				

@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,7 +49,7 @@ public class PlanningEntity extends BaseEntity {
 	private String timepershift ;
 	
 	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL )
-//	@OrderBy("startWeight Asc")
+	@OrderBy("station Asc")
 	private List<PlanningShiftWorkEntity> planningSiftWorkEntities = new ArrayList<>();
 	
 	

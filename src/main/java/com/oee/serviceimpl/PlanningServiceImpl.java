@@ -170,8 +170,19 @@ public class PlanningServiceImpl implements PlanningService {
 
 			}
 		  
+			/*
 			
-			String fromdt=planningIncomingDto.getFromdate();
+			RawMaterialEntity specsnoDuplicateCheck = rawMaterialRepository.findByRmspecsAndIsdeleted(rawMaterialIncomingDto.getRmspecs(),"N");
+			
+			if (specsnoDuplicateCheck != null) {
+				
+				logger.error("throw error that RM Specs no already exists = "+ rawMaterialIncomingDto.getRmspecs());
+				throw BRSException.throwException(EntityType.RAWMATERIAL, ALREADY_EXIST, rawMaterialIncomingDto.getRmspecs());
+			}
+			
+			*/
+			
+			/*String fromdt=planningIncomingDto.getFromdate();
 			String todt=planningIncomingDto.getTodate();
 
 			
@@ -181,14 +192,21 @@ public class PlanningServiceImpl implements PlanningService {
 	         LocalDate dateTo = LocalDate.parse(todt, formatter);
 	         LocalDate dateCur=dateFrom;
 	         
-	         while (dateCur.isBefore(dateTo.plusDays(1))) {
+	         while (dateCur.isBefore(dateTo.plusDays(1))) {*/
 	        	 
-	        	planningEntity.setUnitentity(unitService.getEntityById(planningIncomingDto.getUnitid()));
-	     		planningEntity.setWorkcenterentity(wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid()));
-	        	planningEntity.setFromdate(dateCur.toString());
-	     		planningEntity.setTodate(dateCur.toString());
-	     		planningEntity.setShift(shiftService.getShiftByID(planningIncomingDto.getShiftid()));
-	     		planningEntity.setTimepershift(planningIncomingDto.getTimepershift());
+	        	/*
+	        	
+	        	
+		        	planningEntity.setUnitentity(unitService.getEntityById(planningIncomingDto.getUnitid()));
+		     		planningEntity.setWorkcenterentity(wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid()));
+		        	planningEntity.setFromdate(dateCur.toString());
+		     		planningEntity.setTodate(dateCur.toString());
+		     		planningEntity.setShift(shiftService.getShiftByID(planningIncomingDto.getShiftid()));
+		     		planningEntity.setTimepershift(planningIncomingDto.getTimepershift());
+	     		
+	     		
+	     		*/
+	     		
 	     		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto()));
 	     		planningEntity.setIsdeleted("N");
 	     		planningEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
@@ -201,11 +219,12 @@ public class PlanningServiceImpl implements PlanningService {
 
 	     		logger.info("--- Planning Added Successfully ----");
 
-	     		logger.info("--- datecurrent ----"+dateCur);
-	     		dateCur=dateCur.plusDays(1);
-	        	 
-	        	 
-	         }
+	     		//logger.info("--- datecurrent ----"+ dateCur);
+				/*
+				 * dateCur=dateCur.plusDays(1);
+				 * 
+				 * }
+				 */
 			return true;
 		}
 	 

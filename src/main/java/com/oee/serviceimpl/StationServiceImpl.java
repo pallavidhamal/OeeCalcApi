@@ -139,7 +139,7 @@ public class StationServiceImpl implements StationService {
 		  
 		  stationEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
 		  
-	//	  stationRepository.save(stationEntity);
+		  stationRepository.save(stationEntity);
 		  
 		  logger.info("--- Station Added Successfully ----");
 		 

@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class PlanningShiftWorkEntity extends BaseEntity {
 
 	@OneToOne
 	@JoinColumn(name = "fk_station", referencedColumnName = "id")
+	@OrderBy("id Asc")
 	private StationEntity station;
 	
 	/*
@@ -42,6 +44,8 @@ public class PlanningShiftWorkEntity extends BaseEntity {
 	private String plannedquantity ;
 	private String plannedmins ;
 	private String itemtimeutilised ;
+	
+	
 	private String machinetimeutilised ;
 	
 	@ManyToOne
