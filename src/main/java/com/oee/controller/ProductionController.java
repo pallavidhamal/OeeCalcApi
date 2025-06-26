@@ -28,13 +28,14 @@ public class ProductionController {
 		this.productionService = productionService;
 	}
 	
-	
-	@PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE)
-	public Response addProduction(@RequestBody ProductionIncomingDto productionIncomingDto) {
-		logger.info("----- PlanningController addHtPart----- ");
-
-		return Response.created().setPayload(productionService.addP(planningIncomingDto));
-	}
-	
+	/*
+	 * @PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE) public
+	 * Response addProduction(@RequestBody ProductionIncomingDto
+	 * productionIncomingDto) {
+	 * logger.info("----- PlanningController addHtPart----- ");
+	 * 
+	 * return
+	 * Response.created().setPayload(productionService.addP(planningIncomingDto)); }
+	 */
 	
 }
