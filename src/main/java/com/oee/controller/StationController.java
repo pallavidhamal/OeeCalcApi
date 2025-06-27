@@ -71,4 +71,13 @@ public class StationController {
 		return Response.ok().setPayload(stationService.deleteStation(stationid));
 	}
 
+	
+	  @GetMapping(value = "/getStationByWc/{wcid}") 
+	  public Response getStationByWc(@PathVariable("wcid") String wcid)
+	  {
+		return Response.ok().setPayload(stationService.getStationByWc(wcid));
+	  }
+		  
+	
+	
 }

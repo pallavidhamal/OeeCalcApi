@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.oee.dto.StationDto;
 import com.oee.dto.incoming.StationIncomingDto;
+import com.oee.dto.mapper.SetUpMapper;
 import com.oee.dto.mapper.StationMapper;
 import com.oee.entity.SetUpEntity;
 import com.oee.entity.StationEntity;
@@ -207,6 +208,19 @@ public class StationServiceImpl implements StationService {
 		logger.info("------ setUpEntity Deleted Successfully ------");
 		
 		return true;
+	}
+
+	@Override
+	public List<StationDto> getStationByWc(String wcid) {
+		// TODO Auto-generated method stub
+		List<StationEntity> stationEntityList = stationRepository.getStationByWc(wcid);
+		
+		if (stationEntityList == null) { 
+			throw BRSException.throwException("station list does not exist.");
+		}
+		
+		return StationMapper.toStationDtoList(stationEntityList);	
+		
 	}
 
 }

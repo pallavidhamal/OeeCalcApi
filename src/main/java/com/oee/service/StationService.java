@@ -2,6 +2,7 @@ package com.oee.service;
 
 import java.util.List;
 
+import com.oee.dto.SetUpDto;
 import com.oee.dto.StationDto;
 import com.oee.dto.incoming.StationIncomingDto;
 import com.oee.entity.StationEntity;
@@ -19,5 +20,8 @@ public interface StationService {
 	boolean addStation( StationIncomingDto stationIncomingDto);
 	boolean editStation( StationIncomingDto stationIncomingDto);
 	boolean deleteStation(String stationID);
+	
+	List<StationDto> getStationByWc(String wcid) ;
+
 	
 }
