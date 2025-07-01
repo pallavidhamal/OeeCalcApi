@@ -21,5 +21,6 @@ public class PlanningIncomingDto {
 	private String timepershift;
 
 	private List<PlanningShiftWorkIncomingDto> planningShiftWorkIncomingDto;
-
+	private List<PlanningShiftWorkIncomingDto> planningShiftWorkDeleteIncomingDto;
+	
 }

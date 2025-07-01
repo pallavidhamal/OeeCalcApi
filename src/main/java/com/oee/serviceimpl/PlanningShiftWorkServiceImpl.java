@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oee.dto.incoming.PlanningShiftWorkIncomingDto;
+import com.oee.entity.PlanningEntity;
 import com.oee.entity.PlanningShiftWorkEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
@@ -20,6 +21,7 @@ import com.oee.service.PlanningShiftWorkService;
 import com.oee.service.SetUpService;
 import com.oee.service.ShiftService;
 import com.oee.service.StationService;
+import com.oee.util.AuthenticationService;
 
 @Service
 public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
@@ -105,6 +107,107 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 		return planningShiftWorkEntityEntities;
 		
 		
+	}
+	
+	
+	
+	@Override
+	public List<PlanningShiftWorkEntity> updateAndDeletePlanningShiftWorkEntities( 
+						List<PlanningShiftWorkIncomingDto> planningShiftWorkIncomingDtos,
+						List<PlanningShiftWorkIncomingDto> planningShiftWorkDeleteIncomingDtos) 
+	{
+		List<PlanningShiftWorkEntity>	planningShiftWorkEntityEntities	= new ArrayList<PlanningShiftWorkEntity>();
+		
+		planningShiftWorkIncomingDtos.forEach(planningShiftWorkIncomingDto->{
+			
+			PlanningShiftWorkEntity	planningShiftWorkEntity=null;
+			if(planningShiftWorkIncomingDto.getId()==null || planningShiftWorkIncomingDto.getId()== "" )
+			{
+				planningShiftWorkEntity = new PlanningShiftWorkEntity();
+			}
+			else
+			{
+				planningShiftWorkEntity	= planningShiftWorkRepository.findById(planningShiftWorkIncomingDto.getId()).get();
+				if (planningShiftWorkEntity == null) {
+					planningShiftWorkEntity = new PlanningShiftWorkEntity();
+				}
+			}
+			
+			planningShiftWorkEntity.setItem(itemService.getItemByID(planningShiftWorkIncomingDto.getItemid()));
+		//	planningShiftWorkEntity.setShift(shiftService.getShiftByID(planningShiftWorkIncomingDto.getShiftid()));
+		//	planningShiftWorkEntity.setStation(stationService.getStationEntityByID(planningShiftWorkIncomingDto.getStationid()));
+			planningShiftWorkEntity.setSetup(setupService.getSetUpById(planningShiftWorkIncomingDto.getSetupid()));
+			
+			planningShiftWorkEntity.setStation(stationService.getStationEntityByID(planningShiftWorkIncomingDto.getStationid()));
+			planningShiftWorkEntity.setItem(itemService.getItemByID(planningShiftWorkIncomingDto.getItemid()));
+//			planningShiftWorkEntity.setShift(shiftService.getShiftByID(planningShiftWorkIncomingDto.getShiftid()));
+			
+			planningShiftWorkEntity.setSetup(setupService.getSetUpById(planningShiftWorkIncomingDto.getSetupid()));
+			planningShiftWorkEntity.setSetuptime(planningShiftWorkIncomingDto.getSetuptime());
+			
+			planningShiftWorkEntity.setCycletime(planningShiftWorkIncomingDto.getCycletime());
+			
+			planningShiftWorkEntity.setPlannedquantity(planningShiftWorkIncomingDto.getPlannedquantity());
+			planningShiftWorkEntity.setPlannedmins(planningShiftWorkIncomingDto.getPlannedmins());
+			
+			
+
+			planningShiftWorkEntity.setItemtimeutilised(planningShiftWorkIncomingDto.getItemtimeutilised());
+			planningShiftWorkEntity.setMachinetimeutilised(planningShiftWorkIncomingDto.getMachinetimeutilised());
+			planningShiftWorkEntity.setIsdeleted("N");
+			
+			planningShiftWorkEntityEntities.add(planningShiftWorkEntity);
+
+			
+			});
+		
+			planningShiftWorkDeleteIncomingDtos.forEach(planningShiftWorkDeleteIncomingDto->{
+				
+				PlanningShiftWorkEntity	planningShiftWorkEntity=null;
+				if(planningShiftWorkDeleteIncomingDto.getId()==null || planningShiftWorkDeleteIncomingDto.getId()== "" )
+				{
+					planningShiftWorkEntity = new PlanningShiftWorkEntity();
+				}
+				else
+				{
+					planningShiftWorkEntity	= planningShiftWorkRepository.findById(planningShiftWorkDeleteIncomingDto.getId()).get();
+					if (planningShiftWorkEntity == null) {
+						planningShiftWorkEntity = new PlanningShiftWorkEntity();
+					}
+				}
+				
+				planningShiftWorkEntity.setIsdeleted("Y");
+				
+				planningShiftWorkEntityEntities.add(planningShiftWorkEntity);
+
+				
+				});
+		
+		
+		
+		return planningShiftWorkEntityEntities;
+	}
+	
+	
+	@Override
+	public boolean deletePlanningShiftWork(String id) {
+		// TODO Auto-generated method stub
+		logger.info("------ delete setup -------");
+
+		PlanningShiftWorkEntity planningShiftWorkEntity = planningShiftWorkRepository.findById(id).get();
+
+		if (planningShiftWorkEntity == null) {
+			throw BRSException.throwException(EntityType.SETUP, ExceptionType.ENTITY_NOT_FOUND, id);
+
+		}
+
+		planningShiftWorkEntity.setIsdeleted(planningShiftWorkEntity.getIsdeleted().equalsIgnoreCase("Y") ? "N" : "Y");
+		planningShiftWorkEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
+
+		planningShiftWorkRepository.save(planningShiftWorkEntity);
+		logger.info("------ planningEntity Deleted Successfully ------");
+
+		return true;
 	}
 	
 	

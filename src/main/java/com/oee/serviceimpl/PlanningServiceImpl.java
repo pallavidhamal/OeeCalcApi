@@ -207,7 +207,7 @@ public class PlanningServiceImpl implements PlanningService {
 	     		
 	     		*/
 	     		
-	     		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto()));
+	     		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.updateAndDeletePlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto(),planningIncomingDto.getPlanningShiftWorkDeleteIncomingDto() ));
 	     		planningEntity.setIsdeleted("N");
 	     		planningEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
 	     		
