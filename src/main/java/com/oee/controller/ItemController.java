@@ -37,6 +37,15 @@ public class ItemController {
 		return Response.ok().setPayload(itemService.getAllItems());
 	}
 	
+	
+	@GetMapping(value = "/getActiveItems")
+	public Response getActiveItems() {
+		// logger.info("----- FittingTypeController getAllFittingTypeDetails ----- ");
+		return Response.ok().setPayload(itemService.getActiveItems());
+	}
+	
+	
+	
 	@GetMapping(value = "/get/{itemid}")
 	public Response getItemById(@PathVariable("itemid") String itemid) {
 		logger.info("----- StationController deleteHtPart----- ");

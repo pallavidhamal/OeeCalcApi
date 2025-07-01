@@ -77,12 +77,18 @@ public class PlanningController {
 	  }
 	 
 
-	@PutMapping(value = "/delete/{setupid}")
-	public Response deletePlanning(@PathVariable("setupid") String setupId) {
+	@PutMapping(value = "/delete/{planid}")
+	public Response deletePlanning(@PathVariable("planid") String planid) {
 		logger.info("----- PlanningController delete ----- ");
 
-		return Response.ok().setPayload(planningService.deletePlanning(setupId));
+		return Response.ok().setPayload(planningService.deletePlanning(planid));
 
 	}
+	
+	
+	
+	
+	
+	
 
 }

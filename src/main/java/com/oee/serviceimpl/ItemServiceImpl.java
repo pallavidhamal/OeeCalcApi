@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.oee.dto.ItemDto;
 import com.oee.dto.incoming.ItemIncomingDto;
 import com.oee.dto.mapper.ItemMapper;
+import com.oee.dto.mapper.StationMapper;
 import com.oee.entity.ItemEntity;
+import com.oee.entity.StationEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
@@ -112,7 +114,6 @@ public class ItemServiceImpl implements ItemService {
 				throw BRSException.throwException(EntityType.ITEMDESC, ExceptionType.BLANK_VALUE, "Item Desc");				
 			}
 			
-			// Check If HT Part ID exists in HT Part Entity
 			ItemEntity itemcodeEntity  = itemRepository.findByItemcode(itemIncomingDto.getItemcode());
 			
 			if(itemcodeEntity != null) {
@@ -170,6 +171,20 @@ public class ItemServiceImpl implements ItemService {
 		  ExceptionType.ENTITY_NOT_FOUND, itemId);
 		  }
 		  return itemEntity;
+	}
+
+	@Override
+	public List<ItemDto> getActiveItems() {
+				
+		List<ItemEntity> itemEntityList = itemRepository.findByIsdeleted("N");
+		
+		if (itemEntityList == null) {
+			throw BRSException.throwException("Item List does not exist");
+		}
+		
+		return ItemMapper.toItemDtoList(itemEntityList);		
+		
+		
 	}
 
 	

@@ -22,4 +22,7 @@ public interface ItemService {
 
 	ItemDto getItemById(String itemid);
 	
+	List<ItemDto> getActiveItems();
+	
+	
 }
