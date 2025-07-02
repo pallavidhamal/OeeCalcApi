@@ -97,7 +97,15 @@ public class PlanningServiceImpl implements PlanningService {
 	public PlanningDto getPlanningByID(String planningID) {
 		// TODO Auto-generated method stub
 
-		PlanningEntity planningEntity = planningRepository.findById(planningID).get();
+	//	PlanningEntity planningEntity = planningRepository.findById(planningID).get();
+		
+		System.out.println("getPlanningByID upar");
+		
+		PlanningEntity planningEntity = planningRepository.findByIdAndPlanningSiftWorkEntities_Isdeleted(planningID,"N");
+
+		
+		System.out.println("getPlanningByID niche");
+
 
 		if (planningEntity == null) {
 			throw BRSException.throwException("Planning Details does not exist.");
@@ -285,6 +293,6 @@ public class PlanningServiceImpl implements PlanningService {
 		
 		List<PlanningEntity>  planningEntityList =planningRepository.getFilterPlannings(unitEntity.getId(),wsEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
 		
-		return PlanningMapper.toOnlyPlanningDtoList(planningEntityList);
+		return PlanningMapper.toPlanningDtoList(planningEntityList);
 	}
 }

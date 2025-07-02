@@ -21,6 +21,13 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 			+ " AND   ( to_date  between (?3) and (?4)) ;  ", nativeQuery = true)
 	List<PlanningEntity> getFilterPlannings(String unitid,String workcenterid,String seldate,String seldate1);
 	
+	
+	List<PlanningEntity> findByPlanningSiftWorkEntities_Isdeleted(String isdeleted);
+
+
+	PlanningEntity findByIdAndPlanningSiftWorkEntities_Isdeleted(String planid,String string);
+
+	
 }
 
 
