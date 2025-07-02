@@ -50,6 +50,48 @@ public class PlanningShiftWorkMapper {
 	}
 	
 	
+	public static PlanningShiftWorkDto toPlanningShiftworkActiveDto(PlanningShiftWorkEntity planningshiftEntity) {
+		return new PlanningShiftWorkDto()
+				.setId(planningshiftEntity.getId())
+				.setStationid(planningshiftEntity.getStation().getId())
+				.setStationname(planningshiftEntity.getStation().getName())
+				.setItemid(planningshiftEntity.getItem().getId())
+				.setItemname(planningshiftEntity.getItem().getItemdesc())
+				.setSetupid(planningshiftEntity.getSetup().getId())
+				.setSetupname(planningshiftEntity.getSetup().getName())
+				.setSetuptime(planningshiftEntity.getSetuptime())
+				.setCycletime(planningshiftEntity.getCycletime())
+				.setPlannedquantity(planningshiftEntity.getPlannedquantity())
+				.setPlannedmins(planningshiftEntity.getPlannedmins())
+				.setIsdeleted(planningshiftEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive")
+				.setMachinetimeutilised(planningshiftEntity.getMachinetimeutilised())
+				.setItemtimeutilised(planningshiftEntity.getItemtimeutilised());
+		
+		
+		/*
+		 * .setStationid(planningshiftEntity.getStation().getId())
+		 * .setStationname(planningshiftEntity.getStation().getName())
+		 * .setShiftid(planningshiftEntity.getShift().getId())
+		 * .setShiftname(planningshiftEntity.getShift().getName())
+		 */
+		
+	}
+	
+	
+	public static List<PlanningShiftWorkDto> toPlanningDtoActiveList(List<PlanningShiftWorkEntity> planningshiftEntityList) {
+		
+		List<PlanningShiftWorkDto> planningShiftDtos = new ArrayList<PlanningShiftWorkDto>();
+		
+		for(PlanningShiftWorkEntity planningShiftWorkEntity : planningshiftEntityList) {
+		
+			planningShiftDtos.add(toPlanningShiftworkActiveDto(planningShiftWorkEntity));
+		}
+		
+		return planningShiftDtos;
+	}
+	
+	
+	
 	/*
 	 * .setFromdate(planningEntity.getFromdate())
 	 * .setTodate(planningEntity.getTodate())
