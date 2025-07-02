@@ -78,6 +78,10 @@ public class StationController {
 		return Response.ok().setPayload(stationService.getStationByWc(wcid));
 	  }
 		  
-	
+	  @GetMapping(value = "/getStationByPlanId/{wcid}") 
+	  public Response getStationByPlanId(@PathVariable("planid") String planid)
+	  {
+		return Response.ok().setPayload(stationService.getStationByPlanId(planid));
+	  }
 	
 }

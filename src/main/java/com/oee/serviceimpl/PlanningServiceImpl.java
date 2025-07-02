@@ -13,12 +13,14 @@ import com.oee.dto.PlanningDto;
 import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.mapper.PlanningMapper;
 import com.oee.entity.PlanningEntity;
+import com.oee.entity.ShiftEntity;
 import com.oee.entity.UnitEntity;
 import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
 import com.oee.repository.PlanningRepository;
+import com.oee.repository.ShiftRepository;
 import com.oee.repository.UnitRepository;
 import com.oee.repository.WorkcenterRepository;
 import com.oee.service.ItemService;
@@ -38,6 +40,10 @@ public class PlanningServiceImpl implements PlanningService {
 
 	@Autowired
 	UnitRepository unitRepository;
+	
+	@Autowired
+	ShiftRepository shiftRepository;
+	
 	
 	@Autowired
 	WorkcenterRepository wsRepository;
@@ -294,5 +300,44 @@ public class PlanningServiceImpl implements PlanningService {
 		List<PlanningEntity>  planningEntityList =planningRepository.getFilterPlannings(unitEntity.getId(),wsEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
 		
 		return PlanningMapper.toPlanningDtoList(planningEntityList);
+	}
+
+
+	@Override
+	public PlanningDto getFilterPlanEntity(PlanningIncomingDto planningIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		
+		UnitEntity unitEntity = new UnitEntity();
+		unitEntity  = unitRepository.findById(planningIncomingDto.getUnitid()).get();
+		
+		
+		ShiftEntity shiftEntity = new ShiftEntity();
+		shiftEntity  = shiftRepository.findById(planningIncomingDto.getUnitid()).get();
+		
+		WorkcenterEntity wsEntity = new WorkcenterEntity();
+		
+		logger.info("------ ws id -------"+planningIncomingDto.getWorkcenterid());
+		
+		if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.getWorkcenterid().equals("0")))
+		wsEntity  = wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
+		
+		
+		PlanningEntity  planningEntity =planningRepository.findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodate(unitEntity,wsEntity,shiftEntity,planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
+		
+		
+		return PlanningMapper.toPlanningDto(planningEntity);
+		
+		
+	}
+
+
+	@Override
+	public PlanningEntity getPlanningEntityByID(String planningID) {
+		// TODO Auto-generated method stub
+		
+		PlanningEntity planningEntity = planningRepository.findByIdAndPlanningSiftWorkEntities_Isdeleted(planningID,"N");
+		return planningEntity;
+
 	}
 }

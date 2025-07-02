@@ -20,7 +20,7 @@ import com.oee.service.PlanningShiftWorkService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping(value = "/api/v1/planning", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/planningshift", produces = APPLICATION_JSON_VALUE)
 public class PlanningShiftWorkController {
 
 	@Autowired
@@ -36,4 +36,12 @@ public class PlanningShiftWorkController {
 
 		return Response.ok().setPayload(planningShiftWorkService.deletePlanningShiftWork(id));
 	}
+	
+	@PostMapping(value = "/getShiftWorkDtlsByPlanAndStation" , consumes = APPLICATION_JSON_VALUE)
+	public Response getShiftWorkDtlsByPlanAndStation(@RequestBody PlanningIncomingDto planningIncomingDto) {
+		logger.info("----- PlanningShiftWorkController getShiftWorkDtlsByPlanAndStation----- ");
+		return Response.ok().setPayload(planningShiftWorkService.getShiftWorkDtlsByPlanAndStation(planningIncomingDto));
+	}
+	
+	
 }

@@ -223,4 +223,20 @@ public class StationServiceImpl implements StationService {
 		
 	}
 
+	@Override
+	public List<StationDto> getStationByPlanId(String planid) {
+		// TODO Auto-generated method stub
+		/*
+		 * List<StationEntity> stationEntityList =
+		 * stationRepository.getStationByWc(wcid);
+		 * 
+		 * if (stationEntityList == null) { throw
+		 * BRSException.throwException("station list does not exist."); }
+		 * 
+		 * return StationMapper.toStationDtoList(stationEntityList);
+		 */
+		return null;
+		
+	}
+
 }

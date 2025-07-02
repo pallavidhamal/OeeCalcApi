@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.oee.entity.PlanningEntity;
+import com.oee.entity.ShiftEntity;
 import com.oee.entity.UnitEntity;
 import com.oee.entity.WorkcenterEntity;
 
@@ -27,7 +28,9 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 
 	PlanningEntity findByIdAndPlanningSiftWorkEntities_Isdeleted(String planid,String string);
 
+	PlanningEntity findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodate(UnitEntity ue,WorkcenterEntity we,ShiftEntity se,String fromdate,String todate);
 	
+
 }
 
 

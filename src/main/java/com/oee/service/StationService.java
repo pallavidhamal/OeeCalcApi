@@ -22,6 +22,10 @@ public interface StationService {
 	boolean deleteStation(String stationID);
 	
 	List<StationDto> getStationByWc(String wcid) ;
+	
+	List<StationDto> getStationByPlanId(String planid) ;
+	
+	
 
 	
 }

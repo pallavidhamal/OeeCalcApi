@@ -60,6 +60,14 @@ public class PlanningController {
 		return Response.ok().setPayload(planningService.getPlanningByID(planId));
 	}
 
+	
+	@PostMapping(value = "/getPlanningByFilter" , consumes = APPLICATION_JSON_VALUE)
+	public Response getPlanningByFilter(@RequestBody PlanningIncomingDto planningIncomingDto) {
+		logger.info("----- PlanningController getPlanningById----- ");
+		return Response.ok().setPayload(planningService.getFilterPlanEntity(planningIncomingDto));
+	}
+	
+	
 	/*
 	 * @GetMapping(value = "/allActive") public Response getAllActiveStations() {
 	 * return Response.ok().setPayload(stationService.getAllActiveStations()); }

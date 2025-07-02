@@ -16,6 +16,7 @@ import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
 import com.oee.repository.ProductionRepository;
 import com.oee.repository.StationRepository;
+import com.oee.service.ProductionPlanningService;
 import com.oee.service.ProductionService;
 import com.oee.util.AuthenticationService;
 
@@ -28,6 +29,8 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(StationServiceImpl.class);
 
+	@Autowired
+	ProductionPlanningService productionPlanningService;
 	
 	@Override
 	public boolean addProduction(ProductionIncomingDto productionIncomingDto) {
@@ -73,6 +76,8 @@ public class ProductionServiceImpl implements ProductionService {
 		  productionEntity.setRejection_rejection_qty(productionIncomingDto.getRejection_rejection_qty());
 		  productionEntity.setRejection_per(productionIncomingDto.getRejection_per());
 		  
+		  productionEntity.setProductionPlanningEntities(productionPlanningService.getProductionPlanEntities(productionIncomingDto.getProductionPlanningIncomingDto()));
+		  
 		  
 		  productionRepository.save(productionEntity);
 		  
@@ -81,5 +86,7 @@ public class ProductionServiceImpl implements ProductionService {
 		  
 		  return true;
 	}
+
+	
 
 }

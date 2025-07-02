@@ -8,14 +8,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.incoming.PlanningShiftWorkIncomingDto;
+import com.oee.dto.mapper.PlanningMapper;
+import com.oee.dto.mapper.PlanningShiftWorkMapper;
 import com.oee.entity.PlanningEntity;
 import com.oee.entity.PlanningShiftWorkEntity;
+import com.oee.entity.ShiftEntity;
+import com.oee.entity.StationEntity;
+import com.oee.entity.UnitEntity;
+import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
 import com.oee.repository.PlanningRepository;
 import com.oee.repository.PlanningShiftWorkRepository;
+import com.oee.repository.StationRepository;
 import com.oee.service.ItemService;
 import com.oee.service.PlanningShiftWorkService;
 import com.oee.service.SetUpService;
@@ -28,6 +36,14 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 
 	@Autowired
 	PlanningShiftWorkRepository planningShiftWorkRepository;
+
+	@Autowired
+	PlanningRepository planningRepository;
+	
+	@Autowired
+	StationRepository stationRepository;
+	
+	
 
 	@Autowired
 	ItemService itemService;
@@ -208,6 +224,34 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 		logger.info("------ planningEntity Deleted Successfully ------");
 
 		return true;
+	}
+
+
+
+	@Override
+	public Object getShiftWorkDtlsByPlanAndStation(PlanningIncomingDto planningIncomingDto) {
+		// TODO Auto-generated method stub
+		PlanningEntity planEntity = new PlanningEntity();
+		planEntity  = planningRepository.findById(planningIncomingDto.getId()).get();
+		
+		
+		StationEntity stationEntity = new StationEntity();
+		stationEntity  = stationRepository.findById(planningIncomingDto.getStationid()).get();
+		
+		/*
+		 * WorkcenterEntity wsEntity = new WorkcenterEntity();
+		 * 
+		 * logger.info("------ ws id -------"+planningIncomingDto.getWorkcenterid());
+		 * 
+		 * if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.
+		 * getWorkcenterid().equals("0"))) wsEntity =
+		 * wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
+		 */
+		
+		List<PlanningShiftWorkEntity> planningShiftWorkEntityLst =planningShiftWorkRepository.findByPlanningentityAndStation(planEntity,stationEntity);
+		
+		return PlanningShiftWorkMapper.toPlanningDtoList(planningShiftWorkEntityLst);
+				
 	}
 	
 	

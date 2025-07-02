@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oee.dto.PlanningDto;
 import com.oee.dto.incoming.PlanningIncomingDto;
+import com.oee.entity.PlanningEntity;
 import com.oee.entity.UnitEntity;
 import com.oee.entity.WorkcenterEntity;
 
@@ -16,12 +17,16 @@ public interface PlanningService {
 	
 	PlanningDto getPlanningByID(String planningID);
 	
+	PlanningEntity getPlanningEntityByID(String planningID);
+	
 	boolean addPlanning( PlanningIncomingDto planningIncomingDto);
 	boolean editPlanning( PlanningIncomingDto planningIncomingDto);
 	boolean deletePlanning(String planningID);
 	
 	List<PlanningDto> getFilterPlannings(PlanningIncomingDto planningIncomingDto);
 	
+	
+	PlanningDto getFilterPlanEntity(PlanningIncomingDto planningIncomingDto);
 	
 	//List<PlanningDto> getPlanningsByItemMachine( PlanningIncomingDto planningIncomingDto) ;
 }

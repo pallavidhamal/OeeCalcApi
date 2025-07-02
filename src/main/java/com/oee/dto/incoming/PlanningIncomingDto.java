@@ -19,6 +19,7 @@ public class PlanningIncomingDto {
 	private String todate;
 	private String shiftid;
 	private String timepershift;
+	private String stationid;
 
 	private List<PlanningShiftWorkIncomingDto> planningShiftWorkIncomingDto;
 	private List<PlanningShiftWorkIncomingDto> planningShiftWorkDeleteIncomingDto;
