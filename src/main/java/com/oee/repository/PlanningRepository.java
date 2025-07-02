@@ -26,7 +26,7 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 	List<PlanningEntity> findByPlanningSiftWorkEntities_Isdeleted(String isdeleted);
 
 
-	PlanningEntity findByIdAndPlanningSiftWorkEntities_Isdeleted(String planid,String string);
+	PlanningEntity findByIdAndPlanningSiftWorkEntities_Isdeleted(String planid,String isdeleted);
 
 	PlanningEntity findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodate(UnitEntity ue,WorkcenterEntity we,ShiftEntity se,String fromdate,String todate);
 	

@@ -179,25 +179,25 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 		
 			planningShiftWorkDeleteIncomingDtos.forEach(planningShiftWorkDeleteIncomingDto->{
 				
-				PlanningShiftWorkEntity	planningShiftWorkEntity=null;
+				PlanningShiftWorkEntity	planningShiftWorkDeleteEntity=null;
 				if(planningShiftWorkDeleteIncomingDto.getId()==null || planningShiftWorkDeleteIncomingDto.getId()== "" )
 				{
-					planningShiftWorkEntity = new PlanningShiftWorkEntity();
+					planningShiftWorkDeleteEntity = new PlanningShiftWorkEntity();
 				}
 				else
 				{
-					planningShiftWorkEntity	= planningShiftWorkRepository.findById(planningShiftWorkDeleteIncomingDto.getId()).get();
-					if (planningShiftWorkEntity == null) {
-						planningShiftWorkEntity = new PlanningShiftWorkEntity();
+					planningShiftWorkDeleteEntity	= planningShiftWorkRepository.findById(planningShiftWorkDeleteIncomingDto.getId()).get();
+					if (planningShiftWorkDeleteEntity == null) {
+						planningShiftWorkDeleteEntity = new PlanningShiftWorkEntity();
 					}
 				}
 				
-				planningShiftWorkEntity.setIsdeleted("Y");
+				planningShiftWorkDeleteEntity.setIsdeleted("Y");
 				
-				planningShiftWorkEntityEntities.add(planningShiftWorkEntity);
+				planningShiftWorkEntityEntities.add(planningShiftWorkDeleteEntity);
 
 				
-				});
+			});
 		
 		
 		

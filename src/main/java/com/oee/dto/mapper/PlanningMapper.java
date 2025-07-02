@@ -21,7 +21,7 @@ public class PlanningMapper {
 				.setShiftname(planningEntity.getShift().getName())
 				.setTimePerShift(planningEntity.getTimepershift())
 				.setIsdeleted(planningEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive")
-				.setPlanningShiftWork(PlanningShiftWorkMapper.toPlanningDtoList(planningEntity.getPlanningSiftWorkEntities()));
+				.setPlanningShiftWork(PlanningShiftWorkMapper.toPlanningDtoActiveList(planningEntity.getPlanningSiftWorkEntities()));
 				
 		
 	}
