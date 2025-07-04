@@ -107,7 +107,7 @@ public class PlanningServiceImpl implements PlanningService {
 		
 		System.out.println("getPlanningByID upar");
 		
-		PlanningEntity planningEntity = planningRepository.findByIdAndPlanningSiftWorkEntities_Isdeleted(planningID,"N");
+		PlanningEntity planningEntity = planningRepository.findByIdAndPlanningsiftworkentities_Isdeleted(planningID,"N");
 
 		
 		System.out.println("getPlanningByID niche");
@@ -147,7 +147,7 @@ public class PlanningServiceImpl implements PlanningService {
      		planningEntity.setTodate(dateCur.toString());
      		planningEntity.setShift(shiftService.getShiftByID(planningIncomingDto.getShiftid()));
      		planningEntity.setTimepershift(planningIncomingDto.getTimepershift());
-     		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto()));
+     		planningEntity.setPlanningsiftworkentities(planningShiftWorkService.getPlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto())); 
      		planningEntity.setIsdeleted("N");
      		planningEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
      		
@@ -221,7 +221,7 @@ public class PlanningServiceImpl implements PlanningService {
 	     		
 	     		*/
 	     		
-	     		planningEntity.setPlanningSiftWorkEntities(planningShiftWorkService.updateAndDeletePlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto(),planningIncomingDto.getPlanningShiftWorkDeleteIncomingDto() ));
+	     		planningEntity.setPlanningsiftworkentities(planningShiftWorkService.updateAndDeletePlanningShiftWorkEntities(planningIncomingDto.getPlanningShiftWorkIncomingDto(),planningIncomingDto.getPlanningShiftWorkDeleteIncomingDto() ));
 	     		planningEntity.setIsdeleted("N");
 	     		planningEntity.setModifiedBy(AuthenticationService.getUserDetailsAfterLogin());
 	     		
@@ -336,8 +336,29 @@ public class PlanningServiceImpl implements PlanningService {
 	public PlanningEntity getPlanningEntityByID(String planningID) {
 		// TODO Auto-generated method stub
 		
-		PlanningEntity planningEntity = planningRepository.findByIdAndPlanningSiftWorkEntities_Isdeleted(planningID,"N");
+		PlanningEntity planningEntity = planningRepository.findByIdAndPlanningsiftworkentities_Isdeleted(planningID,"N");
 		return planningEntity;
 
+	}
+
+
+	@Override
+	public PlanningDto getPlanningByIDAndStation(String planId, String stationId) {
+		// TODO Auto-generated method stub
+
+		
+		System.out.println("getPlanningByID upar");
+		
+		PlanningEntity planningEntity = planningRepository.findByIdAndPlanningsiftworkentities_IsdeletedAndId(planId,"N",stationId);
+
+		
+		System.out.println("getPlanningByID niche");
+
+
+		if (planningEntity == null) {
+			throw BRSException.throwException("Planning Details does not exist.");
+		}
+
+		return PlanningMapper.toPlanningDto(planningEntity);
 	}
 }

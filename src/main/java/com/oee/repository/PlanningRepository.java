@@ -23,12 +23,15 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 	List<PlanningEntity> getFilterPlannings(String unitid,String workcenterid,String seldate,String seldate1);
 	
 	
-	List<PlanningEntity> findByPlanningSiftWorkEntities_Isdeleted(String isdeleted);
+	List<PlanningEntity> findByPlanningsiftworkentities_Isdeleted(String isdeleted);
 
 
-	PlanningEntity findByIdAndPlanningSiftWorkEntities_Isdeleted(String planid,String isdeleted);
+	PlanningEntity findByIdAndPlanningsiftworkentities_Isdeleted(String planid,String isdeleted);
 
 	PlanningEntity findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodate(UnitEntity ue,WorkcenterEntity we,ShiftEntity se,String fromdate,String todate);
+
+
+	PlanningEntity findByIdAndPlanningsiftworkentities_IsdeletedAndId(String planId, String string, String stationId);
 	
 
 }

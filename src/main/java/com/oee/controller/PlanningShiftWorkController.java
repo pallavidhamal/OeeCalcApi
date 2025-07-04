@@ -43,5 +43,4 @@ public class PlanningShiftWorkController {
 		return Response.ok().setPayload(planningShiftWorkService.getShiftWorkDtlsByPlanAndStation(planningIncomingDto));
 	}
 	
-	
 }

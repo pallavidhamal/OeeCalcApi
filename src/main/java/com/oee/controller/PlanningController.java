@@ -59,6 +59,12 @@ public class PlanningController {
 		logger.info("----- PlanningController getPlanningById----- ");
 		return Response.ok().setPayload(planningService.getPlanningByID(planId));
 	}
+	
+	@GetMapping(value = "/get/{planId}/{stationId}")
+	public Response getPlanningByIdAndStation(@PathVariable("planId") String planId , @PathVariable("stationId") String stationId) {
+		logger.info("----- PlanningController getPlanningById----- ");
+		return Response.ok().setPayload(planningService.getPlanningByIDAndStation(planId , stationId));
+	}
 
 	
 	@PostMapping(value = "/getPlanningByFilter" , consumes = APPLICATION_JSON_VALUE)

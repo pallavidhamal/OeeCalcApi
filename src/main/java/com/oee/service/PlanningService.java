@@ -27,6 +27,8 @@ public interface PlanningService {
 	
 	
 	PlanningDto getFilterPlanEntity(PlanningIncomingDto planningIncomingDto);
+
+	PlanningDto getPlanningByIDAndStation(String planId, String stationId);
 	
 	//List<PlanningDto> getPlanningsByItemMachine( PlanningIncomingDto planningIncomingDto) ;
 }

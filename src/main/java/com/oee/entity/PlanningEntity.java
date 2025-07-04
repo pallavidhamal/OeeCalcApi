@@ -50,7 +50,7 @@ public class PlanningEntity extends BaseEntity {
 	
 	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL )
 	@OrderBy("station Asc")
-	private List<PlanningShiftWorkEntity> planningSiftWorkEntities = new ArrayList<>();
+	private List<PlanningShiftWorkEntity> planningsiftworkentities = new ArrayList<>();
 	
 	
 //	@OneToMany(mappedBy = "planningentity", cascade = CascadeType.ALL , orphanRemoval = true)
@@ -99,16 +99,16 @@ public class PlanningEntity extends BaseEntity {
 		this.timepershift = timepershift;
 	}
 
-	public List<PlanningShiftWorkEntity> getPlanningSiftWorkEntities() {
-		return planningSiftWorkEntities;
+	public List<PlanningShiftWorkEntity> getPlanningsiftworkentities() {
+		return planningsiftworkentities;
 	}
 
-	public void setPlanningSiftWorkEntities(List<PlanningShiftWorkEntity> planningSiftWorkEntities) {
-		this.planningSiftWorkEntities = planningSiftWorkEntities;
+	public void setPlanningsiftworkentities(List<PlanningShiftWorkEntity> planningsiftworkentities) {
+		this.planningsiftworkentities = planningsiftworkentities;
 		
-		for(PlanningShiftWorkEntity planningShiftWorkEntity: planningSiftWorkEntities)
+		for(PlanningShiftWorkEntity planningshiftworkentity: planningsiftworkentities)
 		{
-			planningShiftWorkEntity.setPlanningentity(this);
+			planningshiftworkentity.setPlanningentity(this);
 		}
 		
 	}
