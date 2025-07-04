@@ -19,7 +19,7 @@ import lombok.Setter;
 public class ProductionEntity extends BaseEntity {
   
     private String company ;
-    private String date;
+    private String proddate;
   
 	@OneToOne
 	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
@@ -33,13 +33,31 @@ public class ProductionEntity extends BaseEntity {
 	@JoinColumn(name = "fk_shiftentity", referencedColumnName = "id")
 	private ShiftEntity shiftEntity;
 	
-	@OneToOne
-	@JoinColumn(name = "fk_stationentity", referencedColumnName = "id")
-	private StationEntity stationEntity ;
 	
+	  @OneToOne
+	  @JoinColumn(name = "fk_stationentity", referencedColumnName = "id") private
+	  StationEntity stationEntity ;
+	  
+		/*
+		 * @OneToOne
+		 * 
+		 * @JoinColumn(name = "fk_itementity", referencedColumnName = "id") private
+		 * ItemEntity itemEntity;
+		 */
+	
+	public StationEntity getStationEntity() {
+		return stationEntity;
+	}
+
+
+	public void setStationEntity(StationEntity stationEntity) {
+		this.stationEntity = stationEntity;
+	}
+
+
 	@OneToOne
-	@JoinColumn(name = "fk_itementity", referencedColumnName = "id")
-	private ItemEntity itemEntity;
+	@JoinColumn(name = "fk_operatorentity", referencedColumnName = "id")
+	private OperatorEntity operatorEntity;
 	
 	
 	 private String availability_lunchtime ;
@@ -56,7 +74,12 @@ public class ProductionEntity extends BaseEntity {
 	 private String availability_drawing  ;
 	 private String availability_guages  ;
 	 private String availability_otherlosses;
-	 private String availability_calculation;
+	 private String availability_overtime;
+	 private String availability_totaltime;
+	 private String availability_stdloss;
+	 private String availability_specloss;
+	 private String availability_totloss;
+	// private String availability_calculation;
 	 private String availability_time;
 	 private String availability_per;
 	 
@@ -87,13 +110,25 @@ public void setCompany(String company) {
 }
 
 
-public String getDate() {
-	return date;
+
+
+public OperatorEntity getOperatorEntity() {
+	return operatorEntity;
 }
 
 
-public void setDate(String date) {
-	this.date = date;
+public void setOperatorEntity(OperatorEntity operatorEntity) {
+	this.operatorEntity = operatorEntity;
+}
+
+
+public String getProddate() {
+	return proddate;
+}
+
+
+public void setProddate(String proddate) {
+	this.proddate = proddate;
 }
 
 
@@ -126,25 +161,20 @@ public void setShiftEntity(ShiftEntity shiftEntity) {
 	this.shiftEntity = shiftEntity;
 }
 
-
-public StationEntity getStationEntity() {
-	return stationEntity;
-}
-
-
-public void setStationEntity(StationEntity stationEntity) {
-	this.stationEntity = stationEntity;
-}
-
-
-public ItemEntity getItemEntity() {
-	return itemEntity;
-}
-
-
-public void setItemEntity(ItemEntity itemEntity) {
-	this.itemEntity = itemEntity;
-}
+/*
+ * public StationEntity getStationEntity() { return stationEntity; }
+ * 
+ * 
+ * public void setStationEntity(StationEntity stationEntity) {
+ * this.stationEntity = stationEntity; }
+ * 
+ * 
+ * public ItemEntity getItemEntity() { return itemEntity; }
+ * 
+ * 
+ * public void setItemEntity(ItemEntity itemEntity) { this.itemEntity =
+ * itemEntity; }
+ */
 
 
 public String getAvailability_lunchtime() {
@@ -277,13 +307,56 @@ public void setAvailability_otherlosses(String availability_otherlosses) {
 }
 
 
-public String getAvailability_calculation() {
-	return availability_calculation;
+
+
+
+public String getAvailability_overtime() {
+	return availability_overtime;
 }
 
 
-public void setAvailability_calculation(String availability_calculation) {
-	this.availability_calculation = availability_calculation;
+public void setAvailability_overtime(String availability_overtime) {
+	this.availability_overtime = availability_overtime;
+}
+
+
+public String getAvailability_totaltime() {
+	return availability_totaltime;
+}
+
+
+public void setAvailability_totaltime(String availability_totaltime) {
+	this.availability_totaltime = availability_totaltime;
+}
+
+
+public String getAvailability_stdloss() {
+	return availability_stdloss;
+}
+
+
+public void setAvailability_stdloss(String availability_stdloss) {
+	this.availability_stdloss = availability_stdloss;
+}
+
+
+public String getAvailability_specloss() {
+	return availability_specloss;
+}
+
+
+public void setAvailability_specloss(String availability_specloss) {
+	this.availability_specloss = availability_specloss;
+}
+
+
+public String getAvailability_totloss() {
+	return availability_totloss;
+}
+
+
+public void setAvailability_totloss(String availability_totloss) {
+	this.availability_totloss = availability_totloss;
 }
 
 

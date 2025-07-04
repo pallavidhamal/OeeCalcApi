@@ -16,8 +16,13 @@ import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
 import com.oee.repository.ProductionRepository;
 import com.oee.repository.StationRepository;
+import com.oee.service.OperatorService;
 import com.oee.service.ProductionPlanningService;
 import com.oee.service.ProductionService;
+import com.oee.service.ShiftService;
+import com.oee.service.StationService;
+import com.oee.service.UnitService;
+import com.oee.service.WorkcenterService;
 import com.oee.util.AuthenticationService;
 
 @Service
@@ -32,12 +37,37 @@ public class ProductionServiceImpl implements ProductionService {
 	@Autowired
 	ProductionPlanningService productionPlanningService;
 	
+	@Autowired
+	UnitService unitService;
+	
+	@Autowired
+	ShiftService shiftService;
+	
+	@Autowired
+	WorkcenterService wsService;
+	
+	@Autowired
+	OperatorService opService;
+	
+	@Autowired
+	StationService stService;
+	
 	@Override
 	public boolean addProduction(ProductionIncomingDto productionIncomingDto) {
 		// TODO Auto-generated method stub
 		  ProductionEntity productionEntity =new ProductionEntity();
-			 
 		  
+		  
+		  
+		  
+		  productionEntity.setUnitentity(unitService.getEntityById(productionIncomingDto.getUnitid()));
+		  productionEntity.setWorkcenterentity(wsService.getWorkcenterByID(productionIncomingDto.getWorkcenterid()));
+   			productionEntity.setShiftEntity(shiftService.getShiftByID(productionIncomingDto.getShiftid()));
+   			productionEntity.setOperatorEntity(opService.getOperatorByID(productionIncomingDto.getOperatorid()));
+   			productionEntity.setStationEntity(stService.getStationEntityByID(productionIncomingDto.getStationId()));
+ 
+   			
+		  productionEntity.setAvailability_lunchtime(productionIncomingDto.getAvailability_lunchtime());
 		  productionEntity.setAvailability_teatime(productionIncomingDto.getAvailability_teatime());
 		  productionEntity.setAvailability_reviewtime(productionIncomingDto.getAvailability_reviewtime());
 		  productionEntity.setAvailability_inpectiontime(productionIncomingDto.getAvailability_inpectiontime());
@@ -52,14 +82,17 @@ public class ProductionServiceImpl implements ProductionService {
 		  productionEntity.setAvailability_drawing(productionIncomingDto.getAvailability_drawing());
 		  productionEntity.setAvailability_guages(productionIncomingDto.getAvailability_guages());
 		  productionEntity.setAvailability_otherlosses(productionIncomingDto.getAvailability_otherlosses());
-		  productionEntity.setAvailability_calculation(productionIncomingDto.getAvailability_calculation());
+		  productionEntity.setAvailability_overtime(productionIncomingDto.getAvailability_overtime());
+		  productionEntity.setAvailability_totaltime(productionIncomingDto.getAvailability_totaltime());
+		  productionEntity.setAvailability_stdloss(productionIncomingDto.getAvailability_stdloss());
+		  productionEntity.setAvailability_specloss(productionIncomingDto.getAvailability_specloss());
+		  productionEntity.setAvailability_totloss(productionIncomingDto.getAvailability_totloss());
 		  productionEntity.setAvailability_time(productionIncomingDto.getAvailability_time());
 		  productionEntity.setAvailability_per(productionIncomingDto.getAvailability_per());
 
-		  
 		  productionEntity.setCompany(null);
 		  productionEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
-		  productionEntity.setDate(null);
+		  productionEntity.setProddate(productionIncomingDto.getProddate());
 		  productionEntity.setIsdeleted("N");
 		  
 		  

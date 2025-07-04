@@ -13,6 +13,8 @@ public interface OperatorService {
 	List<OperatorDto> getAllActiveOperators();
 	
 	OperatorEntity getOperatorByID(String uomID);
+
+	Object getById(String id);
 	
 	/*
 	 * boolean addOperator( OperatorIncomingDto uomIncomingDto); boolean

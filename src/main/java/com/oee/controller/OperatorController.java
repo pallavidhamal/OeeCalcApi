@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,4 +38,12 @@ public class OperatorController {
 		return Response.ok().setPayload(operatorService.getAllActiveOperators());
 	}
 	
+	
+	@GetMapping( value = "/getById/{id}" )
+	public Response getById(@PathVariable("id") String id) {
+		logger.info("***OperatorController getById***");
+		
+		return Response.ok().setPayload(operatorService.getById(id));
+		
+	}
 }

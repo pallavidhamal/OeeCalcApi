@@ -17,6 +17,8 @@ public class ProductionIncomingDto {
 	private String unitid;
 	private String workcenterid;
 	private String itemid;
+	private String proddate;
+	private String operatorid;
 	
 	 private String availability_lunchtime ;
 	 private String availability_teatime ;
@@ -31,6 +33,15 @@ public class ProductionIncomingDto {
 	 private String availability_tooling  ;
 	 private String availability_drawing  ;
 	 private String availability_guages  ;
+	 
+	 
+	 private String availability_overtime;
+	 private String availability_totaltime;
+	 private String availability_stdloss;
+	 private String availability_specloss;
+	 private String availability_totloss;
+	 
+	 
 	 private String availability_otherlosses;
 	 private String availability_calculation;
 	 private String availability_time;

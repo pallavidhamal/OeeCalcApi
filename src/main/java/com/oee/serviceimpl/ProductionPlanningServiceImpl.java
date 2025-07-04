@@ -7,15 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oee.dto.incoming.ProductionPlanningIncomingDto;
-import com.oee.entity.PlanningShiftWorkEntity;
 import com.oee.entity.ProductionPlanningEntity;
 import com.oee.repository.StationRepository;
 import com.oee.service.ItemService;
-import com.oee.service.PlanningService;
 import com.oee.service.ProductionPlanningService;
-import com.oee.service.ProductionService;
 import com.oee.service.SetUpService;
 import com.oee.service.StationService;
+import com.oee.util.AuthenticationService;
 
 @Service
 public class ProductionPlanningServiceImpl implements ProductionPlanningService {
@@ -47,31 +45,25 @@ public class ProductionPlanningServiceImpl implements ProductionPlanningService 
 		productionPlanningIncomingDtoList.forEach(productionPlanningIncomingDto->{
 		
 			
-			ProductionPlanningEntity	productionPlanningEntity=null;  
+			ProductionPlanningEntity	productionPlanningEntity=new ProductionPlanningEntity();  
 			
 			productionPlanningEntity.setItem(itemService.getItemByID(productionPlanningIncomingDto.getItemid()));
 			productionPlanningEntity.setSetup(setupService.getSetUpById(productionPlanningIncomingDto.getSetupid()));
 	
+			productionPlanningEntity.setQty_planned(productionPlanningIncomingDto.getPlannedquantity());
+			productionPlanningEntity.setQty_produced(productionPlanningIncomingDto.getProducedquantity());
+			productionPlanningEntity.setQty_rejected(productionPlanningIncomingDto.getRejectedquantity());
+			productionPlanningEntity.setIsdeleted("N");
+			productionPlanningEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
 			
-			//	productionPlanningEntity.setQty_planned(null)
-			
-
-			
-			
-			
-			
-			//productionPlanningEntity.setProductionentity(productionService.getPlanningEntityByID(productionPlanningIncomingDto.getPlanid()));
-			
-			//productionPlanningEntity.setProductionentity(planningService.get)
-			
-			
+			productionPlanningEntities.add(productionPlanningEntity);
 			
 		});
 		
 		
 		
 		
-		return null;
+		return productionPlanningEntities;
 		
 		
 		
