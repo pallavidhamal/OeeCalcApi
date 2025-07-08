@@ -1,6 +1,7 @@
 package com.oee.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.oee.dto.PlanningDto;
 import com.oee.dto.incoming.PlanningIncomingDto;
@@ -27,6 +28,8 @@ public interface PlanningService {
 	
 	
 	PlanningDto getFilterPlanEntity(PlanningIncomingDto planningIncomingDto);
+	
+	List<Map<String, String>> getFilterPlanEntityWithGroupBy(PlanningIncomingDto planningIncomingDto);
 
 	PlanningDto getPlanningByIDAndStation(String planId, String stationId);
 	

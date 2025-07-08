@@ -3,6 +3,7 @@ package com.oee.serviceimpl;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -330,6 +331,38 @@ public class PlanningServiceImpl implements PlanningService {
 		
 		
 	}
+	
+	
+	@Override
+	public List<Map<String, String>> getFilterPlanEntityWithGroupBy(PlanningIncomingDto planningIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		
+		UnitEntity unitEntity = new UnitEntity();
+		unitEntity  = unitRepository.findById(planningIncomingDto.getUnitid()).get();
+		
+		
+		ShiftEntity shiftEntity = new ShiftEntity();
+		shiftEntity  = shiftRepository.findById(planningIncomingDto.getUnitid()).get();
+		
+		WorkcenterEntity wsEntity = new WorkcenterEntity();
+		
+		logger.info("------ ws id -------"+planningIncomingDto.getWorkcenterid());
+		
+		if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.getWorkcenterid().equals("0")))
+		wsEntity  = wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
+		
+		
+//		PlanningEntity  planningEntity =planningRepository.findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodate(unitEntity,wsEntity,shiftEntity,planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
+		
+		List<Map<String, String>> quotationEntity = planningRepository.findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodateWithGroupBy(unitEntity.getId(),wsEntity.getId(),shiftEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
+		
+		
+		return quotationEntity;
+		
+		
+	}
+
 
 
 	@Override

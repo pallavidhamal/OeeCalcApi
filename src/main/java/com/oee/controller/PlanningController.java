@@ -74,6 +74,13 @@ public class PlanningController {
 	}
 	
 	
+	@PostMapping(value = "/getPlanningByFilterWithGroupBy" , consumes = APPLICATION_JSON_VALUE)
+	public Response getPlanningByFilterWithGroupBy(@RequestBody PlanningIncomingDto planningIncomingDto) {
+		logger.info("----- PlanningController getPlanningById----- ");
+		return Response.ok().setPayload(planningService.getFilterPlanEntityWithGroupBy(planningIncomingDto));
+	}
+	
+	
 	/*
 	 * @GetMapping(value = "/allActive") public Response getAllActiveStations() {
 	 * return Response.ok().setPayload(stationService.getAllActiveStations()); }
