@@ -7,6 +7,8 @@ import com.oee.entity.ItemEntity;
 import com.oee.entity.ProductionEntity;
 
 @Repository
-public interface ProductionRepository   extends JpaRepository<ProductionEntity, String> { 
+public interface ProductionRepository   extends JpaRepository<ProductionEntity, String> {
+
+	ProductionEntity findByIdAndProductionPlanningEntities_Isdeleted(String prodID, String string); 
 
 }

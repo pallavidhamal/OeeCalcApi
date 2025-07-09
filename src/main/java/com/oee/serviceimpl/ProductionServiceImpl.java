@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oee.dto.PlanningDto;
 import com.oee.dto.ProductionDto;
 import com.oee.dto.incoming.ProductionIncomingDto;
 import com.oee.dto.mapper.PlanningMapper;
@@ -138,6 +139,18 @@ public class ProductionServiceImpl implements ProductionService {
 		
 	}
 
-	
+	@Override
+	public ProductionDto getProductionByID(String prodID) {
+		// TODO Auto-generated method stub
+		
+		
+			// TODO Auto-generated method stub
+		ProductionEntity productionEntity = productionRepository.findByIdAndProductionPlanningEntities_Isdeleted(prodID,"N");
 
+			if (productionEntity == null) {
+				throw BRSException.throwException("Production Details does not exist.");
+			}
+
+			return ProductionMapper.toProductionDto(productionEntity);
+	}
 }

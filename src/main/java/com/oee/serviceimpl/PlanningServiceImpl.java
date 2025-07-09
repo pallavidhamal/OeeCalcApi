@@ -106,12 +106,10 @@ public class PlanningServiceImpl implements PlanningService {
 
 	//	PlanningEntity planningEntity = planningRepository.findById(planningID).get();
 		
-		System.out.println("getPlanningByID upar");
 		
 		PlanningEntity planningEntity = planningRepository.findByIdAndPlanningsiftworkentities_Isdeleted(planningID,"N");
 
 		
-		System.out.println("getPlanningByID niche");
 
 
 		if (planningEntity == null) {

@@ -37,4 +37,39 @@ public class ProductionDto {
 	private String rejectionper;
 	private String oeeper;
 	
+	private List<ProductionPlanningDto> prodPlanningDto;
+
+	//availability
+	 private String availabilitylunchtime ;
+	 private String availabilityteatime ;
+	 private String availabilityreviewtime ;
+	 private String availabilityinpectiontime ;
+	 private String availabilitymachinebreakdown ;
+	 private String availabilitysetupchange ;
+	 private String availabilitynomaterial ;
+	 private String availabilitynolabour ;
+	 private String availabilityinspection ;
+	 
+	 private String availabilitytooling  ;
+	 private String availabilitydrawing  ;
+	 private String availabilityguages  ;
+	 private String availabilityotherlosses;
+	 private String availabilityovertime;
+	 private String availabilitytotaltime;
+	 private String availabilitystdloss;
+	 private String availabilityspecloss;
+	 private String availabilitytotloss;
+	 private String availabilitytime;
+	
+	
+	//produ
+	 private String productivitysearching;
+	 private String productivitypersonnal;
+	 private String productivityrework;
+	 private String productivityProductionqty ;
+	 private String productivitystandardqty;
+	
+	//quality
+	 private String rejectionrejectionqty;
+	 private String rejectionokqty;
 }

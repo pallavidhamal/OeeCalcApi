@@ -15,5 +15,6 @@ public interface ProductionService {
 	
 	List<ProductionDto> getAllProduction();
 
-	
+	ProductionDto getProductionByID(String prodID);
+
 }
