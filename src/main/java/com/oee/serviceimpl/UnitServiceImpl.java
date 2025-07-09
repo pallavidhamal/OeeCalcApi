@@ -61,11 +61,26 @@ public class UnitServiceImpl implements UnitService {
 	@Override
 	public UnitEntity getEntityById(String id) {
 		// TODO Auto-generated method stub
-		Optional<UnitEntity> unitEntity = unitRepository.findById(id);
+		UnitEntity unitEntity = unitRepository.findById(id).get();
 		
-		return unitEntity.get();
+		if (unitEntity == null) { 
+			  throw BRSException.throwException(EntityType.UNIT, ExceptionType.ENTITY_NOT_FOUND, id);
+		  }
+		
+		return unitEntity;
 	}
 
+	@Override
+	public UnitEntity getActiveEntityById(String id) {
+		// TODO Auto-generated method stub
+		UnitEntity unitEntity = unitRepository.findByIdAndIsdeleted(id,"N");
+		
+		if (unitEntity == null) { 
+			  throw BRSException.throwException(EntityType.UNIT, ExceptionType.ENTITY_NOT_FOUND, id);
+		  }
+		
+		return unitEntity;
+	}
 
 
 }

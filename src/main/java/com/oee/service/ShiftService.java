@@ -12,6 +12,8 @@ public interface ShiftService {
 	
 	ShiftEntity getShiftByID(String fittingTypeID);
 	
+	ShiftEntity getActiveShiftByID(String fittingTypeID);
+	
 	/*
 	 * boolean addShift( ShiftIncomingDto itemIncomingDto); boolean editShift(
 	 * ShiftIncomingDto itemIncomingDto); boolean deleteShift(String itemid);

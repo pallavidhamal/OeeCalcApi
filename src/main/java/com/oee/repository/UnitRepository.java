@@ -11,6 +11,8 @@ import com.oee.entity.UnitEntity;
 @Repository
 public interface UnitRepository extends JpaRepository<UnitEntity, String> {
 
-	List<UnitEntity> findByIsdeleted(String string);
+	List<UnitEntity> findByIsdeleted(String id);
+
+	UnitEntity findByIdAndIsdeleted(String id, String isdeleted);
 
 }

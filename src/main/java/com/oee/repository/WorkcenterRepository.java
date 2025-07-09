@@ -15,6 +15,8 @@ public interface WorkcenterRepository  extends JpaRepository<WorkcenterEntity, S
 	
 	@Query(value = "SELECT * FROM master_workcenter where fk_unitentity=(?1) and is_deleted='N' ;", nativeQuery = true)
 	List<WorkcenterEntity> getWorkcenterByUnit(String unitid);
+
+	WorkcenterEntity findByIdAndIsdeleted(String id, String isdeleted);
 	
 	
 

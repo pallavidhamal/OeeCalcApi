@@ -53,6 +53,13 @@ public class PlanningController {
 
 		return Response.ok().setPayload(planningService.getFilterPlannings(planningIncomingDto));
 	}
+	
+	@PostMapping(value = "/planningExist", consumes = APPLICATION_JSON_VALUE)
+	public Response getPlanningExist(@RequestBody PlanningIncomingDto planningIncomingDto) {
+		logger.info("----- PlanningController addHtPart----- ");
+
+		return Response.ok().setPayload(planningService.getFilterPlanningsExist(planningIncomingDto));
+	}
 
 	@GetMapping(value = "/get/{planId}")
 	public Response getPlanningById(@PathVariable("planId") String planId) {

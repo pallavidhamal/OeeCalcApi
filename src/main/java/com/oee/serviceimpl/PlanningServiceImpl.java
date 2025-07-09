@@ -36,36 +36,26 @@ import com.oee.util.AuthenticationService;
 @Service
 public class PlanningServiceImpl implements PlanningService {
 
-	@Autowired
 	PlanningRepository planningRepository;
-
-	@Autowired
-	UnitRepository unitRepository;
-	
-	@Autowired
-	ShiftRepository shiftRepository;
-	
-	
-	@Autowired
-	WorkcenterRepository wsRepository;
-	
-	@Autowired
 	ItemService itemService;
-	
-	@Autowired
 	UnitService unitService;
-	
-	@Autowired
 	ShiftService shiftService;
-	
-	@Autowired
 	WorkcenterService wsService;
-
-	@Autowired
 	StationService stationService;
-	
-	@Autowired
 	PlanningShiftWorkService planningShiftWorkService;
+	
+	
+	public PlanningServiceImpl (PlanningRepository planningRepository,ItemService itemService 
+			, UnitService unitService ,ShiftService shiftService ,WorkcenterService wsService,StationService stationService , PlanningShiftWorkService planningShiftWorkService ) {
+		
+		this.planningRepository = planningRepository;
+		this.itemService = itemService;
+		this.unitService = unitService;
+		this.shiftService = shiftService;
+		this.wsService = wsService;
+		this.stationService = stationService;
+		this.planningShiftWorkService = planningShiftWorkService;
+	}
 
 	private static final Logger logger = LoggerFactory.getLogger(PlanningServiceImpl.class);
 
@@ -262,41 +252,46 @@ public class PlanningServiceImpl implements PlanningService {
 
 		return true;
 	}
-	/*
-	 * @Override public List<PlanningDto>
-	 * getPlanningsByItemMachine(PlanningIncomingDto planningIncomingDto) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * List<PlanningEntity> planningEntityList =
-	 * planningRepository.getPlanningsByItemMachine(planningIncomingDto.getStationId
-	 * (),planningIncomingDto.getItemId());
-	 * 
-	 * if (shiftEntityList == null) { throw
-	 * BRSException.throwException("Shift Details does not exist."); }
-	 * 
-	 * return ShiftMapper.toShiftDtoList(shiftEntityList);
-	 * 
-	 * }
-	 * 
-	 * return null; }
-	 */
 
-
+	@Override
+	public List<PlanningDto> getFilterPlanningsExist(PlanningIncomingDto planningIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		UnitEntity unitEntity = unitService.getEntityById(planningIncomingDto.getUnitid());
+		
+		ShiftEntity shiftEntity =  shiftService.getShiftByID(planningIncomingDto.getShiftid());
+		
+		WorkcenterEntity wsEntity = wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid());
+		
+		
+		List<PlanningEntity>  planningEntityList = planningRepository.getFilterPlannings(unitEntity.getId(),wsEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate(),shiftEntity.getId(),"N");
+		
+		return PlanningMapper.toPlanningDtoList(planningEntityList);
+	}
+	
+	
 	@Override
 	public List<PlanningDto> getFilterPlannings(PlanningIncomingDto planningIncomingDto) {
 		// TODO Auto-generated method stub
 		
-		UnitEntity unitEntity = new UnitEntity();
-		unitEntity  = unitRepository.findById(planningIncomingDto.getUnitid()).get();
+		UnitEntity unitEntity = unitService.getEntityById(planningIncomingDto.getUnitid());
 		
 		WorkcenterEntity wsEntity = new WorkcenterEntity();
 		
-		logger.info("------ ws id -------"+planningIncomingDto.getWorkcenterid());
+		if(!planningIncomingDto.getWorkcenterid().equalsIgnoreCase("0")) {
+			
+			wsEntity = wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid());
+		}
+
+		ShiftEntity shiftEntity =  new ShiftEntity();
 		
-		if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.getWorkcenterid().equals("0")))
-		wsEntity  = wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
+		if(!planningIncomingDto.getShiftid().equalsIgnoreCase("0")) {
+			
+			shiftEntity = shiftService.getShiftByID(planningIncomingDto.getShiftid());
+		}
 		
-		List<PlanningEntity>  planningEntityList =planningRepository.getFilterPlannings(unitEntity.getId(),wsEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
+		
+		List<PlanningEntity>  planningEntityList =planningRepository.getFilterPlannings(unitEntity.getId(),wsEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate(),shiftEntity.getId(),"N");
 		
 		return PlanningMapper.toPlanningDtoList(planningEntityList);
 	}
@@ -307,19 +302,12 @@ public class PlanningServiceImpl implements PlanningService {
 		// TODO Auto-generated method stub
 		
 		
-		UnitEntity unitEntity = new UnitEntity();
-		unitEntity  = unitRepository.findById(planningIncomingDto.getUnitid()).get();
+		UnitEntity unitEntity  = unitService.getEntityById(planningIncomingDto.getUnitid());
 		
 		
-		ShiftEntity shiftEntity = new ShiftEntity();
-		shiftEntity  = shiftRepository.findById(planningIncomingDto.getUnitid()).get();
+		ShiftEntity shiftEntity =  shiftService.getShiftByID(planningIncomingDto.getShiftid());
 		
-		WorkcenterEntity wsEntity = new WorkcenterEntity();
-		
-		logger.info("------ ws id -------"+planningIncomingDto.getWorkcenterid());
-		
-		if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.getWorkcenterid().equals("0")))
-		wsEntity  = wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
+		WorkcenterEntity wsEntity = wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid());
 		
 		
 		PlanningEntity  planningEntity =planningRepository.findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodate(unitEntity,wsEntity,shiftEntity,planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
@@ -336,24 +324,15 @@ public class PlanningServiceImpl implements PlanningService {
 		// TODO Auto-generated method stub
 		
 		
-		UnitEntity unitEntity = new UnitEntity();
-		unitEntity  = unitRepository.findById(planningIncomingDto.getUnitid()).get();
+		UnitEntity unitEntity  = unitService.getActiveEntityById(planningIncomingDto.getUnitid());
 		
+		ShiftEntity shiftEntity  = shiftService.getActiveShiftByID(planningIncomingDto.getShiftid());
 		
-		ShiftEntity shiftEntity = new ShiftEntity();
-		shiftEntity  = shiftRepository.findById(planningIncomingDto.getUnitid()).get();
-		
-		WorkcenterEntity wsEntity = new WorkcenterEntity();
-		
-		logger.info("------ ws id -------"+planningIncomingDto.getWorkcenterid());
-		
-		if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.getWorkcenterid().equals("0")))
-		wsEntity  = wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
-		
+		WorkcenterEntity wsEntity = wsService.getActiveWorkcenterByID(planningIncomingDto.getWorkcenterid());
 		
 //		PlanningEntity  planningEntity =planningRepository.findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodate(unitEntity,wsEntity,shiftEntity,planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
 		
-		List<Map<String, String>> quotationEntity = planningRepository.findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodateWithGroupBy(unitEntity.getId(),wsEntity.getId(),shiftEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate());
+		List<Map<String, String>> quotationEntity = planningRepository.findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodateWithGroupBy(unitEntity.getId(),wsEntity.getId(),shiftEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate(),"N");
 		
 		
 		return quotationEntity;

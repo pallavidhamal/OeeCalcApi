@@ -154,8 +154,19 @@ public class ShiftServiceImpl implements ShiftService {
 		// TODO Auto-generated method stub
 		 ShiftEntity shiftEntity = shiftRepository.findById(shiftId).get();
 		  
-		  if (shiftEntity == null) { throw BRSException.throwException(EntityType.ITEM,
-		  ExceptionType.ENTITY_NOT_FOUND, shiftId);
+		  if (shiftEntity == null) { 
+			  throw BRSException.throwException(EntityType.ITEM, ExceptionType.ENTITY_NOT_FOUND, shiftId);
+		  }
+		  return shiftEntity;
+	}
+	
+	@Override
+	public ShiftEntity getActiveShiftByID(String shiftId) {
+		// TODO Auto-generated method stub
+		 ShiftEntity shiftEntity = shiftRepository.findByIdAndIsdeleted(shiftId,"N");
+		  
+		  if (shiftEntity == null) { 
+			  throw BRSException.throwException(EntityType.ITEM, ExceptionType.ENTITY_NOT_FOUND, shiftId);
 		  }
 		  return shiftEntity;
 	}

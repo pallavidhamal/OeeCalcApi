@@ -17,11 +17,14 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 
 	
 	
-	@Query(value = "SELECT * FROM master_planning WHERE ( fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
-			+ "  AND  ( fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "
-			+ " AND   (  from_date between (?3) and (?4))  "
-			+ " AND   ( to_date  between (?3) and (?4)) ;  ", nativeQuery = true)
-	List<PlanningEntity> getFilterPlannings(String unitid,String workcenterid,String seldate,String seldate1);
+	@Query(value = "SELECT * FROM master_planning mp "
+			+ " WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
+			+ " AND ( mp.fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "
+			+ " AND ( mp.from_date between (?3) and (?4))  "
+			+ " AND ( mp.to_date  between (?3) and (?4)) "
+			+ " AND ( mp.fk_shift = (?5)  OR ?5 IS NULL OR ?5 = '' )"
+			+ " AND  mp.is_deleted = (?6) ;  ", nativeQuery = true)
+	List<PlanningEntity> getFilterPlannings(String unitid,String workcenterid,String seldate,String seldate1,String shift,String isdeleted);
 	
 	
 	List<PlanningEntity> findByPlanningsiftworkentities_Isdeleted(String isdeleted);
@@ -32,14 +35,14 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 	PlanningEntity findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodate(UnitEntity ue,WorkcenterEntity we,ShiftEntity se,String fromdate,String todate);
 
 	@Query(value = " SELECT mp.id ,mp.time_per_shift,sm.name as stationname,sm.id as stationid FROM master_planning mp left join master_planning_shift_work mpsw "
-				+ "  on mp.id = mpsw.planningentity_id  left join station_master sm on mpsw.fk_station = sm.id  "
-			
-				+ "  WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
-			+ "  AND  ( mp.fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "
-			+ "  AND  ( mp.fk_shift = (?3)  OR ?3 IS NULL OR ?3 = '' ) "
-			+ " AND   ( mp.from_date between (?4) and (?5))  "
-			+ " AND   ( mp.to_date  between (?4) and (?5)) group by sm.id ;  ", nativeQuery = true)
-	List<Map<String, String>> findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodateWithGroupBy(String ue,String we,String se,String fromdate,String todate);
+				+ " on mp.id = mpsw.planningentity_id  left join station_master sm on mpsw.fk_station = sm.id  "
+				+ " WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
+				+ " AND   ( mp.fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "
+				+ " AND   ( mp.fk_shift = (?3)  OR ?3 IS NULL OR ?3 = '' ) "
+				+ " AND   ( mp.from_date between (?4) and (?5))  "
+				+ " AND   ( mp.to_date  between (?4) and (?5)) "
+				+ " AND   mp.is_deleted = (?6) AND mpsw.is_deleted = (?6)  group by sm.id ;  ", nativeQuery = true)
+	List<Map<String, String>> findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodateWithGroupBy(String ue,String we,String se,String fromdate,String todate,String isdeleted);
 
 	
 

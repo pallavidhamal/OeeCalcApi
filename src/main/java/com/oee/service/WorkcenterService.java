@@ -12,6 +12,7 @@ public interface WorkcenterService {
 	List<WorkcenterDto> getAllActiveWorkcenters();
 	
 	WorkcenterEntity getWorkcenterByID(String workcenterID);
+	WorkcenterEntity getActiveWorkcenterByID(String workcenterID);
 	
 	List<WorkcenterDto> getWorkcenterByUnit(String UnitID); 
 }

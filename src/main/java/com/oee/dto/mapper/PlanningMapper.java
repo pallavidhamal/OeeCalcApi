@@ -43,7 +43,7 @@ public class PlanningMapper {
 				.setFromdate(planningEntity.getFromdate())
 				.setTodate(planningEntity.getTodate())
 				.setTimePerShift(planningEntity.getTimepershift())
-				
+				.setShiftname(planningEntity.getShift().getName())
 				.setUnitid(planningEntity.getUnitentity().getId())
 				.setUnitname(planningEntity.getUnitentity().getName())
 				.setWorkcenterid(planningEntity.getWorkcenterentity().getId())

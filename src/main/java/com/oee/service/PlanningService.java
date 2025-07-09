@@ -25,6 +25,7 @@ public interface PlanningService {
 	boolean deletePlanning(String planningID);
 	
 	List<PlanningDto> getFilterPlannings(PlanningIncomingDto planningIncomingDto);
+	List<PlanningDto> getFilterPlanningsExist(PlanningIncomingDto planningIncomingDto);
 	
 	
 	PlanningDto getFilterPlanEntity(PlanningIncomingDto planningIncomingDto);

@@ -11,6 +11,8 @@ public interface UnitService {
 	UnitDto getById(String id);
 	
 	UnitEntity getEntityById(String id);
+	
+	UnitEntity getActiveEntityById(String id);
 
 	List<UnitDto> get();
 

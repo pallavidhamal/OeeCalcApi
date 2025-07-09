@@ -14,8 +14,10 @@ public interface ShiftRepository  extends JpaRepository<ShiftEntity, String> {
 //ShiftEntity findByItemcode(String itemcode);
 
 	
-	@Query(value = "SELECT * FROM oee.master_shift where unitentity_id=(?1) and is_deleted='N' ;", nativeQuery = true)
+	@Query(value = "SELECT * FROM master_shift where unitentity_id=(?1) and is_deleted='N' ;", nativeQuery = true)
 	List<ShiftEntity> getShiftsByUnit(String unitid);
+
+	ShiftEntity findByIdAndIsdeleted(String id, String isdeleted);
 	
 	
 	

@@ -56,7 +56,21 @@ public class WorkcenterServiceImpl implements WorkcenterService {
 		}
 		
 		return workcentreEntity;	
+	}
+	
+	@Override
+	public WorkcenterEntity getActiveWorkcenterByID(String wcID) {  
+		// TODO Auto-generated method stub
+		logger.info("----- FittingTypeServiceImpl getAllFittingTypeList -----");
+		
+		WorkcenterEntity workcentreEntity = workcenterRepository.findByIdAndIsdeleted(wcID,"N");
+		
+		if (workcentreEntity == null) {
+			throw BRSException.throwException("Workcentre Details does not exist.");
 		}
+		
+		return workcentreEntity;	
+	}
 
 	@Override
 	public List<WorkcenterDto> getAllActiveWorkcenters() {
