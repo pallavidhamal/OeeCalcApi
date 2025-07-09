@@ -57,6 +57,8 @@ public class ProductionIncomingDto {
 	 private String rejection_rejection_qty;
 	 private String rejection_ok_qty;
 	 private String rejection_per;
+	 private String oee_per;
+
 	 
 	 private List<ProductionPlanningIncomingDto> productionPlanningIncomingDto;
 

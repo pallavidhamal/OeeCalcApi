@@ -5,6 +5,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,12 @@ public class ProductionController {
 	  
 	  return 	  Response.created().setPayload(productionService.addProduction(productionIncomingDto));
 	  }
+	  
+	  
+	  @GetMapping(value = "/allproduction")
+		public Response getAllProduction() {
+			return Response.ok().setPayload(productionService.getAllProduction());
+		}
 	 
 	
 }

@@ -1,11 +1,17 @@
 package com.oee.serviceimpl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.oee.dto.ProductionDto;
 import com.oee.dto.incoming.ProductionIncomingDto;
+import com.oee.dto.mapper.PlanningMapper;
+import com.oee.dto.mapper.ProductionMapper;
+import com.oee.entity.PlanningEntity;
 import com.oee.entity.ProductionEntity;
 import com.oee.entity.StationEntity;
 import com.oee.entity.StationTypeEntity;
@@ -94,8 +100,6 @@ public class ProductionServiceImpl implements ProductionService {
 		  productionEntity.setCreatedBy(AuthenticationService.getUserDetailsAfterLogin());
 		  productionEntity.setProddate(productionIncomingDto.getProddate());
 		  productionEntity.setIsdeleted("N");
-		  
-		  
 		  //productionEntity.setProductionPlanningEntities(null);
 		  
 		  productionEntity.setProductivity_per(productionIncomingDto.getProductivity_per());
@@ -108,9 +112,9 @@ public class ProductionServiceImpl implements ProductionService {
 		  productionEntity.setRejection_ok_qty(productionIncomingDto.getRejection_ok_qty());
 		  productionEntity.setRejection_rejection_qty(productionIncomingDto.getRejection_rejection_qty());
 		  productionEntity.setRejection_per(productionIncomingDto.getRejection_per());
+		  productionEntity.setOee_per(productionIncomingDto.getOee_per());
 		  
 		  productionEntity.setProductionPlanningEntities(productionPlanningService.getProductionPlanEntities(productionIncomingDto.getProductionPlanningIncomingDto()));
-		  
 		  
 		  productionRepository.save(productionEntity);
 		  
@@ -118,6 +122,20 @@ public class ProductionServiceImpl implements ProductionService {
 		 
 		  
 		  return true;
+	}
+
+	@Override
+	public List<ProductionDto> getAllProduction() {
+		// TODO Auto-generated method stub
+		List<ProductionEntity> prodEntityList = productionRepository.findAll();
+
+		if (prodEntityList == null) {
+			throw BRSException.throwException("Production List does not exist");
+		}
+		return ProductionMapper.toOnlyProductionDtoList(prodEntityList);
+		
+		
+		
 	}
 
 	

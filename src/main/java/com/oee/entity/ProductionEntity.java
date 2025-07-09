@@ -25,6 +25,16 @@ public class ProductionEntity extends BaseEntity {
 	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
 	private UnitEntity unitentity;
   
+	public String getOee_per() {
+		return oee_per;
+	}
+
+
+	public void setOee_per(String oee_per) {
+		this.oee_per = oee_per;
+	}
+
+
 	@OneToOne
 	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
 	private WorkcenterEntity workcenterentity;
@@ -93,6 +103,7 @@ public class ProductionEntity extends BaseEntity {
 	 private String rejection_rejection_qty;
 	 private String rejection_ok_qty;
 	 private String rejection_per;
+	 private String oee_per;
 	 
 	
   @OneToMany(mappedBy = "productionentity", cascade = CascadeType.ALL, orphanRemoval = true) 
