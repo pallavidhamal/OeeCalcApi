@@ -248,7 +248,7 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 		 * wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
 		 */
 		
-		List<PlanningShiftWorkEntity> planningShiftWorkEntityLst =planningShiftWorkRepository.findByPlanningentityAndStation(planEntity,stationEntity);
+		List<PlanningShiftWorkEntity> planningShiftWorkEntityLst =planningShiftWorkRepository.findByPlanningentityAndStationAndIsdeleted(planEntity,stationEntity,"N");
 		
 		return PlanningShiftWorkMapper.toPlanningDtoList(planningShiftWorkEntityLst);
 				

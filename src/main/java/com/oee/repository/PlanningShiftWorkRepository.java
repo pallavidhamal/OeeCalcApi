@@ -12,7 +12,7 @@ import com.oee.entity.StationEntity;
 @Repository
 public interface PlanningShiftWorkRepository  extends JpaRepository<PlanningShiftWorkEntity, String> {
 
-	List<PlanningShiftWorkEntity> findByPlanningentityAndStation(PlanningEntity planEntity, StationEntity stationEntity);
+	List<PlanningShiftWorkEntity> findByPlanningentityAndStationAndIsdeleted(PlanningEntity planEntity, StationEntity stationEntity,String isactive);
 
 	
 }
