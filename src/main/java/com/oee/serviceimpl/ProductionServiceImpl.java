@@ -1,6 +1,7 @@
 package com.oee.serviceimpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,13 +10,17 @@ import org.springframework.stereotype.Service;
 
 import com.oee.dto.PlanningDto;
 import com.oee.dto.ProductionDto;
+import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.incoming.ProductionIncomingDto;
 import com.oee.dto.mapper.PlanningMapper;
 import com.oee.dto.mapper.ProductionMapper;
+import com.oee.entity.OperatorEntity;
 import com.oee.entity.PlanningEntity;
 import com.oee.entity.ProductionEntity;
+import com.oee.entity.ShiftEntity;
 import com.oee.entity.StationEntity;
 import com.oee.entity.StationTypeEntity;
+import com.oee.entity.UnitEntity;
 import com.oee.entity.UomEntity;
 import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
@@ -153,4 +158,41 @@ public class ProductionServiceImpl implements ProductionService {
 
 			return ProductionMapper.toProductionDto(productionEntity);
 	}
+	
+	@Override
+	public List<Map<String, String>> getFilterProductions(ProductionIncomingDto productionIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		
+		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		ShiftEntity shiftEntity =new ShiftEntity();
+		if(!productionIncomingDto.getShiftid().equalsIgnoreCase("0")) {
+			shiftEntity= shiftService.getActiveShiftByID(productionIncomingDto.getShiftid());
+		}
+		
+		WorkcenterEntity wsEntity = new WorkcenterEntity();
+		if(!productionIncomingDto.getWorkcenterid().equalsIgnoreCase("0")){
+		 wsEntity = wsService.getActiveWorkcenterByID(productionIncomingDto.getWorkcenterid());		
+		}
+		
+		StationEntity stationEntity=new StationEntity();
+		if(!productionIncomingDto.getStationId().equalsIgnoreCase("0")){
+		 stationEntity= stService.getStationEntityByID(productionIncomingDto.getStationId());
+		}
+		
+		OperatorEntity operatEntity=new OperatorEntity();
+		if(!productionIncomingDto.getOperatorid().equalsIgnoreCase("0")){	
+		operatEntity=opService.getOperatorByID(productionIncomingDto.getOperatorid());
+		}
+		
+		List<Map<String, String>> productionEntity = productionRepository.getFilterProductions(unitEntity.getId(),wsEntity.getId(),shiftEntity.getId(),stationEntity.getId(),operatEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
+		
+		
+		return productionEntity;
+		
+		
+	}
+	
+	
 }

@@ -52,5 +52,11 @@ public class ProductionController {
 			return Response.ok().setPayload(productionService.getProductionByID(prodId));
 		}
 	 
+	  
+		@PostMapping(value = "/getFilterProductions" , consumes = APPLICATION_JSON_VALUE)
+		public Response getFilterProductions(@RequestBody ProductionIncomingDto productionIncomingDto) {
+			logger.info("----- ProdController getFilterProductions----- ");
+			return Response.ok().setPayload(productionService.getFilterProductions(productionIncomingDto));
+		}
 	
 }

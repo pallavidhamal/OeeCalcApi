@@ -20,6 +20,9 @@ public class ProductionIncomingDto {
 	private String proddate;
 	private String operatorid;
 	
+	private String fromdate;
+	private String todate;
+	
 	 private String availability_lunchtime ;
 	 private String availability_teatime ;
 	 private String availability_reviewtime ;
