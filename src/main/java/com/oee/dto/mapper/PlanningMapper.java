@@ -37,6 +37,7 @@ public class PlanningMapper {
 	}
 	
 	
+	
 	public static PlanningDto toOnlyPlanningDto(PlanningEntity planningEntity) {
 		return new PlanningDto()
 				.setId(planningEntity.getId())
