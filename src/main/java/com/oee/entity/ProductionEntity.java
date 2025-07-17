@@ -19,11 +19,26 @@ import lombok.Setter;
 public class ProductionEntity extends BaseEntity {
   
     private String company ;
-    private String proddate;
+    public PlanningEntity getPlanningEntity() {
+		return planningEntity;
+	}
+
+
+	public void setPlanningEntity(PlanningEntity planningEntity) {
+		this.planningEntity = planningEntity;
+	}
+
+
+	private String proddate;
   
 	@OneToOne
 	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
 	private UnitEntity unitentity;
+	
+	@OneToOne
+	@JoinColumn(name = "fk_planentity", referencedColumnName = "id")
+	private PlanningEntity planningEntity;
+	
   
 	public String getOee_per() {
 		return oee_per;

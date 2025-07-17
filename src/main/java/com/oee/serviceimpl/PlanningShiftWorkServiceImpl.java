@@ -246,7 +246,13 @@ public class PlanningShiftWorkServiceImpl implements PlanningShiftWorkService {
 		 * if((planningIncomingDto.getWorkcenterid()!=null)&&(!planningIncomingDto.
 		 * getWorkcenterid().equals("0"))) wsEntity =
 		 * wsRepository.findById(planningIncomingDto.getWorkcenterid()).get();
+		 * 
+		 * 
+		 * 
 		 */
+		
+		
+		
 		
 		List<PlanningShiftWorkEntity> planningShiftWorkEntityLst =planningShiftWorkRepository.findByPlanningentityAndStationAndIsdeleted(planEntity,stationEntity,"N");
 		

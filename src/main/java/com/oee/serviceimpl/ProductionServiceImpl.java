@@ -29,6 +29,7 @@ import com.oee.exception.ExceptionType;
 import com.oee.repository.ProductionRepository;
 import com.oee.repository.StationRepository;
 import com.oee.service.OperatorService;
+import com.oee.service.PlanningService;
 import com.oee.service.ProductionPlanningService;
 import com.oee.service.ProductionService;
 import com.oee.service.ShiftService;
@@ -64,14 +65,16 @@ public class ProductionServiceImpl implements ProductionService {
 	@Autowired
 	StationService stService;
 	
+	@Autowired
+	PlanningService planService;
+	
 	@Override
 	public boolean addProduction(ProductionIncomingDto productionIncomingDto) {
 		// TODO Auto-generated method stub
 		  ProductionEntity productionEntity =new ProductionEntity();
 		  
 		  
-		  
-		  
+		  productionEntity.setPlanningEntity(planService.getPlanningEntityByID(productionIncomingDto.getPlanid()));
 		  productionEntity.setUnitentity(unitService.getEntityById(productionIncomingDto.getUnitid()));
 		  productionEntity.setWorkcenterentity(wsService.getWorkcenterByID(productionIncomingDto.getWorkcenterid()));
    			productionEntity.setShiftEntity(shiftService.getShiftByID(productionIncomingDto.getShiftid()));

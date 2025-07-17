@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class ProductionIncomingDto {
 	
-	
+	private String planid;
 	private String shiftid;
 	private String stationId;
 	private String unitid;
