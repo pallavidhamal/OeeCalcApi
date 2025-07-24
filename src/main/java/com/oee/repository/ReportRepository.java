@@ -35,7 +35,7 @@ public interface ReportRepository  extends JpaRepository<PlanningEntity, String>
 	
 	
 	@Query(value = " SELECT mp.id ,sm.name as stationname,sm.id as stationid ,mp.proddate as proddate ,"
-			+ " sfm.name as shiftname , setm.name as setupname , im.itemcode as itemcode , mpsw.qty_planned  "
+			+ " sfm.name as shiftname , setm.name as setupname , im.itemcode as itemcode , mpsw.qty_planned ,mpsw.qty_produced ,mp.productivity_per "
 			+ " FROM production mp left join production_planning mpsw "
 				+ " on mp.id = mpsw.productionentity_id  left join station_master sm on mp.fk_stationentity = sm.id "
 				+ " left join master_shift sfm on mp.fk_shiftentity = sfm.id  "
