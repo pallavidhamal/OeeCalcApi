@@ -90,6 +90,43 @@ public class ReportServiceImpl implements ReportService {
 		
 	}
 
+
+	@Override
+	public List<Map<String, String>> getPlanVsActual(ReportIncomingDto reportIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		
+		UnitEntity unitEntity =new UnitEntity();
+		if(!reportIncomingDto.getUnitid().equalsIgnoreCase("0")) {
+		 unitEntity  = unitService.getActiveEntityById(reportIncomingDto.getUnitid());
+		}
+		
+		WorkcenterEntity wsEntity=new WorkcenterEntity();
+		if(!reportIncomingDto.getWorkcenterid().equalsIgnoreCase("0")) {
+		 wsEntity = wsService.getActiveWorkcenterByID(reportIncomingDto.getWorkcenterid());
+		}
+		
+		StationEntity  stationEntity =new StationEntity();
+		if(!reportIncomingDto.getStationId().equalsIgnoreCase("0")) {
+			stationEntity =stationService.getStationEntityByID(reportIncomingDto.getStationId());
+		}
+		
+		List<Map<String, String>> reportList = reportRepository.getPlanVsActual(unitEntity.getId(),wsEntity.getId(),stationEntity.getId(),reportIncomingDto.getFromdate(),reportIncomingDto.getTodate(),"N");
+		
+		
+		return reportList;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
 	
 	
 }

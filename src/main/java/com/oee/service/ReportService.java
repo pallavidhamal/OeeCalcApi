@@ -10,5 +10,6 @@ public interface ReportService {
 
 	List<Map<String, String>> getPlanOverview(ReportIncomingDto reportIncomingDto);
 
+	List<Map<String, String>> getPlanVsActual(ReportIncomingDto reportIncomingDto);
 
 }

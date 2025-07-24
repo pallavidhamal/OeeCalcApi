@@ -35,4 +35,14 @@ public class ReportController {
 	  
 	  }
 	  
+	  @PostMapping(value = "/getPlanVsActual", consumes = APPLICATION_JSON_VALUE) 
+	  public  Response getPlanVsActual(@RequestBody ReportIncomingDto  reportIncomingDto) 
+	  {
+	  logger.info("----- getPlanOverview----- ");
+	  return Response.created().setPayload(reportService.getPlanVsActual(reportIncomingDto));
+	  
+	  }
+	  
+	  
+	  
 }
