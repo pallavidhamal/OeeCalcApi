@@ -24,25 +24,20 @@ public class ReportController {
 	ReportService reportService;
 	
 	public ReportController(ReportService reportService) {
-		this.reportService = reportService;
+	  this.reportService = reportService;
 	}
 	
-	  @PostMapping(value = "/getPlanOverview", consumes = APPLICATION_JSON_VALUE) 
-	  public  Response getPlanOverview(@RequestBody ReportIncomingDto  reportIncomingDto) 
-	  {
+	@PostMapping(value = "/getPlanOverview", consumes = APPLICATION_JSON_VALUE) 
+	public  Response getPlanOverview(@RequestBody ReportIncomingDto  reportIncomingDto) 
+	{
 	  logger.info("----- getPlanOverview----- ");
 	  return Response.created().setPayload(reportService.getPlanOverview(reportIncomingDto));
+	}
 	  
-	  }
-	  
-	  @PostMapping(value = "/getPlanVsActual", consumes = APPLICATION_JSON_VALUE) 
-	  public  Response getPlanVsActual(@RequestBody ReportIncomingDto  reportIncomingDto) 
-	  {
+	@PostMapping(value = "/getPlanVsActual", consumes = APPLICATION_JSON_VALUE) 
+	public  Response getPlanVsActual(@RequestBody ReportIncomingDto  reportIncomingDto) 
+	{
 	  logger.info("----- getPlanOverview----- ");
 	  return Response.created().setPayload(reportService.getPlanVsActual(reportIncomingDto));
-	  
-	  }
-	  
-	  
-	  
+	}
 }

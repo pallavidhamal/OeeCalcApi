@@ -18,4 +18,6 @@ public interface ProductionService {
 
 	List<Map<String, String>> getFilterProductions(ProductionIncomingDto productionIncomingDto);
 
+	List<ProductionDto> getPlanVsActual(ProductionIncomingDto productionIncomingDto);
+
 }

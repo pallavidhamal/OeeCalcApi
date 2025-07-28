@@ -57,7 +57,6 @@ public class ReportServiceImpl implements ReportService {
 	@Autowired
 	ReportRepository reportRepository;
 	
-	
 	@Override
 	public List<Map<String, String>> getPlanOverview(ReportIncomingDto reportIncomingDto) {
 		// TODO Auto-generated method stub
@@ -74,22 +73,15 @@ public class ReportServiceImpl implements ReportService {
 		}
 		
 		StationEntity  stationEntity =new StationEntity();
-		if(!reportIncomingDto.getStationId().equalsIgnoreCase("0")) {
-			stationEntity =stationService.getStationEntityByID(reportIncomingDto.getStationId());
+		if(!reportIncomingDto.getStationid().equalsIgnoreCase("0")) {
+			stationEntity =stationService.getStationEntityByID(reportIncomingDto.getStationid());
 		}
 		
 		List<Map<String, String>> reportList = reportRepository.getPlanOverview(unitEntity.getId(),wsEntity.getId(),stationEntity.getId(),reportIncomingDto.getFromdate(),reportIncomingDto.getTodate(),"N");
 		
-		
 		return reportList;
 		
-		
-		
-		
-		
-		
 	}
-
 
 	@Override
 	public List<Map<String, String>> getPlanVsActual(ReportIncomingDto reportIncomingDto) {
@@ -107,8 +99,8 @@ public class ReportServiceImpl implements ReportService {
 		}
 		
 		StationEntity  stationEntity =new StationEntity();
-		if(!reportIncomingDto.getStationId().equalsIgnoreCase("0")) {
-			stationEntity =stationService.getStationEntityByID(reportIncomingDto.getStationId());
+		if(!reportIncomingDto.getStationid().equalsIgnoreCase("0")) {
+			stationEntity =stationService.getStationEntityByID(reportIncomingDto.getStationid());
 		}
 		
 		List<Map<String, String>> reportList = reportRepository.getPlanVsActual(unitEntity.getId(),wsEntity.getId(),stationEntity.getId(),reportIncomingDto.getFromdate(),reportIncomingDto.getTodate(),"N");
@@ -116,17 +108,5 @@ public class ReportServiceImpl implements ReportService {
 		
 		return reportList;
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
-
-	
-	
 }

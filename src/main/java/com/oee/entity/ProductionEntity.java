@@ -19,19 +19,45 @@ import lombok.Setter;
 public class ProductionEntity extends BaseEntity {
   
     private String company ;
-    public PlanningEntity getPlanningEntity() {
-		return planningEntity;
-	}
-
-
-	public void setPlanningEntity(PlanningEntity planningEntity) {
-		this.planningEntity = planningEntity;
-	}
-
-
-	private String proddate;
-  
-	@OneToOne
+    private String proddate;
+    
+    private String availability_lunchtime ;
+	private String availability_teatime ;
+	private String availability_reviewtime ;
+	private String availability_inpectiontime ;
+	private String availability_machinebreakdown ;
+	private String availability_setupchange ;
+	private String availability_nomaterial ;
+	private String availability_nolabour ;
+	private String availability_inspection ;
+	
+	private String availability_tooling  ;
+	private String availability_drawing  ;
+	private String availability_guages  ;
+	private String availability_otherlosses;
+	private String availability_overtime;
+	private String availability_totaltime;
+	private String availability_stdloss;
+	private String availability_specloss;
+	private String availability_totloss;
+	// private String availability_calculation;
+	private String availability_time;
+	private String availability_per;
+	 
+	private String productivity_searching;
+	private String productivity_personnal;
+	private String productivity_rework;
+	private String productivity_Production_qty ;
+	private String productivity_standard_qty;
+	private String productivity_per;
+	 
+	private String rejection_rejection_qty;
+	private String rejection_ok_qty;
+	private String rejection_per;
+	private String oee_per;
+    
+    
+    @OneToOne
 	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
 	private UnitEntity unitentity;
 	
@@ -39,17 +65,6 @@ public class ProductionEntity extends BaseEntity {
 	@JoinColumn(name = "fk_planentity", referencedColumnName = "id")
 	private PlanningEntity planningEntity;
 	
-  
-	public String getOee_per() {
-		return oee_per;
-	}
-
-
-	public void setOee_per(String oee_per) {
-		this.oee_per = oee_per;
-	}
-
-
 	@OneToOne
 	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
 	private WorkcenterEntity workcenterentity;
@@ -58,10 +73,35 @@ public class ProductionEntity extends BaseEntity {
 	@JoinColumn(name = "fk_shiftentity", referencedColumnName = "id")
 	private ShiftEntity shiftEntity;
 	
+	@OneToOne
+	@JoinColumn(name = "fk_stationentity", referencedColumnName = "id") private
+	StationEntity stationEntity ;
+    
+	@OneToOne
+	@JoinColumn(name = "fk_operatorentity", referencedColumnName = "id")
+	private OperatorEntity operatorEntity;
 	
-	  @OneToOne
-	  @JoinColumn(name = "fk_stationentity", referencedColumnName = "id") private
-	  StationEntity stationEntity ;
+	
+	
+	
+    public PlanningEntity getPlanningEntity() {
+		return planningEntity;
+	}
+	public void setPlanningEntity(PlanningEntity planningEntity) {
+		this.planningEntity = planningEntity;
+	}
+  
+	
+	public String getOee_per() {
+		return oee_per;
+	}
+
+	public void setOee_per(String oee_per) {
+		this.oee_per = oee_per;
+	}
+
+
+
 	  
 		/*
 		 * @OneToOne
@@ -78,47 +118,6 @@ public class ProductionEntity extends BaseEntity {
 	public void setStationEntity(StationEntity stationEntity) {
 		this.stationEntity = stationEntity;
 	}
-
-
-	@OneToOne
-	@JoinColumn(name = "fk_operatorentity", referencedColumnName = "id")
-	private OperatorEntity operatorEntity;
-	
-	
-	 private String availability_lunchtime ;
-	 private String availability_teatime ;
-	 private String availability_reviewtime ;
-	 private String availability_inpectiontime ;
-	 private String availability_machinebreakdown ;
-	 private String availability_setupchange ;
-	 private String availability_nomaterial ;
-	 private String availability_nolabour ;
-	 private String availability_inspection ;
-	 
-	 private String availability_tooling  ;
-	 private String availability_drawing  ;
-	 private String availability_guages  ;
-	 private String availability_otherlosses;
-	 private String availability_overtime;
-	 private String availability_totaltime;
-	 private String availability_stdloss;
-	 private String availability_specloss;
-	 private String availability_totloss;
-	// private String availability_calculation;
-	 private String availability_time;
-	 private String availability_per;
-	 
-	 private String productivity_searching;
-	 private String productivity_personnal;
-	 private String productivity_rework;
-	 private String productivity_Production_qty ;
-	 private String productivity_standard_qty;
-	 private String productivity_per;
-	 
-	 private String rejection_rejection_qty;
-	 private String rejection_ok_qty;
-	 private String rejection_per;
-	 private String oee_per;
 	 
 	
   @OneToMany(mappedBy = "productionentity", cascade = CascadeType.ALL, orphanRemoval = true) 

@@ -113,10 +113,11 @@ public class PlanningController {
 
 	}
 	
-	
-	
-	
-	
+	@PostMapping(value = "/getPlanOverview" , consumes = APPLICATION_JSON_VALUE)
+	public Response getPlanOverview(@RequestBody PlanningIncomingDto planningIncomingDto) {
+		logger.info("----- PlanningController getPlanOverview----- ");
+		return Response.ok().setPayload(planningService.getPlanOverviewReport(planningIncomingDto));
+	}
 	
 
 }

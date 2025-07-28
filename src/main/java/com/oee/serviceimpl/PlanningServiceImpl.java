@@ -15,6 +15,7 @@ import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.mapper.PlanningMapper;
 import com.oee.entity.PlanningEntity;
 import com.oee.entity.ShiftEntity;
+import com.oee.entity.StationEntity;
 import com.oee.entity.UnitEntity;
 import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
@@ -370,5 +371,29 @@ public class PlanningServiceImpl implements PlanningService {
 		}
 
 		return PlanningMapper.toPlanningDto(planningEntity);
+	}
+
+
+	@Override
+	public List<PlanningDto>  getPlanOverviewReport(PlanningIncomingDto planningIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		UnitEntity unitEntity = unitService.getEntityById(planningIncomingDto.getUnitid());
+		
+		StationEntity stationEntity  =  new StationEntity();
+		if(!planningIncomingDto.getStationid().equalsIgnoreCase("0")) {
+			
+			stationEntity = stationService.getStationEntityByID(planningIncomingDto.getStationid());
+		}
+		
+		WorkcenterEntity wsEntity = new WorkcenterEntity();
+		if(!planningIncomingDto.getWorkcenterid().equalsIgnoreCase("0")) {
+			
+			wsEntity = wsService.getWorkcenterByID(planningIncomingDto.getWorkcenterid());
+		}
+		
+		List<PlanningEntity>  planningEntityList = planningRepository.getFilterPlanOverviewReport(unitEntity.getId(),wsEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate(),stationEntity.getId(),"N");
+		
+		return PlanningMapper.toPlanningDtoList(planningEntityList);
 	}
 }

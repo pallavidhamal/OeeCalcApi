@@ -33,6 +33,8 @@ public interface PlanningService {
 	List<Map<String, String>> getFilterPlanEntityWithGroupBy(PlanningIncomingDto planningIncomingDto);
 
 	PlanningDto getPlanningByIDAndStation(String planId, String stationId);
+
+	List<PlanningDto>  getPlanOverviewReport(PlanningIncomingDto planningIncomingDto);
 	
 	//List<PlanningDto> getPlanningsByItemMachine( PlanningIncomingDto planningIncomingDto) ;
 }

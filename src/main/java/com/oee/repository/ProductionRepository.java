@@ -46,7 +46,18 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 				+ "  AND   ( mp.fk_operatorentity = (?5)  OR ?5 IS NULL OR ?5 = '' ) "
 				+ " AND   ( mp.proddate between (?6) and (?7))  "		
 				+ " AND   mp.is_deleted = (?8) AND mp.is_deleted = (?8)  group by sm.id ", nativeQuery = true)	
-List<Map<String, String>> getFilterProductions(String ue,String wc,String shift,String station,String operator,String fromdate,String todate,String isdeleted);
+	List<Map<String, String>> getFilterProductions(String ue,String wc,String shift,String station,String operator,String fromdate,String todate,String isdeleted);
+
+
+	
+	@Query(value = " SELECT mp.* FROM production mp left join production_planning mpsw  on mp.id = mpsw.productionentity_id  "
+			+ "	WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
+			+ "	AND   ( mp.fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "
+			+ "	AND   ( mp.fk_stationentity = (?3)  OR ?3 IS NULL OR ?3 = '' ) "
+			+ "	AND   ( mp.proddate between (?4) and (?5)) "
+			+ "	AND   mp.is_deleted = (?6) AND mpsw.is_deleted = (?6)  group by mp.id ", nativeQuery = true)	
+	List<ProductionEntity> getFilterProductions(String ue, String wc, String station, String fromdate, String todate,
+			String isdeleted);
 
 	
 	

@@ -79,7 +79,7 @@ public class ProductionServiceImpl implements ProductionService {
 		  productionEntity.setWorkcenterentity(wsService.getWorkcenterByID(productionIncomingDto.getWorkcenterid()));
    			productionEntity.setShiftEntity(shiftService.getShiftByID(productionIncomingDto.getShiftid()));
    			productionEntity.setOperatorEntity(opService.getOperatorByID(productionIncomingDto.getOperatorid()));
-   			productionEntity.setStationEntity(stService.getStationEntityByID(productionIncomingDto.getStationId()));
+   			productionEntity.setStationEntity(stService.getStationEntityByID(productionIncomingDto.getStationid()));
  
    			
 		  productionEntity.setAvailability_lunchtime(productionIncomingDto.getAvailability_lunchtime());
@@ -180,8 +180,8 @@ public class ProductionServiceImpl implements ProductionService {
 		}
 		
 		StationEntity stationEntity=new StationEntity();
-		if(!productionIncomingDto.getStationId().equalsIgnoreCase("0")){
-		 stationEntity= stService.getStationEntityByID(productionIncomingDto.getStationId());
+		if(!productionIncomingDto.getStationid().equalsIgnoreCase("0")){
+		 stationEntity= stService.getStationEntityByID(productionIncomingDto.getStationid());
 		}
 		
 		OperatorEntity operatEntity=new OperatorEntity();
@@ -194,6 +194,41 @@ public class ProductionServiceImpl implements ProductionService {
 		
 		return productionEntity;
 		
+		
+	}
+
+	@Override
+	public List<ProductionDto> getPlanVsActual(ProductionIncomingDto productionIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		
+		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		WorkcenterEntity wsEntity = new WorkcenterEntity();
+		if(!productionIncomingDto.getWorkcenterid().equalsIgnoreCase("0")){
+		 wsEntity = wsService.getActiveWorkcenterByID(productionIncomingDto.getWorkcenterid());		
+		}
+		
+		StationEntity stationEntity=new StationEntity();
+		if(!productionIncomingDto.getStationid().equalsIgnoreCase("0")){
+		 stationEntity= stService.getStationEntityByID(productionIncomingDto.getStationid());
+		}
+		
+		/*
+		 * ShiftEntity shiftEntity =new ShiftEntity();
+		 * if(!productionIncomingDto.getShiftid().equalsIgnoreCase("0")) { shiftEntity=
+		 * shiftService.getActiveShiftByID(productionIncomingDto.getShiftid()); }
+		 * 
+		 * OperatorEntity operatEntity=new OperatorEntity();
+		 * if(!productionIncomingDto.getOperatorid().equalsIgnoreCase("0")){
+		 * operatEntity=opService.getOperatorByID(productionIncomingDto.getOperatorid())
+		 * ; }
+		 */
+		
+		List<ProductionEntity> prodEntityList = productionRepository.getFilterProductions(unitEntity.getId(),wsEntity.getId(),stationEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
+		
+		
+		return ProductionMapper.toProductionDtoList(prodEntityList);
 		
 	}
 	

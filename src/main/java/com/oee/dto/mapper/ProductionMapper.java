@@ -29,6 +29,17 @@ public class ProductionMapper {
 		
 	}
 	
+	public static List<ProductionDto> toOnlyProductionDtoList(List<ProductionEntity> ProductionEntityList) {
+		List<ProductionDto> ProductionDtos = new ArrayList<ProductionDto>();
+		
+		for(ProductionEntity ProductionEntity : ProductionEntityList) {
+			
+			ProductionDtos.add(toOnlyProductionDto(ProductionEntity));
+		}
+		
+		return ProductionDtos;
+	}
+	
 	public static ProductionDto toProductionDto(ProductionEntity productionEntity) {
 		return new ProductionDto()
 				.setId(productionEntity.getId())
@@ -46,8 +57,7 @@ public class ProductionMapper {
 				.setProductivityper(productionEntity.getProductivity_per())
 				.setAvailabilityper(productionEntity.getAvailability_per())
 				.setRejectionper(productionEntity.getRejection_per())
-				.setOeeper(productionEntity.getOee_per())
-				
+				.setOeeper(productionEntity.getOee_per())				
 				.setAvailabilitylunchtime(productionEntity.getAvailability_lunchtime())
 				 .setAvailabilityteatime(productionEntity.getAvailability_teatime())
 				 .setAvailabilityreviewtime(productionEntity.getAvailability_reviewtime())
@@ -57,26 +67,21 @@ public class ProductionMapper {
 				 .setAvailabilitynomaterial(productionEntity.getAvailability_nomaterial())
 				 .setAvailabilitynolabour(productionEntity.getAvailability_nolabour())
 				 .setAvailabilityinspection(productionEntity.getAvailability_inspection())
-				 
 				 .setAvailabilitytooling (productionEntity.getAvailability_tooling())
 				 .setAvailabilitydrawing (productionEntity.getAvailability_drawing())
 				 .setAvailabilityguages (productionEntity.getAvailability_guages())
 				 .setAvailabilityotherlosses(productionEntity.getAvailability_otherlosses())
-				
 				 .setAvailabilityovertime(productionEntity.getAvailability_overtime())
 				 .setAvailabilitytotaltime(productionEntity.getAvailability_totaltime())
 				 .setAvailabilitystdloss(productionEntity.getAvailability_stdloss())
-		
 				 .setAvailabilityspecloss(productionEntity.getAvailability_specloss())
 				 .setAvailabilitytotloss(productionEntity.getAvailability_totloss())
 				 .setAvailabilitytime(productionEntity.getAvailability_time())
-				
 				 .setProductivitysearching(productionEntity.getProductivity_searching())
 				 .setProductivitypersonnal(productionEntity.getProductivity_personnal())
 				 .setProductivityrework(productionEntity.getProductivity_rework())  
 				 .setProductivityProductionqty(productionEntity.getProductivity_Production_qty())
 				 .setProductivitystandardqty(productionEntity.getProductivity_standard_qty())
-				
 				 .setRejectionrejectionqty(productionEntity.getRejection_rejection_qty())
 				 .setRejectionokqty(productionEntity.getRejection_ok_qty())
 				.setProdPlanningDto(ProductionPlanningMapper.toProductionPlanningDtoActiveList(productionEntity.getProductionPlanningEntities()))
@@ -85,12 +90,12 @@ public class ProductionMapper {
 	}
 	
 	
-	public static List<ProductionDto> toOnlyProductionDtoList(List<ProductionEntity> ProductionEntityList) {
+	public static List<ProductionDto> toProductionDtoList(List<ProductionEntity> ProductionEntityList) {
 		List<ProductionDto> ProductionDtos = new ArrayList<ProductionDto>();
 		
 		for(ProductionEntity ProductionEntity : ProductionEntityList) {
 			
-			ProductionDtos.add(toOnlyProductionDto(ProductionEntity));
+			ProductionDtos.add(toProductionDto(ProductionEntity));
 		}
 		
 		return ProductionDtos;

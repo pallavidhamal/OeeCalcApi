@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.incoming.ProductionIncomingDto;
+import com.oee.dto.incoming.ReportIncomingDto;
 import com.oee.dto.response.Response;
 import com.oee.service.ProductionService;
 
@@ -59,4 +60,11 @@ public class ProductionController {
 			return Response.ok().setPayload(productionService.getFilterProductions(productionIncomingDto));
 		}
 	
+		
+		@PostMapping(value = "/getPlanVsActual", consumes = APPLICATION_JSON_VALUE) 
+		public  Response getPlanVsActual(@RequestBody ProductionIncomingDto  productionIncomingDto) 
+		{
+		  logger.info("----- getPlanOverview----- ");
+		  return Response.created().setPayload(productionService.getPlanVsActual(productionIncomingDto));
+		}
 }

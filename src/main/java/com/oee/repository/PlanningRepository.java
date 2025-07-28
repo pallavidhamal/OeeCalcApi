@@ -24,7 +24,7 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 			+ " AND ( mp.to_date  between (?3) and (?4)) "
 			+ " AND ( mp.fk_shift = (?5)  OR ?5 IS NULL OR ?5 = '' )"
 			+ " AND  mp.is_deleted = (?6) ;  ", nativeQuery = true)
-	List<PlanningEntity> getFilterPlannings(String unitid,String workcenterid,String seldate,String seldate1,String shift,String isdeleted);
+	List<PlanningEntity> getFilterPlannings(String unitid,String workcenterid,String fromdate,String todate,String station,String isdeleted);
 	
 	
 	List<PlanningEntity> findByPlanningsiftworkentities_Isdeleted(String isdeleted);
@@ -47,8 +47,17 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 	
 
 	PlanningEntity findByIdAndPlanningsiftworkentities_IsdeletedAndId(String planId, String string, String stationId);
-	
 
+	@Query(value = "SELECT mp.* FROM master_planning mp "
+			+ " left join master_planning_shift_work mpsw on mp.id = mpsw.planningentity_id "
+			+ " WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
+			+ " AND ( mp.fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "
+			+ " AND ( mp.from_date between (?3) and (?4))  "
+			+ " AND ( mp.to_date  between (?3) and (?4)) "
+			+ " AND ( mpsw.fk_station = (?5)  OR ?5 IS NULL OR ?5 = '' )"
+			+ " AND  mp.is_deleted = (?6) AND mpsw.is_deleted = (?6) group by mp.id ; ", nativeQuery = true)
+	List<PlanningEntity> getFilterPlanOverviewReport(String unitid,String workcenterid,String fromdate,String todate,String station,String isdeleted);
+	
 }
 
 

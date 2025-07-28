@@ -13,7 +13,7 @@ public class ProductionIncomingDto {
 	
 	private String planid;
 	private String shiftid;
-	private String stationId;
+	private String stationid;
 	private String unitid;
 	private String workcenterid;
 	private String itemid;

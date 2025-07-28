@@ -13,7 +13,7 @@ public class SetUpIncomingDto {
 	private String setupid;
 	private String name;
 	private String itemId;
-	private String stationId;
+	private String stationid;
 	private int cycletime;
 
 
