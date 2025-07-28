@@ -90,7 +90,7 @@ public class SetUpServiceImpl implements SetUpService {
 		  
 		  
 		 
-		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationId());
+		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationid());
 
 		  
 		  setUpEntity.setItementity(itemEntity);
@@ -132,7 +132,7 @@ public class SetUpServiceImpl implements SetUpService {
 		  
 		  
 		 
-		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationId());
+		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationid());
 
 		  
 		  setUpEntity.setItementity(itemEntity);
