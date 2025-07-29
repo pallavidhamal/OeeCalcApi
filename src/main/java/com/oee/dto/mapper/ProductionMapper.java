@@ -84,8 +84,12 @@ public class ProductionMapper {
 				 .setProductivitystandardqty(productionEntity.getProductivity_standard_qty())
 				 .setRejectionrejectionqty(productionEntity.getRejection_rejection_qty())
 				 .setRejectionokqty(productionEntity.getRejection_ok_qty())
-				.setProdPlanningDto(ProductionPlanningMapper.toProductionPlanningDtoActiveList(productionEntity.getProductionPlanningEntities()))
-				.setIsdeleted(productionEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
+				 .setProductivity_Production_availabletime_qty(productionEntity.getProductivity_Production_availabletime_qty())
+				 .setProductivity_total_utilised_time(productionEntity.getProductivity_total_utilised_time())
+				 .setAchievement_per(productionEntity.getAchievement_per())
+				 .setQuality_per(productionEntity.getQuality_per())
+				 .setProdPlanningDto(ProductionPlanningMapper.toProductionPlanningDtoActiveList(productionEntity.getProductionPlanningEntities()))
+				 .setIsdeleted(productionEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
 		
 	}
 	

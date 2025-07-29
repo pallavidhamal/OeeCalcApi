@@ -31,6 +31,8 @@ public class ProductionPlanningEntity extends BaseEntity {
 	private String qty_planned;
 	private String qty_produced;
 	private String qty_rejected;
+	private String setuptime;
+	private String cycletime;
   
 	@ManyToOne
 	@JoinColumn(name = "productionentity_id")

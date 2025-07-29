@@ -113,15 +113,22 @@ public class ProductionServiceImpl implements ProductionService {
 		  
 		  productionEntity.setProductivity_per(productionIncomingDto.getProductivity_per());
 		  productionEntity.setProductivity_personnal(productionIncomingDto.getProductivity_personnal());
+		  
+		  productionEntity.setProductivity_Production_availabletime_qty(productionIncomingDto.getProductivity_Production_availabletime_qty());
+		  productionEntity.setProductivity_total_utilised_time(productionIncomingDto.getProductivity_total_utilised_time());
 		  productionEntity.setProductivity_Production_qty(productionIncomingDto.getProductivity_Production_qty());
 		  productionEntity.setProductivity_rework(productionIncomingDto.getProductivity_rework());
 		  productionEntity.setProductivity_searching(productionIncomingDto.getProductivity_searching());
 		  productionEntity.setProductivity_standard_qty(productionIncomingDto.getProductivity_standard_qty());
 		  
+		  productionEntity.setAchievement_per(productionIncomingDto.getAchievement_per());
+		  
 		  productionEntity.setRejection_ok_qty(productionIncomingDto.getRejection_ok_qty());
 		  productionEntity.setRejection_rejection_qty(productionIncomingDto.getRejection_rejection_qty());
+		  productionEntity.setQuality_per(productionIncomingDto.getQuality_per());
 		  productionEntity.setRejection_per(productionIncomingDto.getRejection_per());
 		  productionEntity.setOee_per(productionIncomingDto.getOee_per());
+		  
 		  
 		  productionEntity.setProductionPlanningEntities(productionPlanningService.getProductionPlanEntities(productionIncomingDto.getProductionPlanningIncomingDto()));
 		  

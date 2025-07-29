@@ -16,5 +16,6 @@ public class ProductionPlanningIncomingDto {
 	private String plannedquantity ;
 	private String producedquantity ;
 	private String rejectedquantity ;
-	
+	private String setuptime;
+	private String cycletime;
 }

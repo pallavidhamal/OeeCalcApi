@@ -50,12 +50,19 @@ public class ProductionEntity extends BaseEntity {
 	private String productivity_Production_qty ;
 	private String productivity_standard_qty;
 	private String productivity_per;
+	
+	private String productivity_Production_availabletime_qty;
+	private String productivity_total_utilised_time;
+	private String achievement_per;
+	private String quality_per;
 	 
 	private String rejection_rejection_qty;
 	private String rejection_ok_qty;
 	private String rejection_per;
 	private String oee_per;
     
+	
+	
     
     @OneToOne
 	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
@@ -507,6 +514,30 @@ public void setProductionPlanningEntities(List<ProductionPlanningEntity> product
 		
 		productionPlanningEntity.setProductionentity(this);
 	}
+}
+public String getProductivity_Production_availabletime_qty() {
+	return productivity_Production_availabletime_qty;
+}
+public void setProductivity_Production_availabletime_qty(String productivity_Production_availabletime_qty) {
+	this.productivity_Production_availabletime_qty = productivity_Production_availabletime_qty;
+}
+public String getProductivity_total_utilised_time() {
+	return productivity_total_utilised_time;
+}
+public void setProductivity_total_utilised_time(String productivity_total_utilised_time) {
+	this.productivity_total_utilised_time = productivity_total_utilised_time;
+}
+public String getAchievement_per() {
+	return achievement_per;
+}
+public void setAchievement_per(String achievement_per) {
+	this.achievement_per = achievement_per;
+}
+public String getQuality_per() {
+	return quality_per;
+}
+public void setQuality_per(String quality_per) {
+	this.quality_per = quality_per;
 } 
   
   

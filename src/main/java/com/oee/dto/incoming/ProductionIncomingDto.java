@@ -23,6 +23,8 @@ public class ProductionIncomingDto {
 	private String fromdate;
 	private String todate;
 	
+	
+	 
 	 private String availability_lunchtime ;
 	 private String availability_teatime ;
 	 private String availability_reviewtime ;
@@ -62,6 +64,10 @@ public class ProductionIncomingDto {
 	 private String rejection_per;
 	 private String oee_per;
 
+	 private String productivity_Production_availabletime_qty;
+	 private String productivity_total_utilised_time;
+	 private String achievement_per;
+	 private String quality_per;
 	 
 	 private List<ProductionPlanningIncomingDto> productionPlanningIncomingDto;
 

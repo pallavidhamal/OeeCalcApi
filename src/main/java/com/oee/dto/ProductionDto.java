@@ -72,4 +72,9 @@ public class ProductionDto {
 	//quality
 	 private String rejectionrejectionqty;
 	 private String rejectionokqty;
+	 
+	 private String productivity_Production_availabletime_qty;
+	 private String productivity_total_utilised_time;
+	 private String achievement_per;
+	 private String quality_per;
 }
