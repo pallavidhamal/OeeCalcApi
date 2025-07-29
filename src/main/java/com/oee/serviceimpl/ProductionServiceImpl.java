@@ -231,6 +231,35 @@ public class ProductionServiceImpl implements ProductionService {
 		return ProductionMapper.toProductionDtoList(prodEntityList);
 		
 	}
+
+	@Override
+	public List<ProductionDto> getWorkcenterOee(ProductionIncomingDto productionIncomingDto) {
+		// TODO Auto-generated method stub
+		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		WorkcenterEntity wsEntity = new WorkcenterEntity();
+		if(!productionIncomingDto.getWorkcenterid().equalsIgnoreCase("0")){
+		 wsEntity = wsService.getActiveWorkcenterByID(productionIncomingDto.getWorkcenterid());		
+		}
+		
+		
+		List<ProductionEntity> prodEntityList = productionRepository.getWorkcenterOee(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
+		
+		
+		return ProductionMapper.toProductionDtoList(prodEntityList);
+	}
 	
+	
+	@Override
+	public List<ProductionDto> getUnitOee(ProductionIncomingDto productionIncomingDto) {
+		// TODO Auto-generated method stub
+		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		
+		List<ProductionEntity> prodEntityList = productionRepository.getUnitOee(unitEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
+		
+		
+		return ProductionMapper.toProductionDtoList(prodEntityList);
+	}
 	
 }

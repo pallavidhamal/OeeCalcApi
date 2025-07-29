@@ -60,6 +60,19 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			String isdeleted);
 
 	
+	@Query(value = " SELECT mp.* FROM production mp left join production_planning mpsw  on mp.id = mpsw.productionentity_id  "
+			+ "	WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
+			+ "	AND   ( mp.fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "			
+			+ "	AND   ( mp.proddate between (?3) and (?4)) "
+			+ "	AND   mp.is_deleted = (?5) AND mpsw.is_deleted = (?5)  group by mp.id ", nativeQuery = true)	
+	List<ProductionEntity> getWorkcenterOee(String ue, String wc, String fromdate, String todate,String isdeleted);
+
 	
+	@Query(value = " SELECT mp.* FROM production mp left join production_planning mpsw  on mp.id = mpsw.productionentity_id  "
+			+ "	WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
+			+ "	AND   ( mp.proddate between (?2) and (?3)) "
+			+ "	AND   mp.is_deleted = (?4) AND mpsw.is_deleted = (?4)  group by mp.id ", nativeQuery = true)	
+	List<ProductionEntity> getUnitOee(String ue,  String fromdate, String todate,String isdeleted);
+
 
 }

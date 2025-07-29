@@ -67,4 +67,18 @@ public class ProductionController {
 		  logger.info("----- getPlanOverview----- ");
 		  return Response.created().setPayload(productionService.getPlanVsActual(productionIncomingDto));
 		}
+		
+		@PostMapping(value = "/getWorkcenterOee", consumes = APPLICATION_JSON_VALUE) 
+		public  Response getWorkcenterOee(@RequestBody ProductionIncomingDto  productionIncomingDto) 
+		{
+		  logger.info("----- getWorkcenterOee----- ");
+		  return Response.created().setPayload(productionService.getWorkcenterOee(productionIncomingDto));
+		}
+		
+		@PostMapping(value = "/getUnitOee", consumes = APPLICATION_JSON_VALUE) 
+		public  Response getUnitOee(@RequestBody ProductionIncomingDto  productionIncomingDto) 
+		{
+		  logger.info("----- geUnitOee----- ");
+		  return Response.created().setPayload(productionService.getUnitOee(productionIncomingDto));
+		}
 }

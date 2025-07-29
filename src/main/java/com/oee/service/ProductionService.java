@@ -20,4 +20,8 @@ public interface ProductionService {
 
 	List<ProductionDto> getPlanVsActual(ProductionIncomingDto productionIncomingDto);
 
-}
+	List<ProductionDto> getWorkcenterOee(ProductionIncomingDto productionIncomingDto);
+
+	List<ProductionDto> getUnitOee(ProductionIncomingDto productionIncomingDto);
+
+}  
