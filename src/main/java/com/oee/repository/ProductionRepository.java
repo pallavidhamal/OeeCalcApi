@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.oee.dto.ProductWorkcenteroeeSummaryRecord;
@@ -19,8 +20,6 @@ import com.oee.entity.WorkcenterEntity;
 public interface ProductionRepository   extends JpaRepository<ProductionEntity, String> {
 
 	ProductionEntity findByIdAndProductionPlanningEntities_Isdeleted(String prodID, String string); 
-	
-	
 	
 	/*
 	 * @Query(value =
@@ -52,8 +51,6 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 				+ " AND   ( mp.proddate between (?6) and (?7))  "		
 				+ " AND   mp.is_deleted = (?8) AND mp.is_deleted = (?8)  group by sm.id ", nativeQuery = true)	
 	List<Map<String, String>> getFilterProductions(String ue,String wc,String shift,String station,String operator,String fromdate,String todate,String isdeleted);
-
-
 	
 	@Query(value = " SELECT mp.* FROM production mp left join production_planning mpsw  on mp.id = mpsw.productionentity_id  "
 			+ "	WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
@@ -63,7 +60,6 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ "	AND   mp.is_deleted = (?6) AND mpsw.is_deleted = (?6)  group by mp.id ", nativeQuery = true)	
 	List<ProductionEntity> getFilterProductions(String ue, String wc, String station, String fromdate, String todate,
 			String isdeleted);
-
 	
 	@Query(value = " SELECT mp.* FROM production mp left join production_planning mpsw  on mp.id = mpsw.productionentity_id  "
 			+ "	WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
@@ -71,7 +67,6 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ "	AND   ( mp.proddate between (?3) and (?4)) "
 			+ "	AND   mp.is_deleted = (?5) AND mpsw.is_deleted = (?5)  group by mp.id ", nativeQuery = true)	
 	List<ProductionEntity> getWorkcenterOee(String ue, String wc, String fromdate, String todate,String isdeleted);
-
 	
 	@Query(value = " SELECT mp.* FROM production mp left join production_planning mpsw  on mp.id = mpsw.productionentity_id  "
 			+ "	WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
@@ -79,8 +74,11 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ "	AND   mp.is_deleted = (?4) AND mpsw.is_deleted = (?4)  group by mp.id ", nativeQuery = true)	
 	List<ProductionEntity> getUnitOee(String ue,  String fromdate, String todate,String isdeleted);
 
-
-	@Query("SELECT new com.oee.dto.ProductWorkcenteroeeSummaryRecord(p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity,SUM(p.oee_per)) "
-			+ " FROM ProductionEntity p GROUP BY p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity")
-    List<ProductWorkcenteroeeSummaryRecord> findProductSummaries();
+	@Query("SELECT new com.oee.dto.ProductWorkcenteroeeSummaryRecord(p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity,SUM(p.oee_per)) FROM ProductionEntity p "
+			+ " JOIN p.unitentity u "
+			+ " JOIN p.workcenterentity w "
+			+ " where ( u.id = :unit  OR :unit IS NULL OR :unit = '' ) "
+			+ " AND ( w.id = :workcenter  OR :workcenter IS NULL OR :workcenter = '' )  "
+			+ "	GROUP BY p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity")
+    List<ProductWorkcenteroeeSummaryRecord> findProductSummaries( @Param("unit") String unit ,  @Param("workcenter") String workcenter );
 }
