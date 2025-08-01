@@ -79,9 +79,10 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 	
 	
 	@Query(value = " SELECT sm.name as stationname, mp.id, mp.fk_stationentity,sum(mp.tot_planned_mins) as tot_planned_mins,"
-			+ " sum(mp.availability_machinebreakdown) as availability_machinebreakdown, (sum(mp.availability_machinebreakdown)/sum(mp.tot_planned_mins))*100 as mbPer , "
+			+ " sum(mp.availability_machinebreakdown) as availability_machinebreakdown, "
 			+ " sum(mp.availability_setupchange) as availability_setupchange, "
-			+ " sum(mp.availability_nomaterial) as availability_nomaterial,sum(mp.availability_nolabour) availability_nolabour, "
+			+ " sum(mp.availability_nomaterial) as availability_nomaterial,"
+			+ " sum(mp.availability_nolabour) availability_nolabour, "
 			+ " sum(mp.availability_inpectiontime) availability_inpectiontime,sum(mp.availability_tooling) availability_tooling, "
 			+ " sum(mp.availability_drawing) availability_drawing,sum(mp.availability_guages) availability_guages, "
 			+ " sum(mp.availability_otherlosses) availability_otherlosses FROM production mp "
