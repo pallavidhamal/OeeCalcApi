@@ -3,6 +3,7 @@ package com.oee.service;
 import java.util.List;
 import java.util.Map;
 
+import com.oee.dto.ProductWorkcenteroeeSummaryResponseRecord;
 import com.oee.dto.ProductionDto;
 import com.oee.dto.incoming.ProductionIncomingDto;
 
@@ -20,7 +21,7 @@ public interface ProductionService {
 
 	List<ProductionDto> getPlanVsActual(ProductionIncomingDto productionIncomingDto);
 
-	List<ProductionDto> getWorkcenterOee(ProductionIncomingDto productionIncomingDto);
+	List<ProductWorkcenteroeeSummaryResponseRecord> getWorkcenterOee(ProductionIncomingDto productionIncomingDto);
 
 	List<ProductionDto> getUnitOee(ProductionIncomingDto productionIncomingDto);
 

@@ -35,7 +35,7 @@ public class ProductionDto {
 	private String productivityper;
 	private String availabilityper;
 	private String rejectionper;
-	private String oeeper;
+	private double oeeper;
 	
 	private List<ProductionPlanningDto> prodPlanningDto;
 

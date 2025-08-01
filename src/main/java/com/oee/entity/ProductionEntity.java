@@ -8,6 +8,7 @@ import com.oee.entity.id.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -59,32 +60,32 @@ public class ProductionEntity extends BaseEntity {
 	private String rejection_rejection_qty;
 	private String rejection_ok_qty;
 	private String rejection_per;
-	private String oee_per;
+	private double oee_per;
     
 	
 	
     
-    @OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
 	private UnitEntity unitentity;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fk_planentity", referencedColumnName = "id")
 	private PlanningEntity planningEntity;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
 	private WorkcenterEntity workcenterentity;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fk_shiftentity", referencedColumnName = "id")
 	private ShiftEntity shiftEntity;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fk_stationentity", referencedColumnName = "id") private
 	StationEntity stationEntity ;
     
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fk_operatorentity", referencedColumnName = "id")
 	private OperatorEntity operatorEntity;
 	
@@ -99,11 +100,11 @@ public class ProductionEntity extends BaseEntity {
 	}
   
 	
-	public String getOee_per() {
+	public double getOee_per() {
 		return oee_per;
 	}
 
-	public void setOee_per(String oee_per) {
+	public void setOee_per(double oee_per) {
 		this.oee_per = oee_per;
 	}
 

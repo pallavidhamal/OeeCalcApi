@@ -62,7 +62,7 @@ public class ProductionIncomingDto {
 	 private String rejection_rejection_qty;
 	 private String rejection_ok_qty;
 	 private String rejection_per;
-	 private String oee_per;
+	 private double oee_per;
 
 	 private String productivity_Production_availabletime_qty;
 	 private String productivity_total_utilised_time;

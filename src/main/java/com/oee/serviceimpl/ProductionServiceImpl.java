@@ -1,5 +1,6 @@
 package com.oee.serviceimpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.oee.dto.PlanningDto;
+import com.oee.dto.ProductWorkcenteroeeSummaryRecord;
+import com.oee.dto.ProductWorkcenteroeeSummaryResponseRecord;
 import com.oee.dto.ProductionDto;
 import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.incoming.ProductionIncomingDto;
@@ -240,7 +243,7 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 
 	@Override
-	public List<ProductionDto> getWorkcenterOee(ProductionIncomingDto productionIncomingDto) {
+	public List<ProductWorkcenteroeeSummaryResponseRecord> getWorkcenterOee(ProductionIncomingDto productionIncomingDto) {
 		// TODO Auto-generated method stub
 		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
 		
@@ -248,12 +251,19 @@ public class ProductionServiceImpl implements ProductionService {
 		if(!productionIncomingDto.getWorkcenterid().equalsIgnoreCase("0")){
 		 wsEntity = wsService.getActiveWorkcenterByID(productionIncomingDto.getWorkcenterid());		
 		}
+		List<ProductWorkcenteroeeSummaryResponseRecord> prodEntityList = new ArrayList<ProductWorkcenteroeeSummaryResponseRecord>();
+		//List<ProductionEntity> prodEntityList = productionRepository.getWorkcenterOee(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
 		
+		List<ProductWorkcenteroeeSummaryRecord> productWorkcenteroeeSummaryRecords = productionRepository.findProductSummaries();
 		
-		List<ProductionEntity> prodEntityList = productionRepository.getWorkcenterOee(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
+		for(ProductWorkcenteroeeSummaryRecord ProductWorkcenteroeeSummaryRecord : productWorkcenteroeeSummaryRecords) {
+			
+			prodEntityList.add(new ProductWorkcenteroeeSummaryResponseRecord(ProductWorkcenteroeeSummaryRecord.unitentity().getName(),ProductWorkcenteroeeSummaryRecord.workcenterentity().getName()
+					,ProductWorkcenteroeeSummaryRecord.stationEntity().getName(),ProductWorkcenteroeeSummaryRecord.shiftEntity().getName(),ProductWorkcenteroeeSummaryRecord.totalQuantity()));
+			
+		}
 		
-		
-		return ProductionMapper.toProductionDtoList(prodEntityList);
+		return prodEntityList;
 	}
 	
 	

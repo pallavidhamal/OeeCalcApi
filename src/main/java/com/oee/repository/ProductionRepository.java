@@ -7,8 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.oee.dto.ProductWorkcenteroeeSummaryRecord;
 import com.oee.entity.ItemEntity;
 import com.oee.entity.ProductionEntity;
+import com.oee.entity.ShiftEntity;
+import com.oee.entity.StationEntity;
+import com.oee.entity.UnitEntity;
+import com.oee.entity.WorkcenterEntity;
 
 @Repository
 public interface ProductionRepository   extends JpaRepository<ProductionEntity, String> {
@@ -75,4 +80,7 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 	List<ProductionEntity> getUnitOee(String ue,  String fromdate, String todate,String isdeleted);
 
 
+	@Query("SELECT new com.oee.dto.ProductWorkcenteroeeSummaryRecord(p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity,SUM(p.oee_per)) "
+			+ " FROM ProductionEntity p GROUP BY p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity")
+    List<ProductWorkcenteroeeSummaryRecord> findProductSummaries();
 }
