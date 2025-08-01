@@ -257,7 +257,7 @@ public class ProductionServiceImpl implements ProductionService {
 		List<ProductWorkcenteroeeSummaryResponseRecord> prodEntityList = new ArrayList<ProductWorkcenteroeeSummaryResponseRecord>();
 		//List<ProductionEntity> prodEntityList = productionRepository.getWorkcenterOee(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
 		
-		List<ProductWorkcenteroeeSummaryRecord> productWorkcenteroeeSummaryRecords = productionRepository.findProductSummaries();
+		List<ProductWorkcenteroeeSummaryRecord> productWorkcenteroeeSummaryRecords = productionRepository.findProductSummaries( unitEntity.getId() , wsEntity.getId() );
 		
 		for(ProductWorkcenteroeeSummaryRecord ProductWorkcenteroeeSummaryRecord : productWorkcenteroeeSummaryRecords) {
 			
