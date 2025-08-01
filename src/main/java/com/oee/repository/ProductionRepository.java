@@ -7,13 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.oee.dto.ProductWorkcenteroeeSummaryRecord;
-import com.oee.entity.ItemEntity;
+import com.oee.dto.ProductWorkcenteroeeSummaryRecord;  
 import com.oee.entity.ProductionEntity;
-import com.oee.entity.ShiftEntity;
-import com.oee.entity.StationEntity;
-import com.oee.entity.UnitEntity;
-import com.oee.entity.WorkcenterEntity;
 
 @Repository
 public interface ProductionRepository   extends JpaRepository<ProductionEntity, String> {
@@ -83,4 +78,22 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 	@Query("SELECT new com.oee.dto.ProductWorkcenteroeeSummaryRecord(p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity,SUM(p.oee_per)) "
 			+ " FROM ProductionEntity p GROUP BY p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity")
     List<ProductWorkcenteroeeSummaryRecord> findProductSummaries();
+	
+	
+	
+	@Query(value = " SELECT sm.name as stationname, mp.id, mp.fk_stationentity,sum(mp.tot_planned_mins) as tot_planned_mins,"
+			+ " sum(mp.availability_machinebreakdown) as availability_machinebreakdown, (sum(mp.availability_machinebreakdown)/sum(mp.tot_planned_mins))*100 as mbPer , "
+			+ " sum(mp.availability_setupchange) as availability_setupchange, "
+			+ " sum(mp.availability_nomaterial) as availability_nomaterial,sum(mp.availability_nolabour) availability_nolabour, "
+			+ " sum(mp.availability_inpectiontime) availability_inpectiontime,sum(mp.availability_tooling) availability_tooling, "
+			+ " sum(mp.availability_drawing) availability_drawing,sum(mp.availability_guages) availability_guages, "
+			+ " sum(mp.availability_otherlosses) availability_otherlosses FROM production mp "
+			+ " left join station_master sm on mp.fk_stationentity = sm.id "
+			+ "	WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
+			+ "	AND   ( mp.fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "			
+			+ "	AND   ( mp.proddate between (?3) and (?4)) "
+			+ "	AND   mp.is_deleted = (?5)   group by mp.fk_stationentity ", nativeQuery = true)
+	List<Map<String, String>> getLossSummary(String id, String id2, String fromdate, String todate, String string);
+
+
 }

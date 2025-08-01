@@ -62,9 +62,17 @@ public class ProductionEntity extends BaseEntity {
 	private String rejection_per;
 	private double oee_per;
     
-	
+	private double tot_planned_mins;
 	
     
+	public double getTot_planned_mins() {
+		return tot_planned_mins;
+	}
+	public void setTot_planned_mins(double tot_planned_mins) {
+		this.tot_planned_mins = tot_planned_mins;
+	}
+
+
 	@ManyToOne
 	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
 	private UnitEntity unitentity;

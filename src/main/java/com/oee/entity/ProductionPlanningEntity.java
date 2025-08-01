@@ -29,6 +29,7 @@ public class ProductionPlanningEntity extends BaseEntity {
 	private SetUpEntity setup;
 
 	private String qty_planned;
+	private String mins_planned;
 	private String qty_produced;
 	private String qty_rejected;
 	private String setuptime;

@@ -131,7 +131,10 @@ public class ProductionServiceImpl implements ProductionService {
 		  productionEntity.setQuality_per(productionIncomingDto.getQuality_per());
 		  productionEntity.setRejection_per(productionIncomingDto.getRejection_per());
 		  productionEntity.setOee_per(productionIncomingDto.getOee_per());
+		  productionEntity.setTot_planned_mins(productionIncomingDto.getTot_planned_mins());
 		  
+		  logger.info("---  productionIncomingDto.getTot_planned_mins() ----"+ productionIncomingDto.getTot_planned_mins());
+		 
 		  
 		  productionEntity.setProductionPlanningEntities(productionPlanningService.getProductionPlanEntities(productionIncomingDto.getProductionPlanningIncomingDto()));
 		  
@@ -278,5 +281,22 @@ public class ProductionServiceImpl implements ProductionService {
 		
 		return ProductionMapper.toProductionDtoList(prodEntityList);
 	}
+
+	@Override
+	public List<Map<String, String>> getLossSummary(ProductionIncomingDto productionIncomingDto) 
+	{
+		// TODO Auto-generated method stub
+		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		WorkcenterEntity wsEntity = new WorkcenterEntity();
+		if(!productionIncomingDto.getWorkcenterid().equalsIgnoreCase("0")){
+		 wsEntity = wsService.getActiveWorkcenterByID(productionIncomingDto.getWorkcenterid());		
+		}
 	
+		
+		List<Map<String, String>> reportList= productionRepository.getLossSummary(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N"); 
+		
+		return reportList;
+		//return ProductionMapper.toProductionDtoList(prodEntityList);	
+		}
 }

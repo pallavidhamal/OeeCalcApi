@@ -52,6 +52,7 @@ public class ProductionPlanningServiceImpl implements ProductionPlanningService 
 			productionPlanningEntity.setSetuptime(productionPlanningIncomingDto.getSetuptime());
 			productionPlanningEntity.setCycletime(productionPlanningIncomingDto.getCycletime());
 			productionPlanningEntity.setQty_planned(productionPlanningIncomingDto.getPlannedquantity());
+			productionPlanningEntity.setMins_planned(productionPlanningIncomingDto.getPlannedmins());
 			productionPlanningEntity.setQty_produced(productionPlanningIncomingDto.getProducedquantity());
 			productionPlanningEntity.setQty_rejected(productionPlanningIncomingDto.getRejectedquantity());
 			productionPlanningEntity.setIsdeleted("N");

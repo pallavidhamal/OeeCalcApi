@@ -81,4 +81,12 @@ public class ProductionController {
 		  logger.info("----- geUnitOee----- ");
 		  return Response.created().setPayload(productionService.getUnitOee(productionIncomingDto));
 		}
+		
+		@PostMapping(value = "/getLossSummary", consumes = APPLICATION_JSON_VALUE) 
+		public  Response getLossSummary(@RequestBody ProductionIncomingDto  productionIncomingDto) 
+		{
+		  logger.info("----- getLossSummary----- ");
+		  return Response.created().setPayload(productionService.getLossSummary(productionIncomingDto));
+		}
+		
 }
