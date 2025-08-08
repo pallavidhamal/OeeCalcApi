@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.incoming.ProductionIncomingDto;
-import com.oee.dto.incoming.ReportIncomingDto;
 import com.oee.dto.response.Response;
 import com.oee.service.ProductionService;
 
@@ -31,62 +29,55 @@ public class ProductionController {
 		this.productionService = productionService;
 	}
 	
-	
-	  @PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE) 
-	  public  Response addProduction(@RequestBody ProductionIncomingDto productionIncomingDto)
-	  {
+	@PostMapping(value = "/add", consumes = APPLICATION_JSON_VALUE) 
+	public  Response addProduction(@RequestBody ProductionIncomingDto productionIncomingDto)
+	{
 	  logger.info("----- PlanningController addHtPart----- ");
-	  
 	  return 	  Response.created().setPayload(productionService.addProduction(productionIncomingDto));
-	  }
+	}
 	  
+	@GetMapping(value = "/allproduction")
+	public Response getAllProduction() {
+		return Response.ok().setPayload(productionService.getAllProduction());
+	}
 	  
-	  @GetMapping(value = "/allproduction")
-		public Response getAllProduction() {
-			return Response.ok().setPayload(productionService.getAllProduction());
-		}
+	@GetMapping(value = "/get/{prodId}")
+	public Response getProductionById(@PathVariable("prodId") String prodId) {
+		logger.info("----- ProdController getProdById----- ");
+		return Response.ok().setPayload(productionService.getProductionByID(prodId));
+	}
 	  
-	  
-	  @GetMapping(value = "/get/{prodId}")
-		public Response getProductionById(@PathVariable("prodId") String prodId) {
-			logger.info("----- ProdController getProdById----- ");
-			return Response.ok().setPayload(productionService.getProductionByID(prodId));
-		}
-	 
-	  
-		@PostMapping(value = "/getFilterProductions" , consumes = APPLICATION_JSON_VALUE)
-		public Response getFilterProductions(@RequestBody ProductionIncomingDto productionIncomingDto) {
-			logger.info("----- ProdController getFilterProductions----- ");
-			return Response.ok().setPayload(productionService.getFilterProductions(productionIncomingDto));
-		}
+	@PostMapping(value = "/getFilterProductions" , consumes = APPLICATION_JSON_VALUE)
+	public Response getFilterProductions(@RequestBody ProductionIncomingDto productionIncomingDto) {
+		logger.info("----- ProdController getFilterProductions----- ");
+		return Response.ok().setPayload(productionService.getFilterProductions(productionIncomingDto));
+	}
+		
+	@PostMapping(value = "/getPlanVsActual", consumes = APPLICATION_JSON_VALUE) 
+	public  Response getPlanVsActual(@RequestBody ProductionIncomingDto  productionIncomingDto) 
+	{
+	  logger.info("----- getPlanOverview----- ");
+	  return Response.created().setPayload(productionService.getPlanVsActual(productionIncomingDto));
+	}
 	
-		
-		@PostMapping(value = "/getPlanVsActual", consumes = APPLICATION_JSON_VALUE) 
-		public  Response getPlanVsActual(@RequestBody ProductionIncomingDto  productionIncomingDto) 
-		{
-		  logger.info("----- getPlanOverview----- ");
-		  return Response.created().setPayload(productionService.getPlanVsActual(productionIncomingDto));
-		}
-		
-		@PostMapping(value = "/getWorkcenterOee", consumes = APPLICATION_JSON_VALUE) 
-		public  Response getWorkcenterOee(@RequestBody ProductionIncomingDto  productionIncomingDto) 
-		{
-		  logger.info("----- getWorkcenterOee----- ");
-		  return Response.created().setPayload(productionService.getWorkcenterOee(productionIncomingDto));
-		}
-		
-		@PostMapping(value = "/getUnitOee", consumes = APPLICATION_JSON_VALUE) 
-		public  Response getUnitOee(@RequestBody ProductionIncomingDto  productionIncomingDto) 
-		{
-		  logger.info("----- geUnitOee----- ");
-		  return Response.created().setPayload(productionService.getUnitOee(productionIncomingDto));
-		}
-		
-		@PostMapping(value = "/getLossSummary", consumes = APPLICATION_JSON_VALUE) 
-		public  Response getLossSummary(@RequestBody ProductionIncomingDto  productionIncomingDto) 
-		{
-		  logger.info("----- getLossSummary----- ");
-		  return Response.created().setPayload(productionService.getLossSummary(productionIncomingDto));
-		}
-		
+	@PostMapping(value = "/getWorkcenterOee", consumes = APPLICATION_JSON_VALUE) 
+	public  Response getWorkcenterOee(@RequestBody ProductionIncomingDto  productionIncomingDto) 
+	{
+	  logger.info("----- getWorkcenterOee----- ");
+	  return Response.created().setPayload(productionService.getWorkcenterOee(productionIncomingDto));
+	}
+	
+	@PostMapping(value = "/getUnitOee", consumes = APPLICATION_JSON_VALUE) 
+	public  Response getUnitOee(@RequestBody ProductionIncomingDto  productionIncomingDto) 
+	{
+	  logger.info("----- geUnitOee----- ");
+	  return Response.created().setPayload(productionService.getUnitOee(productionIncomingDto));
+	}
+	
+	@PostMapping(value = "/getLossSummary", consumes = APPLICATION_JSON_VALUE) 
+	public  Response getLossSummary(@RequestBody ProductionIncomingDto  productionIncomingDto) 
+	{
+	  logger.info("----- getLossSummary----- ");
+	  return Response.created().setPayload(productionService.getLossSummary(productionIncomingDto));
+	}
 }

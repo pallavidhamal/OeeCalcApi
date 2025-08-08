@@ -8,13 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.oee.dto.ProductWorkcenterUnitWiseOeeReportRecord;
 import com.oee.dto.ProductWorkcenteroeeSummaryRecord;
-import com.oee.entity.ItemEntity;
 import com.oee.entity.ProductionEntity;
-import com.oee.entity.ShiftEntity;
-import com.oee.entity.StationEntity;
-import com.oee.entity.UnitEntity;
-import com.oee.entity.WorkcenterEntity;
 
 @Repository
 public interface ProductionRepository   extends JpaRepository<ProductionEntity, String> {
@@ -73,9 +69,31 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ "	AND   ( mp.proddate between (?2) and (?3)) "
 			+ "	AND   mp.is_deleted = (?4) AND mpsw.is_deleted = (?4)  group by mp.id ", nativeQuery = true)	
 	List<ProductionEntity> getUnitOee(String ue,  String fromdate, String todate,String isdeleted);
-
-
-
+	
+	/*
+	 * @Query(value =
+	 * " SELECT new com.oee.dto.ProductWorkcenterUnitWiseOeeReport( p.unitentity,p.workcenterentity "
+	 * + " ,(( SUM(p.oee_per)/(count(p.id)*100))*100)   )FROM ProductionEntity p  "
+	 * + " JOIN p.unitentity u " +
+	 * " where ( u.id = :unit  OR :unit IS NULL OR :unit = '' ) " +
+	 * "	AND   p.proddate between (:fromdate) and (:todate) " +
+	 * "	AND   p.isdeleted = :isdeleted " +
+	 * "	GROUP BY p.unitentity,p.workcenterentity")
+	 * List<ProductWorkcenterUnitWiseOeeReportRecord>
+	 * getProductWorkcenterUnitWiseOeeReport(@Param("unit") String unit
+	 * , @Param("fromdate") String fromdate, @Param("todate") String
+	 * todate, @Param("isdeleted") String isdeleted );
+	 */
+	
+	@Query(value = " SELECT new com.oee.dto.ProductWorkcenterUnitWiseOeeReportRecord( p.unitentity.name,p.workcenterentity.name "
+			+ " ,(( SUM(p.oee_per)/(count(p.id)*100))*100)   )FROM ProductionEntity p  "
+			+ " JOIN p.unitentity u "
+			+ " where ( u.id = :unit  OR :unit IS NULL OR :unit = '' ) "
+			+ "	AND   p.proddate between (:fromdate) and (:todate) "
+			+ "	AND   p.isdeleted = :isdeleted "
+			+ "	GROUP BY p.unitentity,p.workcenterentity")	
+	List<ProductWorkcenterUnitWiseOeeReportRecord> getProductWorkcenterUnitWiseOeeReport(@Param("unit") String unit 
+			, @Param("fromdate") String fromdate,  @Param("todate") String todate,  @Param("isdeleted") String isdeleted );
 	
 	
 	@Query(value = " SELECT sm.name as stationname, mp.id, mp.fk_stationentity,sum(mp.tot_planned_mins) as tot_planned_mins,"
@@ -91,9 +109,22 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ "	AND   ( mp.fk_workcentreentity = (?2)  OR ?2 IS NULL OR ?2 = '' ) "			
 			+ "	AND   ( mp.proddate between (?3) and (?4)) "
 			+ "	AND   mp.is_deleted = (?5)   group by mp.fk_stationentity ", nativeQuery = true)
-	List<Map<String, String>> getLossSummary(String id, String id2, String fromdate, String todate, String string);
+	List<Map<String, String>> getLossSummary(String unit, String workcenter, String fromdate, String todate, String isdeleted);
 
-
+/*	@Query(value = " SELECT new com.oee.dto.ProductionLossSummaryRecord( mp.unitentity.name , sum(mp.tot_planned_mins),"
+			+ " sum(mp.availability_machinebreakdown), sum(mp.availability_setupchange), sum(mp.availability_nomaterial),"
+			+ " sum(mp.availability_nolabour), sum(mp.availability_inpectiontime) ,sum(mp.availability_tooling) , "
+			+ " sum(mp.availability_drawing) ,sum(mp.availability_guages) , "
+			+ " sum(mp.availability_otherlosses) FROM ProductionEntity mp "
+			+ " JOIN mp.unitentity u "
+			+ " JOIN mp.workcenterentity w "
+			+ " where ( u.id = :unit  OR :unit IS NULL OR :unit = '' ) "
+			+ " AND   ( w.id = :workcenter  OR :workcenter IS NULL OR :workcenter = '' )  " 
+			+ "	AND   mp.proddate between (:fromdate) and (:todate) "
+			+ "	AND   mp.isdeleted = :isdeleted group by mp.stationEntity ", nativeQuery = true)
+	List<ProductionLossSummaryRecord> getProductionLossSummaryRecord(String unit, String workcenter, String fromdate, String todate, String isdeleted);
+	*/
+	
 	@Query("SELECT new com.oee.dto.ProductWorkcenteroeeSummaryRecord(p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity,SUM(p.oee_per)) FROM ProductionEntity p "
 			+ " JOIN p.unitentity u "
 			+ " JOIN p.workcenterentity w "

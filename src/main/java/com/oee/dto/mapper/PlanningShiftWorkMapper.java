@@ -84,7 +84,8 @@ public class PlanningShiftWorkMapper {
 		
 		for(PlanningShiftWorkEntity planningShiftWorkEntity : planningshiftEntityList) {
 		
-			planningShiftDtos.add(toPlanningShiftworkActiveDto(planningShiftWorkEntity));
+			if(planningShiftWorkEntity.getIsdeleted().equalsIgnoreCase("N"))
+				planningShiftDtos.add(toPlanningShiftworkActiveDto(planningShiftWorkEntity)); 
 		}
 		
 		return planningShiftDtos;

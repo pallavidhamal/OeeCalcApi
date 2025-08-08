@@ -9,28 +9,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.oee.dto.PlanningDto;
+import com.oee.dto.ProductWorkcenterUnitWiseOeeReportRecord;
 import com.oee.dto.ProductWorkcenteroeeSummaryRecord;
 import com.oee.dto.ProductWorkcenteroeeSummaryResponseRecord;
 import com.oee.dto.ProductionDto;
-import com.oee.dto.incoming.PlanningIncomingDto;
 import com.oee.dto.incoming.ProductionIncomingDto;
-import com.oee.dto.mapper.PlanningMapper;
 import com.oee.dto.mapper.ProductionMapper;
 import com.oee.entity.OperatorEntity;
-import com.oee.entity.PlanningEntity;
 import com.oee.entity.ProductionEntity;
 import com.oee.entity.ShiftEntity;
 import com.oee.entity.StationEntity;
-import com.oee.entity.StationTypeEntity;
 import com.oee.entity.UnitEntity;
-import com.oee.entity.UomEntity;
 import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
-import com.oee.exception.EntityType;
-import com.oee.exception.ExceptionType;
 import com.oee.repository.ProductionRepository;
-import com.oee.repository.StationRepository;
 import com.oee.service.OperatorService;
 import com.oee.service.PlanningService;
 import com.oee.service.ProductionPlanningService;
@@ -271,15 +263,17 @@ public class ProductionServiceImpl implements ProductionService {
 	
 	
 	@Override
-	public List<ProductionDto> getUnitOee(ProductionIncomingDto productionIncomingDto) {
+	public List<ProductWorkcenterUnitWiseOeeReportRecord> getUnitOee(ProductionIncomingDto productionIncomingDto) {
 		// TODO Auto-generated method stub
 		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
 		
+	//	List<ProductionEntity> prodEntityList = productionRepository.getUnitOee(unitEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
 		
-		List<ProductionEntity> prodEntityList = productionRepository.getUnitOee(unitEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
+		List<ProductWorkcenterUnitWiseOeeReportRecord> productWorkcenterUnitWiseOeeReports 
+	//	= productionRepository.getProductWorkcenterUnitWiseOeeReport();
+		= productionRepository.getProductWorkcenterUnitWiseOeeReport(unitEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
 		
-		
-		return ProductionMapper.toProductionDtoList(prodEntityList);
+		return productWorkcenterUnitWiseOeeReports;
 	}
 
 	@Override
@@ -295,6 +289,8 @@ public class ProductionServiceImpl implements ProductionService {
 	
 		
 		List<Map<String, String>> reportList= productionRepository.getLossSummary(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N"); 
+		
+//		List<ProductionLossSummaryRecord> reportList= productionRepository.getProductionLossSummaryRecord(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
 		
 		return reportList;
 		//return ProductionMapper.toProductionDtoList(prodEntityList);	
