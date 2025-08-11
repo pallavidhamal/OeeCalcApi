@@ -82,7 +82,7 @@ public class ItemServiceImpl implements ItemService {
 		  ItemEntity itemExistEntity = itemRepository.findByItemcode(itemIncomingDto.getItemcode());
 		  if(itemExistEntity != null)
 		  {
-			  throw BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode());
+			  throw BRSException.throwException(EntityType.ITEM, ExceptionType.DUPLICATE_ENTITY, itemIncomingDto.getItemcode());
 		  
 		  }
 			 
@@ -114,11 +114,14 @@ public class ItemServiceImpl implements ItemService {
 				throw BRSException.throwException(EntityType.ITEMDESC, ExceptionType.BLANK_VALUE, "Item Desc");				
 			}
 			
-			ItemEntity itemcodeEntity  = itemRepository.findByItemcode(itemIncomingDto.getItemcode());
-			
-			if(itemcodeEntity != null) {
-				throw BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST, itemIncomingDto.getItemcode());
-			}
+			/*
+			 * ItemEntity itemcodeEntity =
+			 * itemRepository.findByItemcode(itemIncomingDto.getItemcode());
+			 * 
+			 * if(itemcodeEntity != null) { throw
+			 * BRSException.throwException(EntityType.ITEM, ExceptionType.ALREADY_EXIST,
+			 * itemIncomingDto.getItemcode()); }
+			 */
 			
 			// Check If HT Part ID exists in HT Part Entity
 			ItemEntity itemEntity  = itemRepository.findById(itemIncomingDto.getItemid()).get();
