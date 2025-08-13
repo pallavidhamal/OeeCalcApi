@@ -13,6 +13,7 @@ import com.oee.dto.ProductWorkcenterUnitWiseOeeReportRecord;
 import com.oee.dto.ProductWorkcenteroeeSummaryRecord;
 import com.oee.dto.ProductWorkcenteroeeSummaryResponseRecord;
 import com.oee.dto.ProductionDto;
+import com.oee.dto.ProductionLossSummaryRecord;
 import com.oee.dto.incoming.ProductionIncomingDto;
 import com.oee.dto.mapper.ProductionMapper;
 import com.oee.entity.OperatorEntity;
@@ -277,7 +278,7 @@ public class ProductionServiceImpl implements ProductionService {
 	}
 
 	@Override
-	public List<Map<String, String>> getLossSummary(ProductionIncomingDto productionIncomingDto) 
+	public List<ProductionLossSummaryRecord> getLossSummary(ProductionIncomingDto productionIncomingDto) 
 	{
 		// TODO Auto-generated method stub
 		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
@@ -288,7 +289,7 @@ public class ProductionServiceImpl implements ProductionService {
 		}
 	
 		
-		List<Map<String, String>> reportList= productionRepository.getLossSummary(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N"); 
+		List<ProductionLossSummaryRecord> reportList = productionRepository.getProductionLossSummaryRecord(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N"); 
 		
 //		List<ProductionLossSummaryRecord> reportList= productionRepository.getProductionLossSummaryRecord(unitEntity.getId(),wsEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
 		

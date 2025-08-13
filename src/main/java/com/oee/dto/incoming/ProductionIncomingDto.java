@@ -28,16 +28,16 @@ public class ProductionIncomingDto {
 	 private String availability_lunchtime ;
 	 private String availability_teatime ;
 	 private String availability_reviewtime ;
-	 private String availability_inpectiontime ;
-	 private String availability_machinebreakdown ;
-	 private String availability_setupchange ;
-	 private String availability_nomaterial ;
-	 private String availability_nolabour ;
-	 private String availability_inspection ;
+	 private double availability_inpectiontime ;
+	 private double availability_machinebreakdown ;
+	 private double availability_setupchange ;
+	 private double availability_nomaterial ;
+	 private double availability_nolabour ;
+	 private double availability_inspection ;
 	 
-	 private String availability_tooling  ;
-	 private String availability_drawing  ;
-	 private String availability_guages  ;
+	 private double availability_tooling  ;
+	 private double availability_drawing  ;
+	 private double availability_guages  ;
 	 
 	 
 	 private String availability_overtime;
@@ -47,7 +47,7 @@ public class ProductionIncomingDto {
 	 private String availability_totloss;
 	 
 	 
-	 private String availability_otherlosses;
+	 private double availability_otherlosses;
 	 private String availability_calculation;
 	 private String availability_time;
 	 private String availability_per;

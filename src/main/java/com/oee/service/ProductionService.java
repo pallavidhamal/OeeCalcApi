@@ -6,6 +6,7 @@ import java.util.Map;
 import com.oee.dto.ProductWorkcenterUnitWiseOeeReportRecord;
 import com.oee.dto.ProductWorkcenteroeeSummaryResponseRecord;
 import com.oee.dto.ProductionDto;
+import com.oee.dto.ProductionLossSummaryRecord;
 import com.oee.dto.incoming.ProductionIncomingDto;
 import com.oee.entity.ProductionEntity;
 
@@ -27,6 +28,6 @@ public interface ProductionService {
 
 	List<ProductWorkcenterUnitWiseOeeReportRecord> getUnitOee(ProductionIncomingDto productionIncomingDto);
 
-	List<Map<String, String>> getLossSummary(ProductionIncomingDto productionIncomingDto);
+	List<ProductionLossSummaryRecord> getLossSummary(ProductionIncomingDto productionIncomingDto);
 
 }  

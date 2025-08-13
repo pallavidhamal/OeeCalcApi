@@ -43,17 +43,17 @@ public class ProductionDto {
 	 private String availabilitylunchtime ;
 	 private String availabilityteatime ;
 	 private String availabilityreviewtime ;
-	 private String availabilityinpectiontime ;
-	 private String availabilitymachinebreakdown ;
-	 private String availabilitysetupchange ;
-	 private String availabilitynomaterial ;
-	 private String availabilitynolabour ;
-	 private String availabilityinspection ;
+	 private double availabilityinpectiontime ;
+	 private double availabilitymachinebreakdown ;
+	 private double availabilitysetupchange ;
+	 private double availabilitynomaterial ;
+	 private double availabilitynolabour ;
+	 private double availabilityinspection ;
 	 
-	 private String availabilitytooling  ;
-	 private String availabilitydrawing  ;
-	 private String availabilityguages  ;
-	 private String availabilityotherlosses;
+	 private double availabilitytooling  ;
+	 private double availabilitydrawing  ;
+	 private double availabilityguages  ;
+	 private double availabilityotherlosses;
 	 private String availabilityovertime;
 	 private String availabilitytotaltime;
 	 private String availabilitystdloss;

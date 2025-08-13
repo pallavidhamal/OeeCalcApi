@@ -25,17 +25,17 @@ public class ProductionEntity extends BaseEntity {
     private String availability_lunchtime ;
 	private String availability_teatime ;
 	private String availability_reviewtime ;
-	private String availability_inpectiontime ;
-	private String availability_machinebreakdown ;
-	private String availability_setupchange ;
-	private String availability_nomaterial ;
-	private String availability_nolabour ;
-	private String availability_inspection ;
+	private double availability_inpectiontime ;
+	private double availability_machinebreakdown ;
+	private double availability_setupchange ;
+	private double availability_nomaterial ;
+	private double availability_nolabour ;
+	private double availability_inspection ;
 	
-	private String availability_tooling  ;
-	private String availability_drawing  ;
-	private String availability_guages  ;
-	private String availability_otherlosses;
+	private double availability_tooling  ;
+	private double availability_drawing  ;
+	private double availability_guages  ;
+	private double availability_otherlosses;
 	private String availability_overtime;
 	private String availability_totaltime;
 	private String availability_stdloss;
@@ -246,102 +246,102 @@ public void setAvailability_reviewtime(String availability_reviewtime) {
 }
 
 
-public String getAvailability_inpectiontime() {
+public double getAvailability_inpectiontime() {
 	return availability_inpectiontime;
 }
 
 
-public void setAvailability_inpectiontime(String availability_inpectiontime) {
+public void setAvailability_inpectiontime(double availability_inpectiontime) {
 	this.availability_inpectiontime = availability_inpectiontime;
 }
 
 
-public String getAvailability_machinebreakdown() {
+public double getAvailability_machinebreakdown() {
 	return availability_machinebreakdown;
 }
 
 
-public void setAvailability_machinebreakdown(String availability_machinebreakdown) {
+public void setAvailability_machinebreakdown(double availability_machinebreakdown) {
 	this.availability_machinebreakdown = availability_machinebreakdown;
 }
 
 
-public String getAvailability_setupchange() {
+public double getAvailability_setupchange() {
 	return availability_setupchange;
 }
 
 
-public void setAvailability_setupchange(String availability_setupchange) {
+public void setAvailability_setupchange(double availability_setupchange) {
 	this.availability_setupchange = availability_setupchange;
 }
 
 
-public String getAvailability_nomaterial() {
+public double getAvailability_nomaterial() {
 	return availability_nomaterial;
 }
 
 
-public void setAvailability_nomaterial(String availability_nomaterial) {
+public void setAvailability_nomaterial(double availability_nomaterial) {
 	this.availability_nomaterial = availability_nomaterial;
 }
 
 
-public String getAvailability_nolabour() {
+public double getAvailability_nolabour() {
 	return availability_nolabour;
 }
 
 
-public void setAvailability_nolabour(String availability_nolabour) {
+public void setAvailability_nolabour(double availability_nolabour) {
 	this.availability_nolabour = availability_nolabour;
 }
 
 
-public String getAvailability_inspection() {
+public double getAvailability_inspection() {
 	return availability_inspection;
 }
 
 
-public void setAvailability_inspection(String availability_inspection) {
+public void setAvailability_inspection(double availability_inspection) {
 	this.availability_inspection = availability_inspection;
 }
 
 
-public String getAvailability_tooling() {
+public double getAvailability_tooling() {
 	return availability_tooling;
 }
 
 
-public void setAvailability_tooling(String availability_tooling) {
+public void setAvailability_tooling(double availability_tooling) {
 	this.availability_tooling = availability_tooling;
 }
 
 
-public String getAvailability_drawing() {
+public double getAvailability_drawing() {
 	return availability_drawing;
 }
 
 
-public void setAvailability_drawing(String availability_drawing) {
+public void setAvailability_drawing(double availability_drawing) {
 	this.availability_drawing = availability_drawing;
 }
 
 
-public String getAvailability_guages() {
+public double getAvailability_guages() {
 	return availability_guages;
 }
 
 
-public void setAvailability_guages(String availability_guages) {
+public void setAvailability_guages(double availability_guages) {
 	this.availability_guages = availability_guages;
 }
 
 
-public String getAvailability_otherlosses() {
+public double getAvailability_otherlosses() {
 	return availability_otherlosses;
 }
 
 
-public void setAvailability_otherlosses(String availability_otherlosses) {
+public void setAvailability_otherlosses(double availability_otherlosses) {
 	this.availability_otherlosses = availability_otherlosses;
 }
 

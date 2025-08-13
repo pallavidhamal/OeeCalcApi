@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.oee.dto.ProductWorkcenterUnitWiseOeeReportRecord;
 import com.oee.dto.ProductWorkcenteroeeSummaryRecord;
+import com.oee.dto.ProductionLossSummaryRecord;
 import com.oee.entity.ProductionEntity;
 
 @Repository
@@ -111,19 +112,20 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ "	AND   mp.is_deleted = (?5)   group by mp.fk_stationentity ", nativeQuery = true)
 	List<Map<String, String>> getLossSummary(String unit, String workcenter, String fromdate, String todate, String isdeleted);
 
-/*	@Query(value = " SELECT new com.oee.dto.ProductionLossSummaryRecord( mp.unitentity.name , sum(mp.tot_planned_mins),"
+	
+	@Query(value = " SELECT new com.oee.dto.ProductionLossSummaryRecord( mp.unitentity.name , sum(mp.tot_planned_mins),"
 			+ " sum(mp.availability_machinebreakdown), sum(mp.availability_setupchange), sum(mp.availability_nomaterial),"
 			+ " sum(mp.availability_nolabour), sum(mp.availability_inpectiontime) ,sum(mp.availability_tooling) , "
 			+ " sum(mp.availability_drawing) ,sum(mp.availability_guages) , "
-			+ " sum(mp.availability_otherlosses) FROM ProductionEntity mp "
+			+ " sum(mp.availability_otherlosses)) FROM ProductionEntity mp "
 			+ " JOIN mp.unitentity u "
 			+ " JOIN mp.workcenterentity w "
 			+ " where ( u.id = :unit  OR :unit IS NULL OR :unit = '' ) "
 			+ " AND   ( w.id = :workcenter  OR :workcenter IS NULL OR :workcenter = '' )  " 
 			+ "	AND   mp.proddate between (:fromdate) and (:todate) "
-			+ "	AND   mp.isdeleted = :isdeleted group by mp.stationEntity ", nativeQuery = true)
+			+ "	AND   mp.isdeleted = :isdeleted group by mp.stationEntity ")
 	List<ProductionLossSummaryRecord> getProductionLossSummaryRecord(String unit, String workcenter, String fromdate, String todate, String isdeleted);
-	*/
+	
 	
 	@Query("SELECT new com.oee.dto.ProductWorkcenteroeeSummaryRecord(p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity,SUM(p.oee_per)) FROM ProductionEntity p "
 			+ " JOIN p.unitentity u "
@@ -132,4 +134,6 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ " AND ( w.id = :workcenter  OR :workcenter IS NULL OR :workcenter = '' )  "
 			+ "	GROUP BY p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity")
     List<ProductWorkcenteroeeSummaryRecord> findProductSummaries( @Param("unit") String unit ,  @Param("workcenter") String workcenter );
+	
+
 }
