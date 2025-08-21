@@ -127,7 +127,7 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 	List<ProductionLossSummaryRecord> getProductionLossSummaryRecord(String unit, String workcenter, String fromdate, String todate, String isdeleted);
 	
 	
-	@Query("SELECT new com.oee.dto.ProductWorkcenteroeeSummaryRecord(p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity,SUM(p.oee_per)) FROM ProductionEntity p "
+	@Query("SELECT new com.oee.dto.ProductWorkcenteroeeSummaryRecord(p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity,(SUM(p.oee_per)/count(p.oee_per))) FROM ProductionEntity p "
 			+ " JOIN p.unitentity u "
 			+ " JOIN p.workcenterentity w "
 			+ " where ( u.id = :unit  OR :unit IS NULL OR :unit = '' ) "
