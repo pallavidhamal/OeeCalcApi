@@ -113,13 +113,14 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 	List<Map<String, String>> getLossSummary(String unit, String workcenter, String fromdate, String todate, String isdeleted);
 
 	
-	@Query(value = " SELECT new com.oee.dto.ProductionLossSummaryRecord( mp.unitentity.name , sum(mp.tot_planned_mins),"
+	@Query(value = " SELECT new com.oee.dto.ProductionLossSummaryRecord(mp.stationEntity.name , mp.unitentity.name ,mp.workcenterentity.name , sum(mp.tot_planned_mins),"
 			+ " sum(mp.availability_machinebreakdown), sum(mp.availability_setupchange), sum(mp.availability_nomaterial),"
 			+ " sum(mp.availability_nolabour), sum(mp.availability_inpectiontime) ,sum(mp.availability_tooling) , "
 			+ " sum(mp.availability_drawing) ,sum(mp.availability_guages) , "
 			+ " sum(mp.availability_otherlosses)) FROM ProductionEntity mp "
 			+ " JOIN mp.unitentity u "
 			+ " JOIN mp.workcenterentity w "
+			+ " JOIN mp.stationEntity s "
 			+ " where ( u.id = :unit  OR :unit IS NULL OR :unit = '' ) "
 			+ " AND   ( w.id = :workcenter  OR :workcenter IS NULL OR :workcenter = '' )  " 
 			+ "	AND   mp.proddate between (:fromdate) and (:todate) "

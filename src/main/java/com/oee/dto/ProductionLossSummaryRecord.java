@@ -1,6 +1,6 @@
 package com.oee.dto;
 
-public record ProductionLossSummaryRecord(String stationname 
+public record ProductionLossSummaryRecord(String stationname ,String unit ,String workcenter 
 		,double totPlannedMins
 		,double availabilityMachinebreakdown
 		,double availabilitySetupchange
