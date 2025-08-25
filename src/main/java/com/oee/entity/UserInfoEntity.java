@@ -6,7 +6,7 @@ import java.util.Collection;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
@@ -41,7 +41,7 @@ public class UserInfoEntity extends BaseEntity implements UserDetails{
 	@Column(name = "reset_password_instance")
 	private Instant resetPassInstance;
 	
-	@OneToOne
+	@ManyToOne
     @JoinColumn(name = "fk_role")
     private RoleEntity role;
 
@@ -51,6 +51,12 @@ public class UserInfoEntity extends BaseEntity implements UserDetails{
 		return null;
 	}
 
-
+	@ManyToOne
+    @JoinColumn(name = "fk_unit")
+    private UnitEntity unitentity;
+	
+	@ManyToOne
+    @JoinColumn(name = "fk_workcenter")
+    private WorkcenterEntity workcenterentity;
 	
 }
