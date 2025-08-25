@@ -396,4 +396,22 @@ public class PlanningServiceImpl implements PlanningService {
 		
 		return PlanningMapper.toPlanningDtoList(planningEntityList);
 	}
+	
+	
+	@Override
+	public List<Map<String, String>> getTotalPlanningReport(PlanningIncomingDto planningIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		UnitEntity unitEntity  = unitService.getActiveEntityById(planningIncomingDto.getUnitid());
+		List<Map<String, String>> repEntity = planningRepository.getTotalPlanningReport(unitEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate(),"N");
+		
+		return repEntity;
+		
+	}
+
+	
+	
+	
+	
+	
 }

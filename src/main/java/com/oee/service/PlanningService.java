@@ -35,6 +35,8 @@ public interface PlanningService {
 	PlanningDto getPlanningByIDAndStation(String planId, String stationId);
 
 	List<PlanningDto>  getPlanOverviewReport(PlanningIncomingDto planningIncomingDto);
+
+	List<Map<String, String>> getTotalPlanningReport(PlanningIncomingDto planningIncomingDto);
 	
 	//List<PlanningDto> getPlanningsByItemMachine( PlanningIncomingDto planningIncomingDto) ;
 }

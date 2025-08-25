@@ -120,4 +120,11 @@ public class PlanningController {
 	}
 	
 
+	@PostMapping(value = "/getTotalPlanningReport" , consumes = APPLICATION_JSON_VALUE)
+	public Response getTotalPlanningReport(@RequestBody PlanningIncomingDto planningIncomingDto) {
+		logger.info("----- PlanningController getPlanOverview----- ");
+		return Response.ok().setPayload(planningService.getTotalPlanningReport(planningIncomingDto));
+	}
+	
+	
 }
