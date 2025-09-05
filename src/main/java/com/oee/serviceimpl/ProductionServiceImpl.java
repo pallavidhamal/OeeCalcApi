@@ -44,7 +44,7 @@ public class ProductionServiceImpl implements ProductionService {
 	private static final Logger logger = LoggerFactory.getLogger(StationServiceImpl.class);
 
 	@Autowired
-	ProductionPlanningService productionPlanningService;
+	ProductionPlanningService productionPlanningService;   
 	
 	@Autowired
 	UnitService unitService;
@@ -296,4 +296,14 @@ public class ProductionServiceImpl implements ProductionService {
 		return reportList;
 		//return ProductionMapper.toProductionDtoList(prodEntityList);	
 		}
+
+	@Override
+	public List<Map<String, String>> getTotalProdReport(ProductionIncomingDto productionIncomingDto) {
+		// TODO Auto-generated method stub
+		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		List<Map<String, String>> repEntity = productionRepository.getTotalProdReport(unitEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
+		
+		return repEntity;
+		
+	}
 }

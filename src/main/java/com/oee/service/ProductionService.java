@@ -30,4 +30,6 @@ public interface ProductionService {
 
 	List<ProductionLossSummaryRecord> getLossSummary(ProductionIncomingDto productionIncomingDto);
 
+	List<Map<String, String>> getTotalProdReport(ProductionIncomingDto productionIncomingDto);
+
 }  

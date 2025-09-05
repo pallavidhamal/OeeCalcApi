@@ -80,4 +80,11 @@ public class ProductionController {
 	  logger.info("----- getLossSummary----- ");
 	  return Response.created().setPayload(productionService.getLossSummary(productionIncomingDto));
 	}
+	
+	@PostMapping(value = "/getTotalProdReport" , consumes = APPLICATION_JSON_VALUE)
+	public Response getTotalProdReport(@RequestBody ProductionIncomingDto productionIncomingDto) {
+		logger.info("----- ProductionController getTotalProdReport----- ");
+		return Response.ok().setPayload(productionService.getTotalProdReport(productionIncomingDto));
+	}
+	
 }

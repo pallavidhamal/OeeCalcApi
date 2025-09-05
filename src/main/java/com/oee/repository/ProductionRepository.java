@@ -46,8 +46,10 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 				+ "  AND   ( mp.fk_stationentity = (?4)  OR ?4 IS NULL OR ?4 = '' ) "
 				+ "  AND   ( mp.fk_operatorentity = (?5)  OR ?5 IS NULL OR ?5 = '' ) "
 				+ " AND   ( mp.proddate between (?6) and (?7))  "		
-				+ " AND   mp.is_deleted = (?8) AND mp.is_deleted = (?8)  group by sm.id ", nativeQuery = true)	
+				+ " AND   mp.is_deleted = (?8) AND mp.is_deleted = (?8) ", nativeQuery = true)	// group by sm.id 
 	List<Map<String, String>> getFilterProductions(String ue,String wc,String shift,String station,String operator,String fromdate,String todate,String isdeleted);
+	
+	
 	
 	@Query(value = " SELECT mp.* FROM production mp left join production_planning mpsw  on mp.id = mpsw.productionentity_id  "
 			+ "	WHERE ( mp.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
@@ -136,6 +138,43 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ " AND ( w.id = :workcenter  OR :workcenter IS NULL OR :workcenter = '' )  "
 			+ "	GROUP BY p.unitentity,p.workcenterentity,p.stationEntity,p.shiftEntity")
     List<ProductWorkcenteroeeSummaryRecord> findProductSummaries( @Param("unit") String unit ,  @Param("workcenter") String workcenter );
+
+	
+	
+	
+	
+	@Query(value = "SELECT  prod.availability_drawing,     prod.availability_guages,     prod.availability_inpectiontime,    "
+			+ " prod.availability_inspection,     prod.availability_lunchtime,     prod.availability_machinebreakdown,    "
+			+ " prod.availability_nolabour,     prod.availability_nomaterial,     prod.availability_otherlosses,    "
+			+ " prod.availability_overtime,     prod.availability_per,     prod.availability_reviewtime,   "
+			+ " prod.availability_setupchange,     prod.availability_specloss,     prod.availability_stdloss,    "
+			+ " prod.availability_teatime,     prod.availability_time,     prod.availability_tooling,     prod.availability_totaltime, "
+			+ " prod.availability_totloss,     prod.company,     prod.proddate,     prod.productivity_production_qty,   "
+			+ " prod.productivity_per,     prod.productivity_personnal,     prod.productivity_rework,     prod.productivity_searching,  "
+			+ " prod.productivity_standard_qty,     prod.rejection_ok_qty,     prod.rejection_per,     prod.rejection_rejection_qty,  "
+			+ " prod.oee_per,     prod.achievement_per,     prod.productivity_production_availabletime_qty,   "
+			+ " prod.productivity_total_utilised_time,     prod.quality_per,     prod.tot_planned_mins,    ppl.qty_planned,  "
+			+ " ppl.qty_produced,     ppl.qty_rejected, "
+			+ "    ppl.cycletime,     ppl.setuptime,     ppl.mins_planned,"
+			+ "  mu.name as unitname  , mw.name as wcname , ms.name as shiftname FROM production prod "
+			+ " left join production_planning ppl  on prod.id=ppl.productionentity_id "
+			+ " left join master_unit mu on mu.id=prod.fk_unitentity "
+			+ " left join master_workcenter mw on mw.id=prod.fk_workcentreentity "
+			+ " left join master_shift ms on ms.id=prod.fk_shiftentity "
+			+ " left join station_master sm on sm.id=prod.fk_stationentity "
+			+ " left join operator_master om on om.id=prod.fk_operatorentity "
+			+ " left join item_master im on im.id=ppl.fk_item "
+			+ " left join set_up_master stm on stm.id=ppl.fk_setup "
+			+ " WHERE ( prod.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
+			+ " AND ( prod.proddate between (?2) and (?3))  "
+			+ " AND  prod.is_deleted = (?4) AND ppl.is_deleted = (?4)  ", nativeQuery = true )
+	List<Map<String, String>> getTotalProdReport(String id, String fromdate, String todate, String string);
+
+	
+	
+	
+	
+	
 	
 
 }

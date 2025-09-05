@@ -44,7 +44,7 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 				+ " AND   ( mp.fk_shift = (?3)  OR ?3 IS NULL OR ?3 = '' ) "
 				+ " AND   ( mp.from_date between (?4) and (?5))  "
 				+ " AND   ( mp.to_date  between (?4) and (?5)) "
-				+ " AND   mp.is_deleted = (?6) AND mpsw.is_deleted = (?6)  group by sm.id ;  ", nativeQuery = true)
+				+ " AND   mp.is_deleted = (?6) AND mpsw.is_deleted = (?6)  group by sm.id ,sm.name,mp.time_per_shift , mp.id ;  ", nativeQuery = true)
 	List<Map<String, String>> findByUnitentityAndWorkcenterentityAndShiftAndFromdateAndTodateWithGroupBy(String ue,String we,String se,String fromdate,String todate,String isdeleted);
 
 	
@@ -86,12 +86,6 @@ public interface PlanningRepository  extends JpaRepository<PlanningEntity, Strin
 	
 	
 	
-	/*
-	 * String unitname ,String wcname ,String shiftname,String timepershift ,String
-	 * fromdate , String todate , String cycletime , String itemtimeutilised ,
-	 * String machinetimeutilised , String plannedminutes , String plannedqty
-	 * ,String setuptime , String itemname ,String stationtime , String setup .,
-	 */
 	
 	
 	
