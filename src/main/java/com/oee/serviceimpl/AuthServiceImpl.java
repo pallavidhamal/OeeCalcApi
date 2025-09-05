@@ -133,8 +133,15 @@ public class AuthServiceImpl implements AuthService{
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();	
 		
 		
-		masterEntity.setFirstloginstatus("Y");
+		int loginc = masterEntity.getLogincount();
 		
+		int loginca = loginc+1;
+		
+		System.out.println("========loginc=========="+loginc);
+		System.out.println("========loginca=========="+loginca);
+		
+		masterEntity.setFirstloginstatus("Y");
+		masterEntity.setLogincount(loginca);
 		
 		empInfoRepository.save(masterEntity);		
 		//

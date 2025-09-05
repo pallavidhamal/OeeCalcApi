@@ -29,6 +29,7 @@ public class AuthUserDto {
 	private String status;
 	private String email;
 	private String rolename;
+	private int logincount;
 	
 	private UnitDto unitDto;
 	private WorkcenterDto workcenterDto;
