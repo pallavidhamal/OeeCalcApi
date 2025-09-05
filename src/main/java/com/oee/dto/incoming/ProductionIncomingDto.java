@@ -69,7 +69,7 @@ public class ProductionIncomingDto {
 	 private String productivity_total_utilised_time;
 	 private String achievement_per;
 	 private String quality_per;
-	 
+	 private String losses_reason;
 	 private List<ProductionPlanningIncomingDto> productionPlanningIncomingDto;
 
 

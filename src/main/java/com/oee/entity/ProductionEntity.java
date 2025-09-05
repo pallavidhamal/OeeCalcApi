@@ -64,6 +64,8 @@ public class ProductionEntity extends BaseEntity {
     
 	private double tot_planned_mins;
 	
+	private String losses_reason;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
@@ -545,10 +547,13 @@ public String getQuality_per() {
 }
 public void setQuality_per(String quality_per) {
 	this.quality_per = quality_per;
+}
+public String getLosses_reason() {
+	return losses_reason;
+}
+public void setLosses_reason(String losses_reason) {
+	this.losses_reason = losses_reason;
 } 
-  
-  
-  
   
  
 }

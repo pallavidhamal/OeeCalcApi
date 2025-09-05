@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oee.dto.AuthUserDto;
 import com.oee.entity.UserInfoEntity;
+import com.oee.entity.WorkcenterEntity;
 
 public class AuthUserMapper {
 
@@ -20,7 +21,9 @@ public class AuthUserMapper {
         		.setAccessToken(jwt)
         		.setMobileno(userInfo.getMobilenumber())
         		.setStatus(userInfo.getStatus())
-        		.setEmail(userInfo.getEmail());
+        		.setEmail(userInfo.getEmail())
+        		.setUnitDto( userInfo.getUnitentity() == null ? null : UnitMapper.toUnitDto(userInfo.getUnitentity()) )
+        		.setWorkcenterDto(userInfo.getWorkcenterentity() == null ? null : WorkcenterMapper.toWorkcenterDto(userInfo.getWorkcenterentity()));
         		
     }	
 	
@@ -45,7 +48,9 @@ public class AuthUserMapper {
         		.setMobileno(userInfo.getMobilenumber())
         		.setEmail(userInfo.getEmail())
         		.setStatus(userInfo.getStatus())
-        		.setRolename(userInfo.getRole().getName());
+        		.setRolename(userInfo.getRole().getName())
+        		.setUnitDto( userInfo.getUnitentity() == null ? null : UnitMapper.toUnitDto(userInfo.getUnitentity()) )
+        		.setWorkcenterDto(userInfo.getWorkcenterentity() == null ? null : WorkcenterMapper.toWorkcenterDto(userInfo.getWorkcenterentity()));
         		
     }
 

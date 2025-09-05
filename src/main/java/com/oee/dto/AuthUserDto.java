@@ -1,6 +1,8 @@
 package com.oee.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.oee.entity.UnitEntity;
+import com.oee.entity.WorkcenterEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +29,7 @@ public class AuthUserDto {
 	private String status;
 	private String email;
 	private String rolename;
+	
+	private UnitDto unitDto;
+	private WorkcenterDto workcenterDto;
 }
