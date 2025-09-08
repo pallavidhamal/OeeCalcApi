@@ -22,6 +22,7 @@ public class AuthUserMapper {
         		.setMobileno(userInfo.getMobilenumber())
         		.setStatus(userInfo.getStatus())
         		.setEmail(userInfo.getEmail())
+        		.setLogincount(userInfo.getLogincount())
         		.setUnitDto( userInfo.getUnitentity() == null ? null : UnitMapper.toUnitDto(userInfo.getUnitentity()) )
         		.setWorkcenterDto(userInfo.getWorkcenterentity() == null ? null : WorkcenterMapper.toWorkcenterDto(userInfo.getWorkcenterentity()));
         		
@@ -49,6 +50,7 @@ public class AuthUserMapper {
         		.setEmail(userInfo.getEmail())
         		.setStatus(userInfo.getStatus())
         		.setRolename(userInfo.getRole().getName())
+        		.setLogincount(userInfo.getLogincount())
         		.setUnitDto( userInfo.getUnitentity() == null ? null : UnitMapper.toUnitDto(userInfo.getUnitentity()) )
         		.setWorkcenterDto(userInfo.getWorkcenterentity() == null ? null : WorkcenterMapper.toWorkcenterDto(userInfo.getWorkcenterentity()));
         		

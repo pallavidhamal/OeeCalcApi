@@ -59,4 +59,5 @@ public class UserInfoEntity extends BaseEntity implements UserDetails{
     @JoinColumn(name = "fk_workcenter")
     private WorkcenterEntity workcenterentity;
 	
+	private int logincount;
 }
