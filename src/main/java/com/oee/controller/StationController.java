@@ -77,7 +77,13 @@ public class StationController {
 	  {
 		return Response.ok().setPayload(stationService.getStationByWc(wcid));
 	  }
-		  
+		
+	  @GetMapping(value = "/getStationByUnit/{unitid}") 
+	  public Response getStationByUnit(@PathVariable("unitid") String unitid)
+	  {
+		return Response.ok().setPayload(stationService.getStationByUnit(unitid));
+	  }
+	  
 	  @GetMapping(value = "/getStationByPlanId/{wcid}") 
 	  public Response getStationByPlanId(@PathVariable("planid") String planid)
 	  {

@@ -24,6 +24,8 @@ public interface StationService {
 	List<StationDto> getStationByWc(String wcid) ;
 	
 	List<StationDto> getStationByPlanId(String planid) ;
+
+	Object getStationByUnit(String unitid);
 	
 	
 

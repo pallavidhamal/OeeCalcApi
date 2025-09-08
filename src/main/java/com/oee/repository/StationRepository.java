@@ -20,6 +20,8 @@ public interface StationRepository  extends JpaRepository<StationEntity, String>
 	List<StationEntity> getStationByWc(String wcid);
 	
 	
+	@Query(value = "SELECT * FROM station_master where fk_workcentreentity in (SELECT id FROM master_workcenter where fk_unitentity = (?1) ) and is_deleted='N' ;", nativeQuery = true)
+	List<StationEntity> getStationByUnit(String unitid);
 	
 
 }

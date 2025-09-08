@@ -58,7 +58,11 @@ public class SetUpController {
 		return Response.ok().setPayload(setUpService.getSetUpsByItemMachine( stationid, itemid));
 	  }
 		  
-		 
+	  @GetMapping(value = "/getSetUpByUnit/{unitid}") 
+	  public Response getSetUpByUnit(@PathVariable("unitid") String unitid)
+	  {
+		return Response.ok().setPayload(setUpService.getSetUpByUnit( unitid));
+	  }	 
 		
 		
 		/*

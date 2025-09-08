@@ -25,4 +25,6 @@ public interface SetUpService {
 	
 	
 	List<SetUpDto> getSetUpsByItemMachine(String stationid,String itemid) ;
+
+	Object getSetUpByUnit(String unitid);
 }

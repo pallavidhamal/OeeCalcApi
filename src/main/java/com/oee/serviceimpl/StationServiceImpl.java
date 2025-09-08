@@ -224,6 +224,19 @@ public class StationServiceImpl implements StationService {
 	}
 
 	@Override
+	public List<StationDto> getStationByUnit(String unitid) {
+		// TODO Auto-generated method stub
+		List<StationEntity> stationEntityList = stationRepository.getStationByUnit(unitid);
+		
+		if (stationEntityList == null) { 
+			throw BRSException.throwException("station list does not exist.");
+		}
+		
+		return StationMapper.toStationDtoList(stationEntityList);	
+		
+	}
+	
+	@Override
 	public List<StationDto> getStationByPlanId(String planid) {
 		// TODO Auto-generated method stub
 		/*

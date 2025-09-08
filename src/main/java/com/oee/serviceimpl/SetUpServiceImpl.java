@@ -201,5 +201,17 @@ public class SetUpServiceImpl implements SetUpService {
 		
 		return setUpEntity;	
 		}
+
+	@Override
+	public Object getSetUpByUnit(String unitid) {
+		// TODO Auto-generated method stub
+		List<SetUpEntity> setUpEntityList = setUpRepository.findSetupByUnit(unitid);
+		
+		if (setUpEntityList == null) {
+			throw BRSException.throwException("SetUp List does not exist");
+		}
+		
+		return SetUpMapper.toSetUpDtoList(setUpEntityList);
+	}
 		
 }
