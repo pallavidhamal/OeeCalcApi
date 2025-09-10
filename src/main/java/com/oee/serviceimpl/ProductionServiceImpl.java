@@ -207,8 +207,12 @@ public class ProductionServiceImpl implements ProductionService {
 	public List<ProductionDto> getPlanVsActual(ProductionIncomingDto productionIncomingDto) {
 		// TODO Auto-generated method stub
 		
+		//UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
 		
-		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		UnitEntity unitEntity = new UnitEntity();
+		if(!productionIncomingDto.getUnitid().equalsIgnoreCase("0")){
+			unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());	
+		}
 		
 		WorkcenterEntity wsEntity = new WorkcenterEntity();
 		if(!productionIncomingDto.getWorkcenterid().equalsIgnoreCase("0")){
@@ -241,7 +245,12 @@ public class ProductionServiceImpl implements ProductionService {
 	@Override
 	public List<ProductWorkcenteroeeSummaryResponseRecord> getWorkcenterOee(ProductionIncomingDto productionIncomingDto) {
 		// TODO Auto-generated method stub
-		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+	//	UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		UnitEntity unitEntity = new UnitEntity();
+		if(!productionIncomingDto.getUnitid().equalsIgnoreCase("0")){
+			 unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());		
+		}
 		
 		WorkcenterEntity wsEntity = new WorkcenterEntity();
 		if(!productionIncomingDto.getWorkcenterid().equalsIgnoreCase("0")){
@@ -266,7 +275,12 @@ public class ProductionServiceImpl implements ProductionService {
 	@Override
 	public List<ProductWorkcenterUnitWiseOeeReportRecord> getUnitOee(ProductionIncomingDto productionIncomingDto) {
 		// TODO Auto-generated method stub
-		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		//UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		UnitEntity unitEntity = new UnitEntity();
+		if(!productionIncomingDto.getUnitid().equalsIgnoreCase("0")){
+			 unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());		
+		}
 		
 	//	List<ProductionEntity> prodEntityList = productionRepository.getUnitOee(unitEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
 		
@@ -281,8 +295,11 @@ public class ProductionServiceImpl implements ProductionService {
 	public List<ProductionLossSummaryRecord> getLossSummary(ProductionIncomingDto productionIncomingDto) 
 	{
 		// TODO Auto-generated method stub
-		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
-		
+//		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		UnitEntity unitEntity = new UnitEntity();
+		if(!productionIncomingDto.getUnitid().equalsIgnoreCase("0")){
+			 unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());		
+		}
 		WorkcenterEntity wsEntity = new WorkcenterEntity();
 		if(!productionIncomingDto.getWorkcenterid().equalsIgnoreCase("0")){
 		 wsEntity = wsService.getActiveWorkcenterByID(productionIncomingDto.getWorkcenterid());		
@@ -300,7 +317,13 @@ public class ProductionServiceImpl implements ProductionService {
 	@Override
 	public List<Map<String, String>> getTotalProdReport(ProductionIncomingDto productionIncomingDto) {
 		// TODO Auto-generated method stub
-		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		//UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		UnitEntity unitEntity = new UnitEntity();
+		if(!productionIncomingDto.getUnitid().equalsIgnoreCase("0")){
+			 unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());		
+		}
+		
 		List<Map<String, String>> repEntity = productionRepository.getTotalProdReport(unitEntity.getId(),productionIncomingDto.getFromdate(),productionIncomingDto.getTodate(),"N");
 		
 		return repEntity;

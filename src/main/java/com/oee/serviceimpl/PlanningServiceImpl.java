@@ -275,7 +275,12 @@ public class PlanningServiceImpl implements PlanningService {
 	public List<PlanningDto> getFilterPlannings(PlanningIncomingDto planningIncomingDto) {
 		// TODO Auto-generated method stub
 		
-		UnitEntity unitEntity = unitService.getEntityById(planningIncomingDto.getUnitid());
+		UnitEntity unitEntity = new UnitEntity();
+		
+		if(!planningIncomingDto.getUnitid().equalsIgnoreCase("0")) {
+			
+			unitEntity = unitService.getEntityById(planningIncomingDto.getUnitid());
+		}
 		
 		WorkcenterEntity wsEntity = new WorkcenterEntity();
 		
@@ -378,7 +383,13 @@ public class PlanningServiceImpl implements PlanningService {
 	public List<PlanningDto>  getPlanOverviewReport(PlanningIncomingDto planningIncomingDto) {
 		// TODO Auto-generated method stub
 		
-		UnitEntity unitEntity = unitService.getEntityById(planningIncomingDto.getUnitid());
+	//	UnitEntity unitEntity = unitService.getEntityById(planningIncomingDto.getUnitid());
+		
+		UnitEntity unitEntity =   new UnitEntity();
+		if(!planningIncomingDto.getUnitid().equalsIgnoreCase("0")) {
+			
+			unitEntity = unitService.getEntityById(planningIncomingDto.getUnitid());
+		}
 		
 		StationEntity stationEntity  =  new StationEntity();
 		if(!planningIncomingDto.getStationid().equalsIgnoreCase("0")) {
@@ -402,7 +413,13 @@ public class PlanningServiceImpl implements PlanningService {
 	public List<Map<String, String>> getTotalPlanningReport(PlanningIncomingDto planningIncomingDto) {
 		// TODO Auto-generated method stub
 		
-		UnitEntity unitEntity  = unitService.getActiveEntityById(planningIncomingDto.getUnitid());
+		//UnitEntity unitEntity  = unitService.getActiveEntityById(planningIncomingDto.getUnitid());
+		
+		UnitEntity unitEntity = new UnitEntity();
+		if(!planningIncomingDto.getUnitid().equalsIgnoreCase("0")){
+			 unitEntity  = unitService.getActiveEntityById(planningIncomingDto.getUnitid());		
+		}
+		
 		List<Map<String, String>> repEntity = planningRepository.getTotalPlanningReport(unitEntity.getId(),planningIncomingDto.getFromdate(),planningIncomingDto.getTodate(),"N");
 		
 		return repEntity;
