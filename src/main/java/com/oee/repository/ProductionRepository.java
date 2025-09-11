@@ -126,7 +126,7 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ " where ( u.id = :unit  OR :unit IS NULL OR :unit = '' ) "
 			+ " AND   ( w.id = :workcenter  OR :workcenter IS NULL OR :workcenter = '' )  " 
 			+ "	AND   mp.proddate between (:fromdate) and (:todate) "
-			+ "	AND   mp.isdeleted = :isdeleted group by mp.stationEntity ")
+			+ "	AND   mp.isdeleted = :isdeleted group by mp.unitentity,mp.workcenterentity, mp.stationEntity  ")
 	List<ProductionLossSummaryRecord> getProductionLossSummaryRecord(String unit, String workcenter, String fromdate, String todate, String isdeleted);
 	
 	
