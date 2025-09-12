@@ -89,5 +89,20 @@ public class SetUpController {
 
 		}
 		 
-		 
+		  @PostMapping(value = "/checkSetupCombination", consumes = APPLICATION_JSON_VALUE)
+			 public  boolean checkSetupCombination(@RequestBody SetUpIncomingDto setUpIncomingDto) {
+			  logger.info("----- SetupController checkSetupCombination----- ");
+			  
+			  boolean valFlag=false;
+			  
+			  valFlag= setUpService.checkSetupCombination(setUpIncomingDto);
+			  
+			 // getSetUpsByWcItemMachineName
+			  
+			  
+			  return   valFlag;
+			  }
+			 
+		  
+		  
 }

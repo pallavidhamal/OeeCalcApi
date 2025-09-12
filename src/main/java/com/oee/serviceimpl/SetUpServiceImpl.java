@@ -213,5 +213,20 @@ public class SetUpServiceImpl implements SetUpService {
 		
 		return SetUpMapper.toSetUpDtoList(setUpEntityList);
 	}
+
+	@Override
+	public boolean checkSetupCombination(SetUpIncomingDto setUpIncomingDto) {
+		// TODO Auto-generated method stub
+		
+		
+		List<SetUpEntity> setUpEntityList = setUpRepository.getSetUpsByWcItemMachineName(setUpIncomingDto.getItemId(),setUpIncomingDto.getStationid(),setUpIncomingDto.getName());
+		if (setUpEntityList == null) {
+			return true;
+		}else
+		{
+			return false;
+		}
+		
+	}
 		
 }
