@@ -89,6 +89,9 @@ public class ProductionMapper {
 				 .setAchievement_per(productionEntity.getAchievement_per())
 				 .setQuality_per(productionEntity.getQuality_per())
 				 .setProdPlanningDto(ProductionPlanningMapper.toProductionPlanningDtoActiveList(productionEntity.getProductionPlanningEntities()))
+				 .setLossesreason(productionEntity.getLosses_reason())
+				 .setTot_planned_mins(productionEntity.getTot_planned_mins())
+				 .setTotal_planned(productionEntity.getTotal_planned())
 				 .setIsdeleted(productionEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
 		
 	}

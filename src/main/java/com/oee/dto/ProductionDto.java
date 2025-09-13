@@ -77,4 +77,7 @@ public class ProductionDto {
 	 private String productivity_total_utilised_time;
 	 private String achievement_per;
 	 private String quality_per;
+	 private String lossesreason;
+	 private double tot_planned_mins;
+	 private double total_planned;
 }

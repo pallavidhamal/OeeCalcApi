@@ -116,6 +116,8 @@ public class ProductionServiceImpl implements ProductionService {
 		  productionEntity.setProductivity_rework(productionIncomingDto.getProductivity_rework());
 		  productionEntity.setProductivity_searching(productionIncomingDto.getProductivity_searching());
 		  productionEntity.setProductivity_standard_qty(productionIncomingDto.getProductivity_standard_qty());
+		  productionEntity.setTotal_planned(productionIncomingDto.getTotal_planned());
+		  
 		  
 		  productionEntity.setAchievement_per(productionIncomingDto.getAchievement_per());
 		  
@@ -173,7 +175,12 @@ public class ProductionServiceImpl implements ProductionService {
 		// TODO Auto-generated method stub
 		
 		
-		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+//		UnitEntity unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());
+		
+		UnitEntity unitEntity = new UnitEntity();
+		if(!productionIncomingDto.getUnitid().equalsIgnoreCase("0")){
+			unitEntity  = unitService.getActiveEntityById(productionIncomingDto.getUnitid());	
+		}
 		
 		ShiftEntity shiftEntity =new ShiftEntity();
 		if(!productionIncomingDto.getShiftid().equalsIgnoreCase("0")) {
