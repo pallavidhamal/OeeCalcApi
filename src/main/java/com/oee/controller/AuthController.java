@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -104,4 +105,31 @@ public class AuthController {
 		return Response.ok().setPayload(authService.setUpdateNewPassword(setNewPasswordIncomingDto));
 		
 	}
+	/*
+	 * @PostMapping("/logout") public ResponseEntity<?>
+	 * logout(@RequestHeader("Authorization") String header) { String token =
+	 * header.replace("Bearer ", ""); Date expiry =
+	 * jwtUtils.extractExpiration(token); // from your JwtUtils
+	 * blacklistService.blacklistToken(token, expiry); return
+	 * ResponseEntity.ok("Logged out successfully"); }
+	 */
+	
+/*	
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest request) {
+        String refreshToken = request.getRefreshToken();
+        try {
+            String username = jwtUtils.extractUsername(refreshToken);
+            // validate token expiry
+            if (!jwtUtils.isTokenValid(refreshToken, new User(username, "", new ArrayList<>()))) {
+                return ResponseEntity.badRequest().body("Invalid Refresh Token");
+            }
+            // generate new access token
+            String newAccessToken = jwtUtils.generateAccessToken(username);
+            return ResponseEntity.ok(new JwtResponse(newAccessToken, refreshToken));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Refresh Token Expired or Invalid");
+        }
+    }
+    */
 }

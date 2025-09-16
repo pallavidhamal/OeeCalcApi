@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -79,79 +80,81 @@ public class AuthServiceImpl implements AuthService{
 		
 		logger.info("****AuthServiceImpl authenticateUser****");
 
-		authUserMapper=new AuthUserMapper();
+		/*
+		 * if(loginRequest.getUsername().equalsIgnoreCase("")) { throw
+		 * BRSException.throwException("Error: Login Id cannot be empty!"); }
+		 * if(loginRequest.getPassword().equalsIgnoreCase("")) { throw
+		 * BRSException.throwException("Error: Password cannot be empty!"); }
+		 */
 		
-		AuthUserDto response=new AuthUserDto();
-		
-		if(loginRequest.getUsername().equalsIgnoreCase("")) { 
-			throw BRSException.throwException("Error: Login Id cannot be empty!"); 
-		}
-		if(loginRequest.getPassword().equalsIgnoreCase("")) { 
-			throw BRSException.throwException("Error: Password cannot be empty!"); 
-		}
-		
+		if (!StringUtils.hasText(loginRequest.getUsername())) {
+	        throw BRSException.throwException("Error: Login Id cannot be empty!");
+	    }
+	    if (!StringUtils.hasText(loginRequest.getPassword())) {
+	        throw BRSException.throwException("Error: Password cannot be empty!");
+	    }
+    /*	
 		 UserInfoEntity masterEntity =  empInfoRepository.findByUsername(loginRequest.getUsername());
 		  
 		 if(masterEntity == null) {
-			 
 			 throw BRSException.throwException("Invalid User"); 
 		 }
-		 
-			/*
-			 * if(masterEntity.getVerified().equalsIgnoreCase("N")) {
-			 * 
-			 * throw BRSException.throwException("Error: The Username is not Verified!"); }
-			 */
-		 
 		 
 		 if(masterEntity.getStatus().equalsIgnoreCase("Inactive")){
 			 throw BRSException.throwException("Error: User status is inactive.");
 		 }
 		 
-		
-	//	 String encodedPassword = encoder.encode(loginRequest.getPassword());
-		
-	//	 System.out.println("-----encodedPassword--------"+encodedPassword);
-	//	 System.out.println("-----masterEntity.getPassword()--------"+masterEntity.getPassword());
-		 
 		 boolean isPasswordMatch = encoder.matches(loginRequest.getPassword(), masterEntity.getPassword());
 			System.out.println("Password : " + loginRequest.getPassword() + "   isPasswordMatch    : " + isPasswordMatch);
 			
-			 if(!isPasswordMatch) {
-				 
-				 throw BRSException.throwException("Invalid User"); 
-			 }
-		
+		 if(!isPasswordMatch) {
+			 throw BRSException.throwException("Invalid User"); 
+		 }
+	*/	
 		 Authentication authentication = authenticationManager.authenticate( 
 				  new UsernamePasswordAuthenticationToken(
 						  loginRequest.getUsername(),loginRequest.getPassword()));
 		 
 		 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+	    UserInfoEntity masterEntity = empInfoRepository.findByUsername(userDetails.getUsername());
+	    		
+		if(masterEntity == null) {
+			throw BRSException.throwException("Invalid User");
+		}
+
+	    if ("Inactive".equalsIgnoreCase(masterEntity.getStatus())) {
+	        throw BRSException.throwException("Error: User status is inactive.");
+	    }
+		
 		String jwt = jwtUtils.generateJwtToken(authentication);
-			
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();	
 		
+	    // Generate tokens
+//	    String accessToken = jwtUtils.generateJwtToken(authentication);
+//	    RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 		
-		int loginc = masterEntity.getLogincount();
+        String accessToken = jwtUtils.generateAccessToken(loginRequest.getUsername());
+        String refreshToken = jwtUtils.generateRefreshToken(loginRequest.getUsername());
+	    
+//		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();	
 		
-		int loginca = loginc+1;
-		
-		System.out.println("========loginc=========="+loginc);
-		System.out.println("========loginca=========="+loginca);
 		
 		masterEntity.setFirstloginstatus("Y");
-		masterEntity.setLogincount(loginca);
-		
+		masterEntity.setLogincount(masterEntity.getLogincount() +1);
 		empInfoRepository.save(masterEntity);		
-		//
 		
+
+		/*	
 		RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 			if(masterEntity!=null) {
 				response=authUserMapper.toUserLoginDto(masterEntity, jwt,refreshToken.getToken());
 			}
 		  
 		return response ;
+	*/	
+		return AuthUserMapper.toUserLoginDto(masterEntity, jwt,refreshToken);
 	}
 
 	@Override

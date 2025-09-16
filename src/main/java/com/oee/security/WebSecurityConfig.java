@@ -28,11 +28,13 @@ public class WebSecurityConfig {
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
 
-	@Bean
-	public AuthTokenFilter authenticationJwtTokenFilter() {
-		return new AuthTokenFilter();
-	}
+	/*
+	 * @Bean public AuthTokenFilter authenticationJwtTokenFilter() { return new
+	 * AuthTokenFilter(); }
+	 */
 
+	@Autowired
+    private AuthTokenFilter authTokenFilter; // Inject instead of new
 	
     private static final String[] WHITE_LIST_URL = {"/api/v1/**","/api/v1/auth/**",
             "/v2/api-docs",
@@ -56,7 +58,7 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
         //provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-        provider.setPasswordEncoder(bCryptPasswordEncoder());
+        provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
@@ -71,7 +73,7 @@ public class WebSecurityConfig {
 //	}
 	
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(14);
     }
 
@@ -96,8 +98,21 @@ public class WebSecurityConfig {
 
 //		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 //	}
-	
-	@Bean
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(WHITE_LIST_URL).permitAll()
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+/*	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
@@ -112,7 +127,7 @@ public class WebSecurityConfig {
                         UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
-	
+	*/
 	/*
 	 * @Override protected void configure(AuthenticationManagerBuilder
 	 * authenticationManagerBuilder) throws Exception {
