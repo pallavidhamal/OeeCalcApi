@@ -132,23 +132,37 @@ public class SetUpServiceImpl implements SetUpService {
 		 
 		  
 		  setUpEntity  = setUpRepository.findById(setUpIncomingDto.getSetupid()).get();
+			
+		  if(setUpEntity == null) 
+		  { throw BRSException.throwException(EntityType.SETUP, ExceptionType.ENTITY_NOT_FOUND, setUpIncomingDto.getSetupid()); 
+		  }
+			 
+		  UnitEntity unitEntity =  unitService.getEntityById(setUpIncomingDto.getUnitid());	
+		  if(unitEntity == null) 
+		  { throw BRSException.throwException(EntityType.UNIT, ExceptionType.ENTITY_NOT_FOUND, setUpIncomingDto.getUnitid()); 
+		  }
+		  ItemEntity itemEntity =  itemService.getItemByID(setUpIncomingDto.getItemId());
+		  if(itemEntity == null) 
+		  { throw BRSException.throwException(EntityType.ITEM, ExceptionType.ENTITY_NOT_FOUND, setUpIncomingDto.getItemId()); 
+		  }
+		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationid());
+		  if(stationEntity == null) 
+		  { throw BRSException.throwException(EntityType.STATION, ExceptionType.ENTITY_NOT_FOUND, setUpIncomingDto.getStationid()); 
+		  }
+		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(setUpIncomingDto.getWorkcenterid());
+		  if(workcentreEntity == null) 
+		  { throw BRSException.throwException(EntityType.WORKCENTER, ExceptionType.ENTITY_NOT_FOUND, setUpIncomingDto.getWorkcenterid()); 
+		  }
 		  
-		  			
-			if(setUpEntity == null) {
-				throw BRSException.throwException(EntityType.SETUP, ExceptionType.ENTITY_NOT_FOUND, setUpIncomingDto.getSetupid());
-			}
+			
+		  if(setUpRepository.existsByUnitentityAndWorkcenterentityAndItementityAndStationentityAndNameAndIdNot
+				  (unitEntity,workcentreEntity,itemEntity,stationEntity,setUpIncomingDto.getName(),setUpIncomingDto.getSetupid()))
+		  {
+				throw BRSException.throwException(EntityType.SETUP, ExceptionType.DUPLICATE_ENTITY, setUpIncomingDto.getName());
+		  }	
 		  
 		  setUpEntity.setName(setUpIncomingDto.getName());
 		  setUpEntity.setCycletime(setUpIncomingDto.getCycletime());
-		  
-		  
-		  ItemEntity itemEntity =  itemService.getItemByID(setUpIncomingDto.getItemId());
-		  
-		  
-		 
-		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationid());
-		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(setUpIncomingDto.getWorkcenterid());
-
 		  setUpEntity.setWorkcenterentity(workcentreEntity);
 		  setUpEntity.setItementity(itemEntity);
 		  setUpEntity.setStationentity(stationEntity);

@@ -178,7 +178,22 @@ public class StationServiceImpl implements StationService {
 			if(stationEntity == null) {
 				throw BRSException.throwException(EntityType.STATION, ExceptionType.ENTITY_NOT_FOUND, stationIncomingDto.getStationid());
 			}
-		  
+		 
+			UnitEntity unitEntity =  unitService.getEntityById(stationIncomingDto.getUnitid());	
+		  if(unitEntity == null) 
+		  { throw BRSException.throwException(EntityType.UNIT, ExceptionType.ENTITY_NOT_FOUND, stationIncomingDto.getUnitid()); 
+		  }
+			
+		   WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(stationIncomingDto.getWorkcenterid());
+		   if(workcentreEntity == null) 
+		  { throw BRSException.throwException(EntityType.WORKCENTER, ExceptionType.ENTITY_NOT_FOUND, stationIncomingDto.getWorkcenterid()); 
+		  }
+			
+		  if(stationRepository.existsByUnitentityAndWorkcenterentityAndNameAndIdNot(unitEntity,workcentreEntity,stationIncomingDto.getName(),stationIncomingDto.getStationid()))
+		  {
+				throw BRSException.throwException(EntityType.SETUP, ExceptionType.DUPLICATE_ENTITY, stationIncomingDto.getName());
+		  }	
+			
 		 
 		  stationEntity.setName(stationIncomingDto.getName());
 		  
@@ -186,7 +201,6 @@ public class StationServiceImpl implements StationService {
 		 
 		  UomEntity uomEntity =  uomService.getUomByID(stationIncomingDto.getUomid());
 
-		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(stationIncomingDto.getWorkcenterid());
 		
 		  
 		  stationEntity.setStationtypeentity(stationTypeEntity);

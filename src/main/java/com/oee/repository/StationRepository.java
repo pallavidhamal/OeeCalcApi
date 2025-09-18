@@ -6,8 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.oee.entity.ItemEntity;
 import com.oee.entity.SetUpEntity;
 import com.oee.entity.StationEntity;
+import com.oee.entity.UnitEntity;
+import com.oee.entity.WorkcenterEntity;
 
 @Repository
 public interface StationRepository  extends JpaRepository<StationEntity, String> {
@@ -22,11 +25,12 @@ public interface StationRepository  extends JpaRepository<StationEntity, String>
 	
 	@Query(value = "SELECT * FROM station_master where fk_workcentreentity in (SELECT id FROM master_workcenter where fk_unitentity = (?1) ) and is_deleted='N' ;", nativeQuery = true)
 	List<StationEntity> getStationByUnit(String unitid);
-	
 
 
 	@Query(value = "SELECT * FROM station_master where fk_unitentity=(?1) and fk_workcentreentity=(?2) and name=(?3) and is_deleted='N' ;", nativeQuery = true)
 	List<StationEntity> getStationByUnitWcName(String unitid,String wcid,String stationname);
 	
+	boolean existsByUnitentityAndWorkcenterentityAndNameAndIdNot(UnitEntity unitentity,WorkcenterEntity workcenterentity,String name,String id);
+
 	
 }
