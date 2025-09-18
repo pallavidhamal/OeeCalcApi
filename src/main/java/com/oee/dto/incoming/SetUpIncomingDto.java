@@ -16,5 +16,6 @@ public class SetUpIncomingDto {
 	private String stationid;
 	private int cycletime;
 
-
+	private String unitid;
+	private String workcenterid;
 }

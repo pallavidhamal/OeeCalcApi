@@ -23,6 +23,7 @@ public class StationDto {
 	private StationTypeDto stationtype;
 	private UomDto uom;
 	private WorkcenterDto workcenter;
+	private UnitDto unit;
 	private String isdeleted;
 
 }

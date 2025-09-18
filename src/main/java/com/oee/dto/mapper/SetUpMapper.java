@@ -19,6 +19,10 @@ public class SetUpMapper {
 				.setStationid(setUpEntity.getStationentity().getId())
 				.setStation(setUpEntity.getStationentity().getName())
 				.setUom(setUpEntity.getStationentity().getUomentity().getName())
+				.setUnitid(setUpEntity.getUnitentity().getId())
+				.setWorkcenterid(setUpEntity.getWorkcenterentity().getId())
+				.setUnit(setUpEntity.getUnitentity().getName())
+				.setWorkcenter(setUpEntity.getWorkcenterentity().getName())
 				.setIsdeleted(setUpEntity.getIsdeleted().equalsIgnoreCase("Y") ? "Active" : "Inactive");
 		
 	}

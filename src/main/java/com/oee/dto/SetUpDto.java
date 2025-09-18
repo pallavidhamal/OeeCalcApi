@@ -28,5 +28,8 @@ public class SetUpDto {
 	private String station;
 	private String uom;
 	private String isdeleted;
-
+	private String unitid;
+	private String workcenterid;
+	private String unit;
+	private String workcenter;
 }

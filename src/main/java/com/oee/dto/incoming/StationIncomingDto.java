@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 public class StationIncomingDto {
 
+	private String unitid;
 	private String stationid;
 	private String name;
 	private String stationtypeid;

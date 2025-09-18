@@ -28,5 +28,4 @@ public interface SetUpService {
 
 	Object getSetUpByUnit(String unitid);
 
-	boolean checkSetupCombination(SetUpIncomingDto setUpIncomingDto);
 }

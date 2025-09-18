@@ -14,6 +14,7 @@ import com.oee.dto.mapper.StationMapper;
 import com.oee.entity.SetUpEntity;
 import com.oee.entity.StationEntity;
 import com.oee.entity.StationTypeEntity;
+import com.oee.entity.UnitEntity;
 import com.oee.entity.UomEntity;
 import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
@@ -23,6 +24,7 @@ import com.oee.repository.StationRepository;
 import com.oee.repository.StationTypeRepository;
 import com.oee.service.StationService;
 import com.oee.service.StationTypeService;
+import com.oee.service.UnitService;
 import com.oee.service.UomService;
 import com.oee.service.WorkcenterService;
 import com.oee.util.AuthenticationService;
@@ -39,6 +41,8 @@ public class StationServiceImpl implements StationService {
 	@Autowired
 	WorkcenterService workcenterService;
 	
+	@Autowired
+	UnitService unitService;
 	
 	@Autowired
 	UomService uomService;
@@ -112,26 +116,37 @@ public class StationServiceImpl implements StationService {
 	@Override
 	public boolean addStation(StationIncomingDto stationIncomingDto) {
 		// TODO Auto-generated method stub
+		  
+		/*
+		 * StationEntity stationEntity =
+		 * stationRepository.findByName(stationIncomingDto.getName());
+		 * 
+		 * if(stationEntity != null) { throw
+		 * BRSException.throwException(EntityType.STATION,
+		 * ExceptionType.DUPLICATE_ENTITY, stationIncomingDto.getName()); }else {
+		 * stationEntity = new StationEntity(); }
+		 */
+		  
+			List<StationEntity> stEntityList = stationRepository.getStationByUnitWcName(stationIncomingDto.getUnitid(),stationIncomingDto.getWorkcenterid(),stationIncomingDto.getName());
+			if (stEntityList.size() != 0) {
+				
+				  logger.info("--- duplicate ----"+stEntityList.size());
+				  logger.info("--- duplicate ----"+stationIncomingDto.getUnitid()+"--"+stationIncomingDto.getWorkcenterid()+"--"+stationIncomingDto.getName());
 
-		
-		  
-		  StationEntity stationEntity = stationRepository.findByName(stationIncomingDto.getName());
-		 
-		 
-		  
-		  if(stationEntity != null) {
 				throw BRSException.throwException(EntityType.STATION, ExceptionType.DUPLICATE_ENTITY, stationIncomingDto.getName());
-			}else {
-				stationEntity = new StationEntity();
-			}
+			}	
 		  
+		  
+			StationEntity stationEntity =new StationEntity();
 		  StationTypeEntity stationTypeEntity =  stationTypeService.getStationTypeByID(stationIncomingDto.getStationtypeid());
 		  
 		  UomEntity uomEntity =  uomService.getUomByID(stationIncomingDto.getUomid());
 
+		  UnitEntity unitEntity=unitService.getEntityById(stationIncomingDto.getUnitid());
+
 		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(stationIncomingDto.getWorkcenterid());
 		
-		  
+		  stationEntity.setUnitentity(unitEntity);
 		  stationEntity.setName(stationIncomingDto.getName());
 		  stationEntity.setStationtypeentity(stationTypeEntity);
 		  stationEntity.setUomentity(uomEntity);

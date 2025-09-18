@@ -13,6 +13,8 @@ import com.oee.dto.mapper.SetUpMapper;
 import com.oee.entity.ItemEntity;
 import com.oee.entity.SetUpEntity;
 import com.oee.entity.StationEntity;
+import com.oee.entity.UnitEntity;
+import com.oee.entity.WorkcenterEntity;
 import com.oee.exception.BRSException;
 import com.oee.exception.EntityType;
 import com.oee.exception.ExceptionType;
@@ -20,6 +22,8 @@ import com.oee.repository.SetUpRepository;
 import com.oee.service.ItemService;
 import com.oee.service.SetUpService;
 import com.oee.service.StationService;
+import com.oee.service.UnitService;
+import com.oee.service.WorkcenterService;
 import com.oee.util.AuthenticationService;
 
 @Service
@@ -31,7 +35,11 @@ public class SetUpServiceImpl implements SetUpService {
 	@Autowired
 	ItemService itemService;
 	
+	@Autowired
+	WorkcenterService workcenterService;
 	
+	@Autowired
+	UnitService unitService;
 	@Autowired
 	StationService stationService;
 	
@@ -74,21 +82,31 @@ public class SetUpServiceImpl implements SetUpService {
 	public boolean addSetUp(SetUpIncomingDto setUpIncomingDto) {
 		// TODO Auto-generated method stub
 
+		 logger.info("--- addSetUp ----"+setUpIncomingDto.toString());
+		List<SetUpEntity> setUpEntityList = setUpRepository.getSetUpsByUnitWcItemMachineName(setUpIncomingDto.getUnitid(),setUpIncomingDto.getWorkcenterid(),setUpIncomingDto.getItemId(),setUpIncomingDto.getStationid(),setUpIncomingDto.getName());
 		
-		  
+		if (setUpEntityList.size()!=0) {
+			
+			 logger.info("--- DUPLICATE_ENTITY for ----"+setUpIncomingDto.getName());
+
+			throw BRSException.throwException(EntityType.SETUP, ExceptionType.DUPLICATE_ENTITY, setUpIncomingDto.getName());
+		}	  
+		 
 		  SetUpEntity setUpEntity = new SetUpEntity();
 		 
 		  setUpEntity.setName(setUpIncomingDto.getName());
 		  setUpEntity.setCycletime(setUpIncomingDto.getCycletime());
 		  
-		  
 		  ItemEntity itemEntity =  itemService.getItemByID(setUpIncomingDto.getItemId());
-		  
-		  
 		 
 		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationid());
 
-		  
+		  UnitEntity unitEntity=unitService.getEntityById(setUpIncomingDto.getUnitid());
+
+		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(setUpIncomingDto.getWorkcenterid());
+		
+		  setUpEntity.setUnitentity(unitEntity);
+		  setUpEntity.setWorkcenterentity(workcentreEntity);
 		  setUpEntity.setItementity(itemEntity);
 		  setUpEntity.setStationentity(stationEntity);
 		  setUpEntity.setIsdeleted("N");
@@ -129,8 +147,9 @@ public class SetUpServiceImpl implements SetUpService {
 		  
 		 
 		  StationEntity stationEntity =  stationService.getStationEntityByID(setUpIncomingDto.getStationid());
+		  WorkcenterEntity workcentreEntity=workcenterService.getWorkcenterByID(setUpIncomingDto.getWorkcenterid());
 
-		  
+		  setUpEntity.setWorkcenterentity(workcentreEntity);
 		  setUpEntity.setItementity(itemEntity);
 		  setUpEntity.setStationentity(stationEntity);
 		  setUpEntity.setIsdeleted("N");
@@ -210,19 +229,6 @@ public class SetUpServiceImpl implements SetUpService {
 		return SetUpMapper.toSetUpDtoList(setUpEntityList);
 	}
 
-	@Override
-	public boolean checkSetupCombination(SetUpIncomingDto setUpIncomingDto) {
-		// TODO Auto-generated method stub
-		
-		
-		List<SetUpEntity> setUpEntityList = setUpRepository.getSetUpsByWcItemMachineName(setUpIncomingDto.getItemId(),setUpIncomingDto.getStationid(),setUpIncomingDto.getName());
-		if (setUpEntityList == null) {
-			return true;
-		}else
-		{
-			return false;
-		}
-		
-	}
+	
 		
 }

@@ -4,6 +4,7 @@ import com.oee.entity.id.BaseEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -17,6 +18,16 @@ public class SetUpEntity extends BaseEntity {
 
 	private String name ;
 	private int cycletime ;
+	
+	@ManyToOne
+	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
+	private UnitEntity unitentity;
+
+	@ManyToOne
+	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
+	private WorkcenterEntity workcenterentity;
+
+	
 	
 	@OneToOne
 	@JoinColumn(name = "fk_Itementity", referencedColumnName = "id")

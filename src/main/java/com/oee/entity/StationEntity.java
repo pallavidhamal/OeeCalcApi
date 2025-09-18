@@ -5,6 +5,8 @@ import com.oee.entity.id.BaseEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -18,18 +20,20 @@ public class StationEntity extends BaseEntity {
 
 	private String name;
 
-	@OneToOne
-
+	@ManyToOne
 	@JoinColumn(name = "fk_uomentity", referencedColumnName = "id")
 	private UomEntity uomentity;
 
-	@OneToOne
-
+	@ManyToOne
 	@JoinColumn(name = "fk_workcentreentity", referencedColumnName = "id")
 	private WorkcenterEntity workcenterentity;
 
-	@OneToOne
+	@ManyToOne 
+	@JoinColumn(name = "fk_unitentity", referencedColumnName = "id")
+	private UnitEntity unitentity;
 
+	
+	@ManyToOne
 	@JoinColumn(name = "fk_stationtypeentity", referencedColumnName = "id")
 	private StationTypeEntity stationtypeentity;
 
