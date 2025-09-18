@@ -153,22 +153,23 @@ public interface ProductionRepository   extends JpaRepository<ProductionEntity, 
 			+ " prod.productivity_per,     prod.productivity_personnal,     prod.productivity_rework,     prod.productivity_searching,  "
 			+ " prod.productivity_standard_qty,     prod.rejection_ok_qty,     prod.rejection_per,     prod.rejection_rejection_qty,  "
 			+ " prod.oee_per,     prod.achievement_per,     prod.productivity_production_availabletime_qty,   "
-			+ " prod.productivity_total_utilised_time,     prod.quality_per,     prod.tot_planned_mins,    ppl.qty_planned,  "
-			+ " ppl.qty_produced,     ppl.qty_rejected, "
-			+ "    ppl.cycletime,     ppl.setuptime,     ppl.mins_planned,"
+			+ " prod.productivity_total_utilised_time,     prod.quality_per,     prod.tot_planned_mins, "
+			+ " prod.rejection_ok_qty , prod.total_planned ,     "
+		//	+ " ppl.qty_planned, ppl.qty_produced,     ppl.qty_rejected, "
+		//	+ "    ppl.cycletime,     ppl.setuptime,     ppl.mins_planned,"
 			+ "  mu.name as unitname  , mw.name as wcname , ms.name as shiftname , "
 			+ " sm.name as stationname , om.name as operatorname FROM production prod "
-			+ " left join production_planning ppl  on prod.id=ppl.productionentity_id "
+		//	+ " left join production_planning ppl  on prod.id=ppl.productionentity_id "
 			+ " left join master_unit mu on mu.id=prod.fk_unitentity "
 			+ " left join master_workcenter mw on mw.id=prod.fk_workcentreentity "
 			+ " left join master_shift ms on ms.id=prod.fk_shiftentity "
 			+ " left join station_master sm on sm.id=prod.fk_stationentity "
 			+ " left join operator_master om on om.id=prod.fk_operatorentity "
-			+ " left join item_master im on im.id=ppl.fk_item "
-			+ " left join set_up_master stm on stm.id=ppl.fk_setup "
+			//+ " left join item_master im on im.id=ppl.fk_item "
+			//+ " left join set_up_master stm on stm.id=ppl.fk_setup "
 			+ " WHERE ( prod.fk_unitentity = (?1)  OR ?1 IS NULL OR ?1 = '' ) "
 			+ " AND ( prod.proddate between (?2) and (?3))  "
-			+ " AND  prod.is_deleted = (?4) AND ppl.is_deleted = (?4)  ", nativeQuery = true )
+			+ " AND  prod.is_deleted = (?4) ", nativeQuery = true )
 	List<Map<String, String>> getTotalProdReport(String id, String fromdate, String todate, String string);
 
 	
